@@ -26,6 +26,22 @@
   }
 }
 
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+
+  body {
+    cursor: auto;
+  }
+}
+
 /* Ensure links and buttons hide cursor if we hid it on body */
 /* a, button { cursor: none; } */
 
