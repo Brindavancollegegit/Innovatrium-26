@@ -1,0 +1,198 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Unbounded", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-base: #05080A;
+  --color-primary: #ffffff;
+  --color-deep: rgba(255, 255, 255, 0.03);
+  --color-glow: #ffffff;
+  --color-reserved: #F59E0B;
+  
+  --color-surface: rgba(255, 255, 255, 0.04);
+  --color-surface-border: rgba(255, 255, 255, 0.1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-base);
+  }
+  body {
+    @apply text-white overflow-x-hidden antialiased selection:bg-white/30 selection:text-white;
+    background-color: var(--color-base);
+  }
+}
+
+/* Ensure links and buttons hide cursor if we hid it on body */
+/* a, button { cursor: none; } */
+
+.text-gradient-accent {
+  background-image: linear-gradient(120deg, #3B82F6, #22C55E);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-gradient {
+  background-image: linear-gradient(120deg, #3B82F6, #22C55E);
+  color: #ffffff;
+  border: none;
+}
+.btn-gradient:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+}
+
+.bg-grid-pattern {
+  background-size: 60px 60px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+
+.glass-card {
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.glass-card:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+}
+
+.card-minimal {
+  background-color: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+}
+.card-minimal:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
+}
+
+.card-bento {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+.card-bento::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-size: 20px 20px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  pointer-events: none;
+  z-index: 0;
+}
+.card-bento > * {
+  position: relative;
+  z-index: 1;
+}
+.card-bento:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 35px rgba(34, 197, 94, 0.3);
+}
+
+.card-dark {
+  background-color: #030406;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.card-dark::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+.card-dark:hover {
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 25px rgba(245, 158, 11, 0.2);
+}
+.card-dark:hover::after {
+  background-color: rgba(245, 158, 11, 0.8);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.8);
+}
+.card-dark > * {
+  position: relative;
+  z-index: 1;
+}
+
+.card-venue {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(12px);
+}
+
+.card-venue::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.card-venue::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.4) 0%, transparent 50%, rgba(245, 158, 11, 0.1) 100%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card-venue:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: rgba(245, 158, 11, 0.3);
+  box-shadow: 0 10px 40px -10px rgba(245, 158, 11, 0.2), 0 0 25px rgba(245, 158, 11, 0.4);
+}
+
+.card-venue:hover::before,
+.card-venue:hover::after {
+  opacity: 1;
+}
+
+.card-venue > * {
+  position: relative;
+  z-index: 1;
+}
+
+.bg-noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
