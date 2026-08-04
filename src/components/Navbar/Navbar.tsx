@@ -5,25 +5,25 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-6 left-0 right-0 z-50 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+    <nav className="fixed top-3 md:top-6 left-0 right-0 z-50 px-3 md:px-8">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 rounded-[34px] border border-white/10 bg-black/30 px-2.5 py-2 shadow-[0_16px_60px_rgba(0,0,0,0.35)] backdrop-blur-2xl md:gap-4 md:rounded-[40px] md:px-5 md:py-3.5">
         {/* Logos outside the capsule */}
-        <div className="flex items-center gap-2 md:gap-4">
+        <div className="flex min-w-0 flex-1 items-center gap-1 md:gap-4">
           {/* Brindavan Logo - 1st Hierarchy */}
-          <div className="flex items-center shrink-0 bg-white p-2 md:p-3 rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.15)] border border-white/20 h-16 md:h-20 transition-transform hover:scale-105">
+          <div className="flex items-center shrink-0 bg-white p-1 md:p-3 rounded-3xl shadow-[0_0_20px_rgba(255,255,255,0.15)] border border-white/20 h-[34px] md:h-20 transition-transform hover:scale-105">
             <img src="/Brindavan-logo.png" alt="Brindavan College" className="h-full w-auto object-contain" />
           </div>
           
           {/* IEEE Logo - 2nd Hierarchy */}
-          <div className="flex items-center shrink-0 bg-white p-1.5 md:p-2.5 rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.15)] border border-white/20 h-12 md:h-16 transition-transform hover:scale-105">
+          <div className="flex items-center shrink-0 bg-white p-[3px] md:p-2.5 rounded-3xl shadow-[0_0_15px_rgba(255,255,255,0.15)] border border-white/20 h-[30px] md:h-16 transition-transform hover:scale-105">
             <img src="/IEEE-logo.png" alt="IEEE" className="h-full w-auto object-contain" />
           </div>
 
           {/* Society Logos - 3rd Hierarchy */}
-          <div className="hidden md:flex items-center gap-3 shrink-0 bg-white p-1.5 md:p-2 rounded-xl shadow-[0_0_15px_rgba(255,255,255,0.15)] border border-white/20 h-10 md:h-12 transition-transform hover:scale-105">
-            <img src="/CS-society.png" alt="CS Society" className="h-full w-auto object-contain" />
-            <img src="/SP-Society.png" alt="SP Society" className="h-full w-auto object-contain" />
-            <img src="/WIE.png" alt="WIE" className="h-full w-auto object-contain" />
+          <div className="flex items-center gap-1 md:gap-3 shrink-0 bg-white p-[3px] md:p-2 rounded-3xl shadow-[0_0_15px_rgba(255,255,255,0.15)] border border-white/20 h-[30px] md:h-12 transition-transform hover:scale-105 overflow-hidden">
+            <img src="/CS-society.png" alt="CS Society" className="h-full max-h-[18px] sm:max-h-none w-auto object-contain" />
+            <img src="/SP-Society.png" alt="SP Society" className="h-full max-h-[18px] sm:max-h-none w-auto object-contain" />
+            <img src="/WIE.png" alt="WIE" className="h-full max-h-[18px] sm:max-h-none w-auto object-contain" />
           </div>
 
           <div className="hidden xl:flex flex-col pl-3 border-l border-white/20">
@@ -44,30 +44,38 @@ export default function Navbar() {
         </div>
 
         {/* Right CTA */}
-        <div className="flex items-center gap-2">
-          <a href="#register" className="hidden md:flex items-center gap-3 bg-white text-[#0A0A0A] font-sans text-[14px] font-medium px-6 py-2.5 rounded-full hover:bg-white/90 transition-colors">
+        <div className="flex items-center justify-end gap-2">
+          <a href="#register" className="hidden md:flex items-center gap-3 btn-gradient font-sans text-[14px] font-medium px-6 py-2.5 rounded-full transition-colors shadow-lg shadow-blue-500/20">
             Register Now
           </a>
           <a href="#register" className="hidden md:flex w-10 h-10 glass-card items-center justify-center rounded-full hover:bg-white/10 transition-colors">
             <ArrowRight className="w-4 h-4 text-white" />
           </a>
-          <button className="lg:hidden glass-card p-2" onClick={() => setIsOpen(!isOpen)}>
-            <Menu className="w-6 h-6" />
+          <button
+            className="lg:hidden flex h-[38px] w-[38px] items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-colors hover:bg-white/10"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            <Menu className="w-5 h-5" />
           </button>
         </div>
       </div>
       
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden absolute top-full left-4 right-4 mt-2 glass-card p-4 flex flex-col gap-4">
-          <a href="#home" onClick={() => setIsOpen(false)} className="font-sans text-[14px] text-white/80">Home</a>
-          <a href="#about" onClick={() => setIsOpen(false)} className="font-sans text-[14px] text-white/80">About</a>
-          <a href="#workshop" onClick={() => setIsOpen(false)} className="font-sans text-[14px] text-white/80">Workshop</a>
-          <a href="#tracks" onClick={() => setIsOpen(false)} className="font-sans text-[14px] text-white/80">Tracks</a>
-          <a href="#venue" onClick={() => setIsOpen(false)} className="font-sans text-[14px] text-white/80">Venue</a>
-          <a href="#college" onClick={() => setIsOpen(false)} className="font-sans text-[14px] text-white/80">College</a>
-          <a href="#contact" onClick={() => setIsOpen(false)} className="font-sans text-[14px] text-white/80">Contact</a>
-          <a href="#register" onClick={() => setIsOpen(false)} className="font-sans text-[14px] font-medium text-primary">Register Now</a>
+        <div className="lg:hidden absolute top-full left-3 right-3 mt-2 rounded-[24px] border border-white/10 bg-[#081015]/95 p-4 shadow-[0_20px_70px_rgba(0,0,0,0.45)] backdrop-blur-2xl">
+          <div className="grid grid-cols-2 gap-2 text-left">
+            <a href="#home" onClick={() => setIsOpen(false)} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-sans text-[14px] text-white/85 transition-colors hover:bg-white/10">Home</a>
+            <a href="#about" onClick={() => setIsOpen(false)} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-sans text-[14px] text-white/85 transition-colors hover:bg-white/10">About</a>
+            <a href="#workshop" onClick={() => setIsOpen(false)} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-sans text-[14px] text-white/85 transition-colors hover:bg-white/10">Workshop</a>
+            <a href="#tracks" onClick={() => setIsOpen(false)} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-sans text-[14px] text-white/85 transition-colors hover:bg-white/10">Tracks</a>
+            <a href="#venue" onClick={() => setIsOpen(false)} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-sans text-[14px] text-white/85 transition-colors hover:bg-white/10">Venue</a>
+            <a href="#college" onClick={() => setIsOpen(false)} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-sans text-[14px] text-white/85 transition-colors hover:bg-white/10">College</a>
+            <a href="#contact" onClick={() => setIsOpen(false)} className="col-span-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-sans text-[14px] text-white/85 transition-colors hover:bg-white/10">Contact</a>
+            <a href="#register" onClick={() => setIsOpen(false)} className="col-span-2 inline-flex items-center justify-center gap-2 rounded-2xl btn-gradient px-4 py-3 font-sans text-[14px] font-medium transition-colors shadow-lg shadow-blue-500/20">
+              Register Now
+            </a>
+          </div>
         </div>
       )}
     </nav>

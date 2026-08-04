@@ -13,8 +13,6 @@ export default function Workshop() {
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       {/* Subtle section glow */}
-      <div className="absolute top-1/2 right-[-200px] -translate-y-1/2 w-[600px] h-[600px] bg-[#3B82F6]/5 blur-[120px] pointer-events-none rounded-full" />
-      
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         <motion.div 
           initial="hidden"

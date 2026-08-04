@@ -39,8 +39,6 @@ export default function About() {
       <div className="absolute inset-0 bg-gradient-to-b from-[#05080A] via-transparent to-[#05080A] z-0 pointer-events-none" />
 
       {/* Subtle section glow */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#3B82F6]/5 blur-[120px] pointer-events-none rounded-full z-0" />
-      
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           

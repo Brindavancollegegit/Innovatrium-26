@@ -14,8 +14,6 @@ export default function Contact() {
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       {/* Subtle section glow */}
-      <div className="absolute top-1/2 right-[-200px] -translate-y-1/2 w-[800px] h-[800px] bg-[#22C55E]/5 blur-[120px] pointer-events-none rounded-full" />
-
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         
         <motion.div 
