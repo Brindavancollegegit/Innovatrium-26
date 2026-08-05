@@ -27,9 +27,8 @@ export default function College() {
           <div className="grid md:grid-cols-5 h-full">
             
             <div className="md:col-span-2 relative min-h-[300px] bg-deep p-8 flex items-center justify-center border-b md:border-b-0 md:border-r border-surface-border">
-              {/* College Logo/Crest Placeholder */}
+              <img src="/brindavan-campas.png" alt="Brindavan College Campus" loading="lazy" className="w-full h-full object-cover" />
                <div className="w-32 h-32 rounded-full bg-surface border border-surface-border flex items-center justify-center">
-                 <span className="font-sans text-[18px] font-medium text-primary">BC Crest</span>
                </div>
                {/* Accent decoration */}
                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>

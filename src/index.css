@@ -212,3 +212,31 @@
   opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
+
+/* Improve native select readability in dark theme */
+select {
+  color: rgba(255,255,255,0.95);
+  background-color: rgba(255,255,255,0.02);
+  border: 0.5px solid rgba(255,255,255,0.04);
+  padding-right: 2.25rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+}
+select option {
+  color: rgba(255,255,255,0.95);
+  background-color: #05080A;
+}
+/* hide IE/Edge default arrow */
+select::-ms-expand { display: none; }
+/* add a custom caret using background-image so it remains visible */
+select {
+  background-image: linear-gradient(45deg, rgba(255,255,255,0.7) 50%, transparent 50%), linear-gradient(135deg, rgba(255,255,255,0.7) 50%, transparent 50%);
+  background-position: calc(100% - 1rem) calc(50% - 0.2rem), calc(100% - 0.65rem) calc(50% - 0.2rem);
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+}

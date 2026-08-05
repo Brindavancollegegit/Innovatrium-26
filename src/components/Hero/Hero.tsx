@@ -1,5 +1,7 @@
 import { ArrowRight, Calendar, MapPin } from 'lucide-react';
 import { motion } from 'motion/react';
+import Countdown from '../Registration/Countdown';
+import { registration } from '../../data/content';
 
 export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
   return (
@@ -12,21 +14,22 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
       <div className="absolute inset-x-0 bottom-0 h-32 sm:h-40 z-0 pointer-events-none bg-gradient-to-t from-[#05080A] via-[#05080A]/80 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 w-full relative z-10 pointer-events-none">
-        <motion.div 
-          initial="hidden"
-          animate={isLoading ? "hidden" : "visible"}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.2,
-                delayChildren: 0.2
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start pointer-events-auto">
+          <motion.div 
+            initial="hidden"
+            animate={isLoading ? "hidden" : "visible"}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.2,
+                  delayChildren: 0.2
+                }
               }
-            }
-          }}
-          className="flex flex-col items-start gap-4 sm:gap-6 max-w-[32rem] pointer-events-auto pt-8 sm:pt-0"
-        >
+            }}
+            className="flex flex-col items-start gap-4 sm:gap-6 max-w-[32rem] pt-8 sm:pt-0"
+          >
           <motion.h1 
             variants={{ hidden: { opacity: 0, y: 20, filter: "blur(10px)" }, visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: "easeOut" } } }}
             className="font-display text-[clamp(2.1rem,11vw,5rem)] sm:text-5xl md:text-[80px] font-bold leading-[0.94] tracking-[-0.04em] hyphens-none max-w-[11ch] sm:max-w-none"
@@ -53,7 +56,7 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
               <span>Brindavan College</span>
             </div>
             <div className="flex items-center gap-2 rounded-2xl px-3 py-2.5 bg-reserved/20 border border-reserved/30 text-reserved sm:rounded-full sm:px-4 sm:py-2">
-              <span>Prize Pool: ₹10,000+</span>
+              <span>Prize Pool: ₹30,000+</span>
             </div>
           </motion.div>
 
@@ -65,7 +68,14 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
               <ArrowRight className="w-5 h-5" />
             </a>
           </motion.div>
-        </motion.div>
+          </motion.div>
+          {/* Right column - countdown (centered vertically) */}
+          <motion.div initial="hidden" animate={isLoading ? "hidden" : "visible"} variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }} className="w-full flex items-center justify-center md:justify-end">
+            <div className="w-full max-w-xs md:ml-6">
+              <Countdown targetDate={registration.closesAt} />
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
