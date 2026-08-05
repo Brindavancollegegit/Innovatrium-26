@@ -2,5 +2,5 @@
   "name": "Innovatrium '26",
   "description": "Official Website for Innovatrium '26 - Technical Fest by IEEE SB Brindavan",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }
