@@ -1,6 +1,7 @@
 import { validateAndSanitizeRegistration, RawRegistrationPayload } from './validation';
 
-const ENDPOINT = (import.meta as any).env.VITE_REGISTRATION_ENDPOINT || '';
+const DEFAULT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxe10pM7SQOmYNpw8bGk-wchgiIUh5zRnbsOHlQQC9h16Q6oQaC0tYVReynqRfxCftl/exec';
+const ENDPOINT = (import.meta as any).env.VITE_REGISTRATION_ENDPOINT || DEFAULT_ENDPOINT;
 
 export interface SubmissionResponse {
   success: boolean;
@@ -20,9 +21,9 @@ export async function submitRegistration(payload: RawRegistrationPayload): Promi
 
   const sanitizedPayload = validation.sanitized;
 
-  // 2. Local Fallback Simulation if no Google Apps Script endpoint is provided yet
+  // 2. Local Fallback Simulation if no Google Apps Script endpoint is provided
   if (!ENDPOINT) {
-    console.warn('[Innovatrium API] VITE_REGISTRATION_ENDPOINT is not set in .env. Simulating local success.');
+    console.warn('[Innovatrium API] VITE_REGISTRATION_ENDPOINT is not configured. Simulating local success.');
     const mockId = 'INV26-' + Math.random().toString(36).substring(2, 10).toUpperCase();
     await new Promise((resolve) => setTimeout(resolve, 800));
     return {
@@ -45,7 +46,23 @@ export async function submitRegistration(payload: RawRegistrationPayload): Promi
       redirect: 'follow',
     });
 
-    const data = await res.json();
+    const text = await res.text();
+    let data: any;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      if (text.includes('Google Accounts') || text.includes('accounts.google.com')) {
+        return {
+          success: false,
+          error: 'Google Apps Script deployment access must be set to "Anyone" in Google Apps Script settings.',
+        };
+      }
+      return {
+        success: false,
+        error: 'Unable to parse response from registration server.',
+      };
+    }
+
     if (data.success) {
       return {
         success: true,
