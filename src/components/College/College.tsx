@@ -1,5 +1,5 @@
 import { college } from '../../data/content';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, MapPin, Building2 } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function College() {
@@ -12,8 +12,8 @@ export default function College() {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* Subtle section glow */}
-      <div className="absolute top-1/2 left-[-200px] -translate-y-1/2 w-[800px] h-[800px] bg-[#3B82F6]/5 blur-[120px] pointer-events-none rounded-full" />
+      {/* Background Glow - Blue Theme */}
+      <div className="absolute top-1/2 left-[-200px] -translate-y-1/2 w-[700px] h-[700px] bg-blue-600/15 blur-[140px] pointer-events-none rounded-full" />
       
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         
@@ -22,36 +22,76 @@ export default function College() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="card-dark overflow-hidden bg-black/40"
+          className="rounded-3xl border border-white/15 bg-white/[0.03] backdrop-blur-xl overflow-hidden shadow-2xl"
         >
           <div className="grid md:grid-cols-5 h-full">
             
-            <div className="md:col-span-2 relative min-h-[300px] bg-deep p-8 flex items-center justify-center border-b md:border-b-0 md:border-r border-surface-border">
-              <img src="/brindavan-campas.png" alt="Brindavan College Campus" loading="lazy" className="w-full h-full object-cover" />
-               <div className="w-32 h-32 rounded-full bg-surface border border-surface-border flex items-center justify-center">
-               </div>
-               {/* Accent decoration */}
-               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+            {/* Campus Image Section */}
+            <div className="md:col-span-2 relative min-h-[300px] md:min-h-[420px] overflow-hidden group">
+              <img 
+                src="/brindavan-campas.png" 
+                alt="Brindavan College Campus" 
+                loading="lazy" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+              />
+              
+              {/* Soft Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent md:bg-gradient-to-r md:from-transparent md:to-slate-950/80" />
+              
+              {/* Floating Venue Badge */}
+              <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 flex items-center gap-3 p-3.5 rounded-2xl bg-slate-900/80 border border-blue-400/30 backdrop-blur-md">
+                <div className="w-9 h-9 rounded-xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-300 shrink-0">
+                  <Building2 className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-blue-400">Host Campus</p>
+                  <p className="text-xs font-medium text-white">Main Event Venue</p>
+                </div>
+              </div>
+
+              {/* Accent Top Blue Bar */}
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-blue-500 via-sky-400 to-transparent" />
             </div>
             
-            <div className="md:col-span-3 p-8 md:p-12 flex flex-col justify-center">
-              <h2 className="font-display text-3xl md:text-[36px] font-medium tracking-[-0.01em] mb-2">{college.name}</h2>
-              <p className="font-sans text-[14px] text-white/60 mb-6">{college.address}</p>
-              
-              <div className="pl-4 border-l-2 border-primary/50 py-2 mb-8">
-                <p className="font-sans text-base leading-[1.6] text-white/90 italic">
-                  "{college.positioning}"
-                </p>
+            {/* Details Section */}
+            <div className="md:col-span-3 p-8 md:p-12 flex flex-col justify-between">
+              <div>
+                {/* Category Tag */}
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-300 text-xs font-semibold uppercase tracking-wider mb-4">
+                  Venue & Location
+                </div>
+
+                <h2 className="font-display text-3xl md:text-4xl font-bold text-white tracking-tight mb-3">
+                  {college.name}
+                </h2>
+
+                {/* Address with Location Icon */}
+                <div className="flex items-start gap-2.5 !text-slate-100 font-sans text-sm md:text-base mb-6">
+                  <MapPin className="w-4 h-4 text-blue-400 shrink-0 mt-1" />
+                  <span>{college.address}</span>
+                </div>
+                
+                {/* Quote / Positioning Block */}
+                <div className="p-4 md:p-5 rounded-2xl !bg-white/[0.03] border border-white/10 border-l-4 border-l-blue-400 mb-8">
+                  <p className="font-sans text-sm md:text-base leading-relaxed !text-slate-100 italic">
+                    "{college.positioning}"
+                  </p>
+                </div>
               </div>
-              
-              <a 
-                href={college.website} 
-                target="_blank" 
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 font-sans text-[14px] font-medium text-primary hover:text-white transition-colors self-start"
-              >
-                Visit Official Website <ExternalLink className="w-4 h-4" />
-              </a>
+
+              {/* Action Button (Pure White Text on Hover) */}
+              <div>
+                <a 
+                  href={college.website} 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-blue-600/30 border border-blue-400/40 text-white font-sans text-sm font-semibold hover:bg-blue-500 hover:text-white hover:border-blue-300 transition-all duration-300 group/btn shadow-md hover:shadow-[0_0_25px_rgba(59,130,246,0.4)]"
+                >
+                  <span className="text-white">Visit Official Website</span>
+                  <ExternalLink className="w-4 h-4 text-blue-300 group-hover/btn:text-white transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                </a>
+              </div>
+
             </div>
             
           </div>

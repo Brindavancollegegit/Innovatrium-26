@@ -13,11 +13,12 @@ export default function Tracks() {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* Subtle section glow */}
+      {/* Subtle background section glow */}
       <div className="absolute bottom-0 left-[-200px] w-[800px] h-[800px] bg-[#22C55E]/5 blur-[120px] pointer-events-none rounded-full" />
       
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         
+        {/* Header Section */}
         <motion.div 
           initial="hidden"
           whileInView="visible"
@@ -31,18 +32,30 @@ export default function Tracks() {
           }}
           className="flex flex-col items-center text-center mb-16"
         >
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-flex px-3 py-1 rounded-full bg-deep text-primary font-sans text-[11px] font-medium uppercase tracking-[0.05em] mb-4">
-            Day 2
+          <motion.div 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} 
+            className="inline-flex px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 font-sans text-xs font-semibold uppercase tracking-wider mb-4"
+          >
+            Competitive Events
           </motion.div>
-          <motion.h2 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="font-display text-4xl md:text-[44px] font-medium tracking-[-0.01em] mb-4">
+
+          <motion.h2 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} 
+            className="font-display text-4xl md:text-[44px] font-bold text-white tracking-tight mb-4"
+          >
             Competitive Tracks
           </motion.h2>
-          <motion.p variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="font-sans text-base text-white/70 max-w-2xl leading-[1.6]">
+
+          <motion.p 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} 
+            className="font-sans text-base text-white/80 max-w-2xl leading-relaxed"
+          >
             Choose your battlefield. Engage in high-stakes problem solving, pitch your best ideas, 
             or showcase your research.
           </motion.p>
         </motion.div>
 
+        {/* Tracks Grid */}
         <motion.div 
           initial="hidden"
           whileInView="visible"
@@ -57,16 +70,29 @@ export default function Tracks() {
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {tracks.map((track) => (
-            <motion.div key={track.competitionId} variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
+            <motion.div 
+              key={track.competitionId.trim()} 
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              className="h-full" // Fixed height stretching
+            >
               <TrackCard {...track} />
             </motion.div>
           ))}
           
           {/* Placeholder for future tracks */}
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
-            <SpotlightCard className="h-full p-8 flex flex-col items-center justify-center text-center border-dashed border-white/20" spotlightColor="rgba(255, 255, 255, 0.05)">
-              <h3 className="font-sans text-[18px] md:text-[20px] font-medium text-white/40 mb-2">More Tracks</h3>
-              <p className="font-sans text-[14px] text-white/30">Revealing soon...</p>
+          <motion.div 
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+            className="h-full" // Fixed height stretching
+          >
+            <SpotlightCard 
+              className="h-full p-8 flex flex-col items-center justify-center text-center border-dashed border-white/20 rounded-3xl bg-white/[0.02]" 
+              spotlightColor="rgba(52, 211, 153, 0.08)"
+            >
+              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 mb-3">
+                ✨
+              </div>
+              <h3 className="font-display text-lg font-semibold text-white/60 mb-1">More Tracks</h3>
+              <p className="font-sans text-xs text-white/40">Revealing soon...</p>
             </SpotlightCard>
           </motion.div>
         </motion.div>

@@ -8,8 +8,8 @@ export const tracks = [
     slotsRemaining: 15,
   },
   {
-    competitionId: 'ideathon',
-    title: 'Ideathon',
+    competitionId: 'reverse-engineering ',
+    title: 'Reverse Engineering',
     tagline: 'Solve real-world problems with innovative tech solutions.',
     teamSize: '2-4 Members',
     format: 'Offline / Pitching',

@@ -70,59 +70,6 @@ export default function Registration() {
   const [submittedData, setSubmittedData] = useState<any>(null);
   const [liveStats, setLiveStats] = useState({ registrations: 0, colleges: 0 });
 
-  // --- STRICT STEP VALIDATION GUARDS ---
-  const isStep1Valid = useMemo(() => participant !== null, [participant]);
-
-  const isStep2Valid = useMemo(() => {
-    const isEmailValid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(personal.email);
-    const isPhoneValid = /^\d{10}$/.test(personal.phone);
-    const isIeeeValid = participant !== 'ieee' || !!personal.ieeeNumber?.trim();
-
-    return (
-      isStep1Valid &&
-      !!personal.fullName.trim() &&
-      isEmailValid &&
-      isPhoneValid &&
-      !!personal.college.trim() &&
-      isIeeeValid
-    );
-  }, [isStep1Valid, participant, personal]);
-
-  const isStep3Valid = useMemo(() => {
-    if (!isStep2Valid || !competition.competitionId || !competition.teamName?.trim()) return false;
-    
-    // Validate extra team members if added
-    return competition.members.every(
-      (m) =>
-        m.name.trim() !== '' &&
-        /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m.email) &&
-        /^\d{10}$/.test(m.phone)
-    );
-  }, [isStep2Valid, competition]);
-
-  // Check if a specific step is accessible
-  function isStepAccessible(targetStep: number): boolean {
-    if (targetStep === 1) return true;
-    if (targetStep === 2) return isStep1Valid;
-    if (targetStep === 3) return isStep2Valid;
-    if (targetStep === 4) return isStep3Valid;
-    return false;
-  }
-
-  // Safe Navigation Handler (Fixes the Home Screen Drag & Skipping Bug)
-  function goToStep(n: number) {
-    if (!isStepAccessible(n)) return;
-
-    setStep(n);
-
-    // FIX: Scroll smoothly to the registration section, NOT pixel top: 0
-    const registerElement = document.getElementById('register');
-    if (registerElement) {
-      registerElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
-  // Local storage draft sync
   useEffect(() => {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
@@ -131,6 +78,7 @@ export default function Registration() {
         setParticipant(d.participant || null);
         setPersonal(d.personal || personal);
         setCompetition(d.competition || competition);
+        setStep(d.step || 1);
       } catch {}
     }
   }, []);
@@ -150,9 +98,12 @@ export default function Registration() {
 
   const availableSteps = [1, 2, 3, 4];
 
-  async function handleSubmit(paymentDetails: { utrNumber: string; totalAmount: number }) {
-    if (!isStep3Valid) return;
+  function goToStep(n: number) {
+    setStep(n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
+  async function handleSubmit(paymentDetails: { utrNumber: string; totalAmount: number }) {
     setSubmitting(true);
     try {
       const payload = {
@@ -162,7 +113,7 @@ export default function Registration() {
         payment: paymentDetails,
         timestamp: new Date().toISOString(),
       };
-
+      
       const res: any = await submitRegistration(payload);
       setSubmitting(false);
 
@@ -174,7 +125,7 @@ export default function Registration() {
     }
   }
 
-  // Printable Invoice View
+  // --- Printable Invoice Screen ---
   if (submittedData) {
     return (
       <section id="register" className="py-20">
@@ -224,7 +175,7 @@ export default function Registration() {
             </div>
 
             <div className="mt-8 flex gap-4 print:hidden">
-              <button type="button" onClick={() => window.print()} className="btn-gradient px-6 py-3 rounded-full font-medium">
+              <button onClick={() => window.print()} className="btn-gradient px-6 py-3 rounded-full font-medium">
                 Print / Save PDF Invoice
               </button>
             </div>
@@ -234,7 +185,7 @@ export default function Registration() {
     );
   }
 
-  // Main Form View
+  // --- Form View ---
   return (
     <section id="register" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -243,48 +194,20 @@ export default function Registration() {
             <RegistrationCard>
               <div className="flex flex-col md:flex-row md:items-start md:gap-8">
                 <div className="w-full md:w-56">
-                  <StepList
-                    steps={availableSteps}
-                    current={step}
-                    goTo={goToStep}
-                    isStepAccessible={isStepAccessible}
-                  />
+                  <StepList steps={availableSteps} current={step} goTo={goToStep} participant={participant} />
                 </div>
                 <div className="flex-1 mt-6 md:mt-0">
                   {step === 1 && (
-                    <Step1Participant
-                      value={participant}
-                      onChange={setParticipant}
-                      onNext={() => isStep1Valid && goToStep(2)}
-                    />
+                    <Step1Participant value={participant} onChange={setParticipant} onNext={() => setStep(2)} />
                   )}
                   {step === 2 && (
-                    <Step2Personal
-                      participant={participant}
-                      value={personal}
-                      onChange={setPersonal}
-                      onNext={() => isStep2Valid && goToStep(3)}
-                      onBack={() => goToStep(1)}
-                    />
+                    <Step2Personal participant={participant} value={personal} onChange={setPersonal} onNext={() => setStep(3)} onBack={() => setStep(1)} />
                   )}
                   {step === 3 && (
-                    <Step3Competition
-                      tracks={tracks}
-                      value={competition}
-                      onChange={setCompetition}
-                      onNext={() => isStep3Valid && goToStep(4)}
-                      onBack={() => goToStep(2)}
-                    />
+                    <Step3Competition tracks={tracks} value={competition} onChange={setCompetition} onNext={() => setStep(4)} onBack={() => setStep(2)} />
                   )}
                   {step === 4 && (
-                    <Step4Review
-                      participant={participant}
-                      personal={personal}
-                      competition={competition}
-                      onEdit={goToStep}
-                      onSubmit={handleSubmit}
-                      submitting={submitting}
-                    />
+                    <Step4Review participant={participant} personal={personal} competition={competition} onEdit={goToStep} onSubmit={handleSubmit} submitting={submitting} />
                   )}
                 </div>
               </div>
