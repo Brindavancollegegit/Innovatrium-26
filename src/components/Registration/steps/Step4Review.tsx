@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Copy, Check, ExternalLink, AlertCircle } from 'lucide-react';
 
 export default function Step4Review({
   participant,
@@ -7,17 +8,25 @@ export default function Step4Review({
   onEdit,
   onSubmit,
   submitting,
+  submissionError,
 }: any) {
   const [consent, setConsent] = useState(false);
   const [utrNumber, setUtrNumber] = useState('');
   const [utrError, setUtrError] = useState('');
+  const [copied, setCopied] = useState(false);
 
   const totalAmount = participant === 'ieee' ? 300 : 350;
   const upiId = 'your-upi-id@okaxis'; // UPDATE YOUR UPI ID HERE
-  const upiPayUrl = `upi://pay?pa=${upiId}&pn=EventRegistration&am=${totalAmount}&cu=INR`;
+  const upiPayUrl = `upi://pay?pa=${upiId}&pn=Innovatrium26&am=${totalAmount}&cu=INR`;
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(
     upiPayUrl
   )}`;
+
+  const handleCopyUpi = () => {
+    navigator.clipboard.writeText(upiId);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleFormSubmit = () => {
     if (!/^\d{12}$/.test(utrNumber)) {
@@ -36,13 +45,24 @@ export default function Step4Review({
           Confirm your details, make payment via UPI, and submit your UTR number.
         </div>
 
+        {/* Server Submission Error Banner */}
+        {submissionError && (
+          <div className="mb-4 p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-start gap-3 text-rose-300">
+            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-rose-400" />
+            <div className="text-sm">
+              <p className="font-semibold text-rose-200">Registration Error</p>
+              <p className="text-rose-300/90 text-xs mt-0.5">{submissionError}</p>
+            </div>
+          </div>
+        )}
+
         {/* Details Summary */}
         <div className="p-4 rounded-2xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.06)] space-y-3">
           <div className="flex justify-between items-center text-sm">
             <div>
               <span className="text-white/60">Membership: </span>
               <span className="font-mono text-white">
-                {participant === 'ieee' ? 'IEEE Member' : 'Non-IEEE Member'}
+                {participant === 'ieee' ? 'IEEE Member (₹300)' : 'Non-IEEE Participant (₹350)'}
               </span>
               {participant === 'ieee' && (
                 <span className="text-xs text-primary block">IEEE ID: {personal.ieeeNumber}</span>
@@ -86,7 +106,7 @@ export default function Step4Review({
           <span className="text-2xl font-bold font-mono text-primary">₹{totalAmount}</span>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center gap-4 bg-black/40 p-4 rounded-xl">
+        <div className="flex flex-col sm:flex-row items-center gap-5 bg-black/40 p-4 rounded-xl">
           <img 
             src={qrCodeUrl} 
             alt="UPI Payment QR" 
@@ -94,12 +114,35 @@ export default function Step4Review({
             height="128" 
             loading="lazy" 
             decoding="async" 
-            className="w-32 h-32 rounded-lg bg-white p-1" 
+            className="w-32 h-32 rounded-lg bg-white p-1 shrink-0" 
           />
-          <div className="text-xs text-white/70 space-y-2 text-center sm:text-left">
+          <div className="text-xs text-white/70 space-y-2.5 text-center sm:text-left flex-1">
             <p className="font-semibold text-white">Scan with GPay / PhonePe / Paytm / BHIM</p>
-            <p>UPI ID: <span className="font-mono text-primary">{upiId}</span></p>
-            <p className="text-white/50">Amount is pre-set to ₹{totalAmount}. After payment, copy the 12-digit UTR/Ref No. from your bank app.</p>
+            
+            <div className="flex items-center gap-2 justify-center sm:justify-start">
+              <span className="text-white/60">UPI ID:</span>
+              <span className="font-mono text-primary font-bold">{upiId}</span>
+              <button
+                type="button"
+                onClick={handleCopyUpi}
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-white/80 text-[11px] transition-colors"
+              >
+                {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                {copied ? 'Copied' : 'Copy'}
+              </button>
+            </div>
+
+            <p className="text-white/50">Amount is pre-set to ₹{totalAmount}. After paying, copy the 12-digit UTR/Ref No. from your bank app.</p>
+            
+            {/* Mobile Instant Pay Intent */}
+            <div className="pt-1 block sm:hidden">
+              <a
+                href={upiPayUrl}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary/20 border border-primary/40 text-primary font-medium text-xs hover:bg-primary/30 transition-colors"
+              >
+                <ExternalLink className="w-3.5 h-3.5" /> Pay Directly via UPI App
+              </a>
+            </div>
           </div>
         </div>
 

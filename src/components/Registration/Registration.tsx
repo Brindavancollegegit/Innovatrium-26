@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, useRef } from 'react';
+import { Printer, Download, RotateCcw, CheckCircle2, ShieldCheck } from 'lucide-react';
 import Countdown from './Countdown';
 import StepList from './StepList';
 import SummaryPanel from './SummaryPanel';
@@ -23,7 +24,7 @@ type Personal = {
 
 type CompetitionSelection = {
   competitionId?: string;
-  teamName?: string;
+  teamName: string;
   members: { name: string; email: string; phone: string }[];
 };
 
@@ -69,76 +70,63 @@ export default function Registration() {
   const [submitting, setSubmitting] = useState(false);
   const [submittedData, setSubmittedData] = useState<any>(null);
   const [liveStats, setLiveStats] = useState({ registrations: 0, colleges: 0 });
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
 
-  // --- STRICT STEP VALIDATION GUARDS ---
-  const isStep1Valid = useMemo(() => participant !== null, [participant]);
-
-  const isStep2Valid = useMemo(() => {
-    const isEmailValid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(personal.email);
-    const isPhoneValid = /^\d{10}$/.test(personal.phone);
-    const isIeeeValid = participant !== 'ieee' || !!personal.ieeeNumber?.trim();
-
-    return (
-      isStep1Valid &&
-      !!personal.fullName.trim() &&
-      isEmailValid &&
-      isPhoneValid &&
-      !!personal.college.trim() &&
-      isIeeeValid
-    );
-  }, [isStep1Valid, participant, personal]);
-
-  const isStep3Valid = useMemo(() => {
-    if (!isStep2Valid || !competition.competitionId || !competition.teamName?.trim()) return false;
-    
-    // Validate extra team members if added
-    return competition.members.every(
-      (m) =>
-        m.name.trim() !== '' &&
-        /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m.email) &&
-        /^\d{10}$/.test(m.phone)
-    );
-  }, [isStep2Valid, competition]);
-
-  // Check if a specific step is accessible
-  function isStepAccessible(targetStep: number): boolean {
-    if (targetStep === 1) return true;
-    if (targetStep === 2) return isStep1Valid;
-    if (targetStep === 3) return isStep2Valid;
-    if (targetStep === 4) return isStep3Valid;
-    return false;
-  }
-
-  // Safe Navigation Handler (Fixes the Home Screen Drag & Skipping Bug)
-  function goToStep(n: number) {
-    if (!isStepAccessible(n)) return;
-
-    setStep(n);
-
-    // FIX: Scroll smoothly to the registration section, NOT pixel top: 0
-    const registerElement = document.getElementById('register');
-    if (registerElement) {
-      registerElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
-  // Local storage draft sync
   useEffect(() => {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      try {
-        const d = JSON.parse(raw);
-        setParticipant(d.participant || null);
-        setPersonal(d.personal || personal);
-        setCompetition(d.competition || competition);
-      } catch {}
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed.participant) setParticipant(parsed.participant);
+        if (parsed.personal) setPersonal(parsed.personal);
+        if (parsed.competition) setCompetition(parsed.competition);
+        if (parsed.step) setStep(parsed.step);
+      }
+    } catch (e) {
+      // ignore parsing error
     }
   }, []);
 
   useEffect(() => {
-    const payload = { participant, personal, competition, step };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    try {
+      const draft = { participant, personal, competition, step };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
+    } catch (e) {
+      // ignore storage error
+    }
   }, [participant, personal, competition, step]);
+
+  const isStep1Valid = useMemo(() => participant !== null, [participant]);
+
+  const isStep2Valid = useMemo(() => {
+    if (!personal.fullName || !personal.email || !personal.phone || !personal.college) return false;
+    if (participant === 'ieee' && !personal.ieeeNumber) return false;
+    return true;
+  }, [personal, participant]);
+
+  const isStep3Valid = useMemo(() => {
+    if (!competition.competitionId) return false;
+    if (!competition.teamName) return false;
+    return true;
+  }, [competition]);
+
+  const isStepAccessible = (targetStep: number) => {
+    if (targetStep === 1) return true;
+    if (targetStep === 2) return isStep1Valid;
+    if (targetStep === 3) return isStep1Valid && isStep2Valid;
+    if (targetStep === 4) return isStep1Valid && isStep2Valid && isStep3Valid;
+    return false;
+  };
+
+  const goToStep = (s: number) => {
+    if (isStepAccessible(s)) {
+      setStep(s);
+      const registerElement = document.getElementById('register');
+      if (registerElement) {
+        registerElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -154,39 +142,168 @@ export default function Registration() {
     if (!isStep3Valid) return;
 
     setSubmitting(true);
+    setSubmissionError(null);
+
     try {
       const payload = {
-        participant,
+        participant: (participant as 'ieee' | 'non-ieee') || 'non-ieee',
         personal,
-        competition,
+        competition: {
+          competitionId: competition.competitionId || '',
+          teamName: competition.teamName || '',
+          members: competition.members || [],
+        },
         payment: paymentDetails,
         timestamp: new Date().toISOString(),
       };
 
-      const res: any = await submitRegistration(payload);
+      const res = await submitRegistration(payload);
       setSubmitting(false);
 
-      const regId = res?.id || 'REG-' + Math.floor(100000 + Math.random() * 900000);
-      setSubmittedData({ ...payload, id: regId });
+      if (!res.success) {
+        setSubmissionError(res.error || 'Registration could not be completed. Please check your information.');
+        return;
+      }
+
+      setSubmittedData({ ...payload, id: res.id });
       localStorage.removeItem(STORAGE_KEY);
-    } catch (e) {
+    } catch (e: any) {
       setSubmitting(false);
+      setSubmissionError('An unexpected network error occurred. Please try again.');
     }
   }
+
+  const handlePrint = () => {
+    try {
+      window.print();
+    } catch (e) {
+      console.error('Window print error:', e);
+      handleDownloadInvoice();
+    }
+  };
+
+  const handleDownloadInvoice = () => {
+    if (!submittedData) return;
+    const invoiceHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Innovatrium '26 Pass - ${submittedData.id}</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; color: #0f172a; margin: 0; padding: 40px 20px; }
+    .receipt { max-width: 650px; margin: 0 auto; background: #ffffff; border: 1.5px solid #0f172a; border-radius: 16px; padding: 36px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px; margin-bottom: 24px; }
+    .title { font-size: 24px; font-weight: bold; color: #0f172a; margin: 0; }
+    .id { font-family: monospace; font-size: 16px; color: #0284c7; font-weight: bold; margin-top: 4px; }
+    .badge { display: inline-block; padding: 6px 14px; background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; border-radius: 999px; font-size: 12px; font-weight: 600; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 18px; border-radius: 12px; margin-bottom: 20px; }
+    .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; margin-bottom: 4px; font-weight: 600; }
+    .val { font-size: 14px; font-weight: 600; color: #0f172a; }
+    .section { border-top: 1px solid #f1f5f9; padding-top: 16px; margin-bottom: 20px; }
+    .payment-box { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 12px; padding: 18px; display: flex; justify-content: space-between; align-items: center; }
+    .amount { font-size: 28px; font-weight: bold; color: #0284c7; font-family: monospace; }
+    .footer { text-align: center; font-size: 12px; color: #94a3b8; margin-top: 30px; border-top: 1px solid #f1f5f9; padding-top: 16px; }
+    @media print { body { background: #fff; padding: 0; } .receipt { box-shadow: none; border: 1.5px solid #000; } }
+  </style>
+</head>
+<body>
+  <div class="receipt">
+    <div class="header">
+      <div>
+        <h1 class="title">Innovatrium '26</h1>
+        <div class="id">Registration Pass: ${submittedData.id}</div>
+      </div>
+      <div style="text-align: right;">
+        <span class="badge">Payment Pending Verification</span>
+        <div style="font-size: 12px; color: #64748b; margin-top: 6px;">${new Date(submittedData.timestamp).toLocaleDateString('en-US', { dateStyle: 'medium' })}</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="label">Lead Participant</div>
+        <div class="val">${submittedData.personal.fullName}</div>
+        <div style="font-size: 12px; color: #475569;">${submittedData.personal.email}</div>
+        <div style="font-size: 12px; color: #475569;">${submittedData.personal.phone}</div>
+      </div>
+      <div>
+        <div class="label">Institution & Category</div>
+        <div class="val">${submittedData.personal.college}</div>
+        <div style="font-size: 12px; color: #0284c7; font-weight: 500;">${submittedData.participant === 'ieee' ? `IEEE Member (ID: ${submittedData.personal.ieeeNumber || 'Verified'})` : 'General Participant'}</div>
+        <div style="font-size: 12px; color: #475569;">Dept: ${submittedData.personal.branch} (${submittedData.personal.year})</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="label">Competition Track & Team</div>
+      <div class="val" style="font-size: 16px;">${submittedData.competition.competitionId} — Team "${submittedData.competition.teamName}"</div>
+      <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Total Team Size: ${submittedData.competition.members.length + 1} Attendees</div>
+    </div>
+
+    <div class="payment-box">
+      <div>
+        <div class="label" style="color: #0369a1;">Banking UTR / UPI Ref ID</div>
+        <div class="val" style="font-family: monospace; font-size: 16px; color: #0f172a;">${submittedData.payment.utrNumber}</div>
+        <div style="font-size: 11px; color: #64748b; margin-top: 2px;">Subject to reconciliation with bank records</div>
+      </div>
+      <div style="text-align: right;">
+        <div class="label" style="color: #0369a1;">Amount Paid</div>
+        <div class="amount">₹${submittedData.payment.totalAmount}</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Official Registration Confirmation for Innovatrium '26. Present this pass at the desk on event day.
+    </div>
+  </div>
+  <script>
+    window.onload = function() { window.print(); };
+  </script>
+</body>
+</html>`;
+
+    const blob = new Blob([invoiceHtml], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    
+    // Open in printable popup window
+    const printWin = window.open(url, '_blank');
+    if (!printWin) {
+      // Direct file fallback
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `Innovatrium26_Pass_${submittedData.id}.html`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
+  const handleReset = () => {
+    setSubmittedData(null);
+    setStep(1);
+    setParticipant(null);
+    setPersonal({ fullName: '', email: '', phone: '', college: '', branch: '', year: '', ieeeNumber: '' });
+    setCompetition({ competitionId: undefined, teamName: '', members: [] });
+    localStorage.removeItem(STORAGE_KEY);
+  };
 
   // Printable Invoice View
   if (submittedData) {
     return (
       <section id="register" className="py-20">
         <div className="max-w-3xl mx-auto px-4">
-          <RegistrationCard className="p-8 md:p-12 text-left print:p-0 print:bg-white print:text-black">
+          <div id="printable-receipt-card" className="p-8 md:p-12 rounded-3xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.1)] shadow-2xl text-left">
             <div className="flex justify-between items-start border-b border-white/10 pb-6 mb-6">
               <div>
-                <h1 className="text-2xl font-bold font-display text-white">Event Registration Receipt</h1>
-                <p className="text-sm text-white/60">ID: <span className="font-mono text-primary font-bold">{submittedData.id}</span></p>
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-6 h-6 text-primary shrink-0" />
+                  <h1 className="text-2xl font-bold font-display text-white">Event Registration Pass</h1>
+                </div>
+                <p className="text-sm text-white/60 mt-1">Pass ID: <span className="font-mono text-primary font-bold">{submittedData.id}</span></p>
               </div>
               <div className="text-right">
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                <span className="print-status-badge inline-block px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
                   Payment Pending Verification
                 </span>
                 <p className="text-xs text-white/50 mt-1">{new Date(submittedData.timestamp).toLocaleDateString()}</p>
@@ -194,7 +311,7 @@ export default function Registration() {
             </div>
 
             <div className="space-y-4 text-sm text-white/80">
-              <div className="grid grid-cols-2 gap-4 bg-white/5 p-4 rounded-xl">
+              <div className="print-card-box grid grid-cols-1 sm:grid-cols-2 gap-4 bg-white/5 p-4 rounded-xl">
                 <div>
                   <p className="text-xs text-white/50">Lead Participant</p>
                   <p className="font-semibold text-white">{submittedData.personal.fullName}</p>
@@ -202,33 +319,54 @@ export default function Registration() {
                   <p className="text-xs">{submittedData.personal.phone}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-white/50">College & Membership</p>
+                  <p className="text-xs text-white/50">College & Category</p>
                   <p className="font-semibold text-white">{submittedData.personal.college}</p>
-                  <p className="text-xs">{submittedData.participant === 'ieee' ? `IEEE ID: ${submittedData.personal.ieeeNumber}` : 'Non-IEEE Participant'}</p>
+                  <p className="text-xs print-highlight">{submittedData.participant === 'ieee' ? `IEEE Member (ID: ${submittedData.personal.ieeeNumber || 'Verified'})` : 'Non-IEEE Participant'}</p>
+                  <p className="text-xs text-white/60">{submittedData.personal.branch} — {submittedData.personal.year}</p>
                 </div>
               </div>
 
               <div className="border-t border-white/10 pt-4">
-                <p className="text-xs text-white/50 mb-1">Competition & Team</p>
+                <p className="text-xs text-white/50 mb-1">Competition Track & Team</p>
                 <p className="font-semibold text-white">{submittedData.competition.competitionId} (Team: {submittedData.competition.teamName})</p>
                 <p className="text-xs text-white/60 mt-1">Total Members: {submittedData.competition.members.length + 1}</p>
               </div>
 
               <div className="border-t border-white/10 pt-4 flex justify-between items-center bg-primary/10 p-4 rounded-xl">
                 <div>
-                  <p className="text-xs text-white/60">UTR / Ref No: <span className="font-mono font-bold text-white">{submittedData.payment.utrNumber}</span></p>
+                  <p className="text-xs text-white/60">UTR / Transaction Ref: <span className="font-mono font-bold text-white">{submittedData.payment.utrNumber}</span></p>
                   <p className="text-xs text-white/50">Amount Paid</p>
                 </div>
                 <div className="text-2xl font-bold font-mono text-primary">₹{submittedData.payment.totalAmount}</div>
               </div>
             </div>
 
-            <div className="mt-8 flex gap-4 print:hidden">
-              <button type="button" onClick={() => window.print()} className="btn-gradient px-6 py-3 rounded-full font-medium">
-                Print / Save PDF Invoice
+            <div className="mt-8 flex flex-wrap gap-4 print:hidden">
+              <button
+                type="button"
+                onClick={handlePrint}
+                className="btn-gradient inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-primary/30 transition-all cursor-pointer"
+              >
+                <Printer className="w-4 h-4" /> Print / Save PDF
+              </button>
+
+              <button
+                type="button"
+                onClick={handleDownloadInvoice}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium border border-white/15 transition-all cursor-pointer"
+              >
+                <Download className="w-4 h-4" /> Download Pass (HTML)
+              </button>
+
+              <button
+                type="button"
+                onClick={handleReset}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white text-sm transition-all ml-auto cursor-pointer"
+              >
+                <RotateCcw className="w-3.5 h-3.5" /> Register Another
               </button>
             </div>
-          </RegistrationCard>
+          </div>
         </div>
       </section>
     );
@@ -284,6 +422,7 @@ export default function Registration() {
                       onEdit={goToStep}
                       onSubmit={handleSubmit}
                       submitting={submitting}
+                      submissionError={submissionError}
                     />
                   )}
                 </div>

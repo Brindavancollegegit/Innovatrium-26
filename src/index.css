@@ -242,3 +242,72 @@ select {
   background-size: 6px 6px;
   background-repeat: no-repeat;
 }
+
+/* =========================================================================
+   Print Stylesheet for Event Registration Receipts & Invoices
+   ========================================================================= */
+@media print {
+  /* Hide all surrounding webpage elements */
+  nav,
+  footer,
+  #hero,
+  #about,
+  #tracks,
+  #venue,
+  #college,
+  #workshop,
+  #contact,
+  .bg-noise,
+  .custom-cursor,
+  .print-hidden,
+  [class*="print:hidden"] {
+    display: none !important;
+  }
+
+  body, html {
+    background: #ffffff !important;
+    color: #000000 !important;
+    cursor: auto !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #printable-receipt-card {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 24px !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border: 1.5px solid #0f172a !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+  }
+
+  #printable-receipt-card * {
+    color: #0f172a !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  .print-card-box {
+    background-color: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 8px !important;
+  }
+
+  .print-status-badge {
+    background-color: #ecfdf5 !important;
+    color: #065f46 !important;
+    border: 1px solid #a7f3d0 !important;
+  }
+
+  .print-highlight {
+    color: #0284c7 !important;
+    font-weight: bold !important;
+  }
+}
+
