@@ -6,24 +6,24 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-3 md:top-6 left-0 right-0 z-50 px-3 md:px-8">
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 rounded-[34px] border border-white/10 bg-black/30 px-2.5 py-2 shadow-[0_16px_60px_rgba(0,0,0,0.35)] backdrop-blur-2xl md:gap-4 md:rounded-[40px] md:px-5 md:py-3.5">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 rounded-[34px] border border-white/10 bg-[#030712]/70 px-2.5 py-2 shadow-[0_16px_40px_rgba(0,0,0,0.35)] backdrop-blur-md md:gap-4 md:rounded-[40px] md:px-5 md:py-3.5">
         {/* Logos outside the capsule */}
         <div className="flex min-w-0 flex-1 items-center gap-1 md:gap-4">
           {/* Brindavan Logo - 1st Hierarchy */}
-          <div className="flex items-center shrink-0 bg-white p-1 md:p-3 rounded-3xl shadow-[0_0_20px_rgba(255,255,255,0.15)] border border-white/20 h-[34px] md:h-20 transition-transform hover:scale-105">
-            <img src="/Brindavan-logo.png" alt="Brindavan College" className="h-full w-auto object-contain" />
+          <div className="flex items-center shrink-0 bg-white p-1 md:p-3 rounded-2xl shadow-sm border border-white/20 h-[34px] md:h-16 transition-transform hover:scale-105">
+            <img src="/Brindavan-logo.webp" alt="Brindavan College" width="160" height="48" fetchPriority="high" className="h-full w-auto object-contain" />
           </div>
           
           {/* IEEE Logo - 2nd Hierarchy */}
-          <div className="flex items-center shrink-0 bg-white p-[3px] md:p-2.5 rounded-3xl shadow-[0_0_15px_rgba(255,255,255,0.15)] border border-white/20 h-[30px] md:h-16 transition-transform hover:scale-105">
-            <img src="/IEEE-logo.png" alt="IEEE" className="h-full w-auto object-contain" />
+          <div className="flex items-center shrink-0 bg-white p-[3px] md:p-2.5 rounded-2xl shadow-sm border border-white/20 h-[30px] md:h-14 transition-transform hover:scale-105">
+            <img src="/IEEE-logo.webp" alt="IEEE" width="120" height="40" className="h-full w-auto object-contain" />
           </div>
 
           {/* Society Logos - 3rd Hierarchy */}
-          <div className="flex items-center gap-1 md:gap-3 shrink-0 bg-white p-[3px] md:p-2 rounded-3xl shadow-[0_0_15px_rgba(255,255,255,0.15)] border border-white/20 h-[30px] md:h-12 transition-transform hover:scale-105 overflow-hidden">
-            <img src="/CS-society.png" alt="CS Society" className="h-full max-h-[18px] sm:max-h-none w-auto object-contain" />
-            <img src="/SP-Society.png" alt="SP Society" className="h-full max-h-[18px] sm:max-h-none w-auto object-contain" />
-            <img src="/WIE.png" alt="WIE" className="h-full max-h-[18px] sm:max-h-none w-auto object-contain" />
+          <div className="flex items-center gap-1 md:gap-3 shrink-0 bg-white p-[3px] md:p-2 rounded-2xl shadow-sm border border-white/20 h-[30px] md:h-11 transition-transform hover:scale-105 overflow-hidden">
+            <img src="/CS-society.webp" alt="CS Society" width="36" height="36" className="h-full max-h-[18px] sm:max-h-none w-auto object-contain" />
+            <img src="/SP-Society.webp" alt="SP Society" width="36" height="36" className="h-full max-h-[18px] sm:max-h-none w-auto object-contain" />
+            <img src="/WIE.webp" alt="WIE" width="36" height="36" className="h-full max-h-[18px] sm:max-h-none w-auto object-contain" />
           </div>
 
           <div className="hidden xl:flex flex-col pl-3 border-l border-white/20">
@@ -63,7 +63,7 @@ export default function Navbar() {
       
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden absolute top-full left-3 right-3 mt-2 rounded-[24px] border border-white/10 bg-[#081015]/95 p-4 shadow-[0_20px_70px_rgba(0,0,0,0.45)] backdrop-blur-2xl">
+        <div className="lg:hidden absolute top-full left-3 right-3 mt-2 rounded-[24px] border border-white/10 bg-[#081015]/95 p-4 shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-md">
           <div className="grid grid-cols-2 gap-2 text-left">
             <a href="#home" onClick={() => setIsOpen(false)} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-sans text-[14px] text-white/85 transition-colors hover:bg-white/10">Home</a>
             <a href="#about" onClick={() => setIsOpen(false)} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-sans text-[14px] text-white/85 transition-colors hover:bg-white/10">About</a>

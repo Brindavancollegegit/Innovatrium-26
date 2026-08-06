@@ -9,12 +9,12 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
       setProgress(p => {
         if (p >= 100) {
           clearInterval(interval);
-          setTimeout(onComplete, 400); 
+          setTimeout(onComplete, 150); 
           return 100;
         }
-        return p + Math.floor(Math.random() * 12) + 4;
+        return p + Math.floor(Math.random() * 25) + 20;
       });
-    }, 100);
+    }, 35);
     return () => clearInterval(interval);
   }, [onComplete]);
 

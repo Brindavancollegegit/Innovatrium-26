@@ -9,7 +9,7 @@ const VERTEX_SHADER = `
 `;
 
 const FRAGMENT_SHADER = `
-  precision highp float;
+  precision mediump float;
   uniform vec2 resolution;
   uniform float time;
   uniform float xScale;
@@ -44,9 +44,15 @@ export default function WaveShader() {
     const canvas = canvasRef.current;
     const scene = new THREE.Scene();
     
-    // Using alpha: true so your dark background color shows through
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Cap pixel ratio for better mobile performance
+    // Performance optimized WebGL renderer
+    const renderer = new THREE.WebGLRenderer({ 
+      canvas, 
+      alpha: true, 
+      antialias: false,
+      powerPreference: 'high-performance',
+      precision: 'mediump'
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);

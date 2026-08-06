@@ -17,7 +17,7 @@ export default function TrackCard({
 }: TrackProps) {
   return (
     <SpotlightCard
-      className="h-full p-7 md:p-8 flex flex-col group relative overflow-hidden rounded-3xl bg-white/[0.04] border border-white/15 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-emerald-400/50 hover:shadow-[0_0_25px_rgba(52,211,153,0.2)]"
+      className="h-full p-7 md:p-8 flex flex-col group relative overflow-hidden rounded-3xl bg-[#080d14]/90 border border-white/10 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-400/50 hover:shadow-[0_0_25px_rgba(52,211,153,0.2)]"
       spotlightColor="rgba(52, 211, 153, 0.15)"
     >
       {/* Top Accent Gradient Bar */}

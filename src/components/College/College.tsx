@@ -13,7 +13,7 @@ export default function College() {
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       {/* Background Glow - Blue Theme */}
-      <div className="absolute top-1/2 left-[-200px] -translate-y-1/2 w-[700px] h-[700px] bg-blue-600/15 blur-[140px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/2 left-[-100px] -translate-y-1/2 w-[350px] h-[350px] bg-blue-600/10 blur-3xl opacity-20 pointer-events-none rounded-full" />
       
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         
@@ -22,16 +22,19 @@ export default function College() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="rounded-3xl border border-white/15 bg-white/[0.03] backdrop-blur-xl overflow-hidden shadow-2xl"
+          className="rounded-3xl border border-white/15 bg-[#080d14]/90 backdrop-blur-sm overflow-hidden shadow-2xl"
         >
           <div className="grid md:grid-cols-5 h-full">
             
             {/* Campus Image Section */}
             <div className="md:col-span-2 relative min-h-[300px] md:min-h-[420px] overflow-hidden group">
               <img 
-                src="/brindavan-campas.png" 
+                src="/brindavan-campas.webp" 
                 alt="Brindavan College Campus" 
                 loading="lazy" 
+                decoding="async"
+                width="600"
+                height="420"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
               />
               
@@ -39,7 +42,7 @@ export default function College() {
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent md:bg-gradient-to-r md:from-transparent md:to-slate-950/80" />
               
               {/* Floating Venue Badge */}
-              <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 flex items-center gap-3 p-3.5 rounded-2xl bg-slate-900/80 border border-blue-400/30 backdrop-blur-md">
+              <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 flex items-center gap-3 p-3.5 rounded-2xl bg-slate-900/80 border border-blue-400/30 backdrop-blur-sm">
                 <div className="w-9 h-9 rounded-xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-300 shrink-0">
                   <Building2 className="w-5 h-5" />
                 </div>

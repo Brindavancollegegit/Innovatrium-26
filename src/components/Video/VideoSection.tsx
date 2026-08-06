@@ -11,9 +11,9 @@ export default function VideoSection() {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* Subtle background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 blur-[120px] pointer-events-none rounded-full" />
-      
+      {/* Subtle Ambient Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[250px] bg-primary/5 blur-3xl opacity-30 pointer-events-none rounded-full" />
+
       <div className="max-w-5xl mx-auto px-4 md:px-8 relative z-10">
         <motion.div 
           initial="hidden"
@@ -39,6 +39,7 @@ export default function VideoSection() {
           </motion.p>
         </motion.div>
 
+        {/* Video Card Container */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}

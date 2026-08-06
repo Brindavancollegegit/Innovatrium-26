@@ -86,7 +86,7 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
             {/* Host Badge */}
             <motion.div 
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-semibold backdrop-blur-md shadow-lg"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-semibold backdrop-blur-sm shadow-md"
             >
               <Sparkles className="w-3.5 h-3.5 animate-pulse text-emerald-300" />
               <span>Presented by IEEE SB Brindavan</span>
@@ -114,15 +114,15 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} 
               className="flex flex-wrap justify-center lg:justify-start gap-2.5 font-sans text-xs sm:text-sm font-medium"
             >
-              <div className="flex items-center gap-2 rounded-xl border border-white/15 bg-[#030712]/60 px-3.5 py-2 backdrop-blur-md text-gray-200 shadow-sm">
+              <div className="flex items-center gap-2 rounded-xl border border-white/15 bg-[#030712]/70 px-3.5 py-2 backdrop-blur-sm text-gray-200 shadow-sm">
                 <Calendar className="w-4 h-4 text-blue-400" />
                 <span>2 Days Event</span>
               </div>
-              <div className="flex items-center gap-2 rounded-xl border border-white/15 bg-[#030712]/60 px-3.5 py-2 backdrop-blur-md text-gray-200 shadow-sm">
+              <div className="flex items-center gap-2 rounded-xl border border-white/15 bg-[#030712]/70 px-3.5 py-2 backdrop-blur-sm text-gray-200 shadow-sm">
                 <MapPin className="w-4 h-4 text-emerald-400" />
                 <span>Brindavan College</span>
               </div>
-              <div className="flex items-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/20 px-3.5 py-2 backdrop-blur-md text-emerald-300 font-semibold shadow-md">
+              <div className="flex items-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/20 px-3.5 py-2 backdrop-blur-sm text-emerald-300 font-semibold shadow-md">
                 <Trophy className="w-4 h-4 text-emerald-400" />
                 <span>Prize Pool: ₹30,000+</span>
               </div>
@@ -142,7 +142,7 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
               </a>
               <a 
                 href="#tracks" 
-                className="flex w-full sm:w-auto items-center justify-center gap-2 border border-white/20 bg-[#030712]/60 hover:bg-white/10 text-gray-200 font-medium text-sm px-6 py-3.5 rounded-xl backdrop-blur-md transition-all duration-200"
+                className="flex w-full sm:w-auto items-center justify-center gap-2 border border-white/20 bg-[#030712]/70 hover:bg-white/10 text-gray-200 font-medium text-sm px-6 py-3.5 rounded-xl backdrop-blur-sm transition-all duration-200"
               >
                 Explore Tracks
               </a>
@@ -155,7 +155,7 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
             variants={{ hidden: { opacity: 0, scale: 0.95, y: 20 }, visible: { opacity: 1, scale: 1, y: 0 } }}
             className="lg:col-span-5 w-full max-w-md mx-auto"
           >
-            <div className="relative rounded-3xl border border-white/20 bg-[#030712]/60 p-6 sm:p-7 backdrop-blur-2xl shadow-2xl hover:border-emerald-500/40 transition-colors duration-300">
+            <div className="relative rounded-3xl border border-white/20 bg-[#030712]/80 p-6 sm:p-7 backdrop-blur-md shadow-2xl hover:border-emerald-500/40 transition-colors duration-300">
               
               {/* Card Header */}
               <div className="flex items-center justify-between pb-5 border-b border-white/10 mb-6">

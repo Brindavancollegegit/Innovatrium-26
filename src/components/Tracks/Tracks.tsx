@@ -14,7 +14,7 @@ export default function Tracks() {
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       {/* Subtle background section glow */}
-      <div className="absolute bottom-0 left-[-200px] w-[800px] h-[800px] bg-[#22C55E]/5 blur-[120px] pointer-events-none rounded-full" />
+      <div className="absolute bottom-0 left-[-100px] w-[350px] h-[350px] bg-[#22C55E]/10 blur-3xl opacity-20 pointer-events-none rounded-full" />
       
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         

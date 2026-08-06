@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getLiveStats } from '../../lib/registrationApi';
 import { stats as initialStats } from '../../data/content';
 import { motion } from 'motion/react';
-import SpotlightCard from '../ui/SpotlightCard';
+import { Calendar, Building2, Trophy, Sparkles, ArrowUpRight } from 'lucide-react';
 
 export default function About() {
   const [liveStats, setLiveStats] = useState(initialStats);
@@ -11,11 +11,13 @@ export default function About() {
     async function fetchStats() {
       try {
         const data = await getLiveStats();
-        setLiveStats(current => current.map(stat => {
-          if (stat.key === 'colleges') return { ...stat, value: data.colleges?.toString() || stat.value };
-          if (stat.key === 'registrations') return { ...stat, value: data.registrations?.toString() || stat.value };
-          return stat;
-        }));
+        setLiveStats((current) =>
+          current.map((stat) => {
+            if (stat.key === 'colleges') return { ...stat, value: data.colleges?.toString() || stat.value };
+            if (stat.key === 'registrations') return { ...stat, value: data.registrations?.toString() || stat.value };
+            return stat;
+          })
+        );
       } catch (e) {
         console.error('Failed to fetch stats', e);
       }
@@ -23,117 +25,204 @@ export default function About() {
     fetchStats();
   }, []);
 
+  const prizeStat = liveStats.find((s) => s.isPrize || s.key === 'prize');
+  const regStat = liveStats.find((s) => s.key === 'registrations');
+  const collegeStat = liveStats.find((s) => s.key === 'colleges');
+
   return (
-    <motion.section 
-      id="about" 
+    <motion.section
+      id="about"
       className="py-24 relative overflow-hidden"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
     >
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0 bg-[url('/about-sec-bg.webp')] bg-cover bg-center opacity-30 mix-blend-screen" />
-      
-      {/* Blend edges */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#05080A] via-transparent to-[#05080A] z-0 pointer-events-none" />
+      {/* Background Soft Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] bg-blue-600/10 blur-3xl opacity-30 pointer-events-none rounded-full" />
 
-      {/* Subtle section glow */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* --- LEFT COLUMN: Text Content --- */}
-          <motion.div 
+          {/* --- LEFT COLUMN: Editorial Content --- */}
+          <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: '-100px' }}
             variants={{
               hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: { staggerChildren: 0.2 }
-              }
+              visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
             }}
-            className="flex flex-col gap-6"
+            className="lg:col-span-6 flex flex-col gap-6"
           >
-            <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-flex px-3 py-1 rounded-full bg-deep text-primary font-sans text-[11px] font-medium uppercase tracking-[0.05em] self-start">
-              About the Fest
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
+              className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-400/25 text-blue-300 font-sans text-xs font-semibold uppercase tracking-wider self-start"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+              <span>About The Fest</span>
             </motion.div>
-            
-            <motion.h2 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="font-display text-4xl md:text-[44px] font-medium tracking-[-0.01em]">
-              Where Ideas <br/><span className="text-white/50">Meet Execution</span>
+
+            <motion.h2
+              variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
+              className="font-display text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.15]"
+            >
+              Where Ideas <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-white">
+                Meet Execution
+              </span>
             </motion.h2>
-            
-            <motion.p variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="font-sans text-base text-white/70 leading-[1.6]">
-              Innovatrium '26 is the flagship technical fest of IEEE SB Brindavan College of Engineering. 
-              Spanning across two days, it brings together students from various colleges to learn, 
-              innovate, and compete.
+
+            <motion.p
+              variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
+              className="font-sans text-base text-slate-200 leading-relaxed font-normal"
+            >
+              Innovatrium '26 is the flagship technical fest organized by IEEE SB Brindavan College of Engineering. Over two intense days, top student minds converge to build, pitch, and compete.
             </motion.p>
-            
-            <motion.p variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="font-sans text-base text-white/70 leading-[1.6]">
-              Day 1 features an exclusive hands-on workshop led by industry experts. Day 2 is action-packed 
-              with competitive tracks designed to test your technical mettle and creative problem-solving skills.
-            </motion.p>
+
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
+              className="grid sm:grid-cols-2 gap-4 mt-2"
+            >
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-400/30 transition-colors">
+                <div className="flex items-center gap-2 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                  <Calendar className="w-4 h-4" />
+                  Day 1
+                </div>
+                <h4 className="text-white font-semibold text-sm mb-1">Expert Workshop</h4>
+                <p className="text-slate-300 text-xs leading-relaxed">
+                  Hands-on technical training sessions led by industry pioneers.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-400/30 transition-colors">
+                <div className="flex items-center gap-2 text-sky-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                  <Trophy className="w-4 h-4" />
+                  Day 2
+                </div>
+                <h4 className="text-white font-semibold text-sm mb-1">Competitive Tracks</h4>
+                <p className="text-slate-300 text-xs leading-relaxed">
+                  High-stakes competitions designed to challenge real-world problem solving.
+                </p>
+              </div>
+            </motion.div>
           </motion.div>
 
-          {/* --- RIGHT COLUMN: Stats Cards --- */}
-          <motion.div 
+          {/* --- RIGHT COLUMN: Bento Metric Grid --- */}
+          <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: '-100px' }}
             variants={{
               hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: { staggerChildren: 0.1 }
-              }
+              visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
             }}
-            className="grid grid-cols-2 gap-4"
+            className="lg:col-span-6 grid grid-cols-2 gap-4"
           >
-            {/* Dynamic Stats Cards */}
-            {liveStats.map((stat, idx) => (
-              <motion.div 
-                key={idx} 
-                variants={{ hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1 } }}
-                className={idx === 2 ? 'col-span-2 sm:col-span-1' : ''}
-              >
-                <SpotlightCard 
-                  className={`h-full p-4 sm:p-6 flex flex-col justify-between gap-4 sm:gap-6 !bg-transparent bg-gradient-to-b from-white/[0.02] to-primary/[0.2] border border-white/5 border-t-white/15 border-l-white/10 backdrop-blur-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_24px_48px_rgba(255,255,255,0.02),0_8px_32px_rgba(0,0,0,0.5)] rounded-2xl ${stat.isPrize ? '!to-reserved/[0.2] border-t-reserved/30 border-l-reserved/20' : ''}`}
-                  spotlightColor={stat.isPrize ? "rgba(245, 158, 11, 0.3)" : "rgba(59, 130, 246, 0.3)"}
-                >
-                  <div className="font-sans text-[11px] sm:text-[13px] font-medium text-white/80 tracking-wide self-start uppercase">
-                    {stat.label}
-                  </div>
-                  
-                  {/* Cleaned up number styling (No Gradients) */}
-                  <div className={`font-mono text-4xl md:text-5xl lg:text-4xl xl:text-5xl tracking-tight font-bold self-center my-auto w-full text-center text-white ${stat.isPrize ? 'drop-shadow-[0_0_20px_rgba(245,158,11,0.6)]' : 'drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]'}`}>
-                    {stat.value}
-                  </div>
-                </SpotlightCard>
-              </motion.div>
-            ))}
             
-            {/* Hardcoded "Action Packed Days" Card */}
-            <motion.div 
-              variants={{ hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1 } }}
-              className="col-span-2 sm:col-span-1"
+            {/* --- PRIZE POOL CARD WITH TASTEFUL RAINBOW EDGE GLOW --- */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              className="col-span-2 relative group p-[1px] rounded-3xl overflow-hidden"
             >
-              <SpotlightCard 
-                className="h-full p-4 sm:p-6 flex flex-col justify-between gap-4 sm:gap-6 !bg-transparent bg-gradient-to-b from-white/[0.02] to-[#22c55e]/[0.2] border border-white/5 border-t-white/15 border-l-white/10 backdrop-blur-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_24px_48px_rgba(255,255,255,0.02),0_8px_32px_rgba(0,0,0,0.5)] rounded-2xl" 
-                spotlightColor="rgba(34, 197, 94, 0.3)"
-              >
-                <div className="font-sans text-[11px] sm:text-[13px] font-medium text-white/80 tracking-wide self-start uppercase">
-                  Action Packed Days
+              {/* Soft Ambient Outer Glow */}
+              <div 
+                className="absolute inset-0 rounded-3xl opacity-20 group-hover:opacity-40 blur-lg transition-opacity duration-700 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b, #10b981)',
+                }}
+              />
+
+              {/* 1px Fine Rainbow Gradient Border */}
+              <div 
+                className="absolute inset-0 rounded-3xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(110deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b, #10b981, #3b82f6)',
+                }}
+              />
+
+              {/* Inner Card Backdrop */}
+              <div className="relative h-full p-6 md:p-8 rounded-[23px] bg-[#080d14]/95 backdrop-blur-sm z-10 flex flex-col justify-between">
+                <div className="flex justify-between items-start mb-6">
+                  <div>
+                    <span className="text-xs font-semibold uppercase tracking-widest text-slate-200 block mb-1">
+                      {prizeStat?.label || 'Prize Pool'}
+                    </span>
+                    <p className="text-xs text-slate-300">Awarded across all competitive tracks</p>
+                  </div>
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center text-amber-300 shrink-0">
+                    <Trophy className="w-5 h-5" />
+                  </div>
                 </div>
-                
-                {/* Cleaned up number styling (No Gradients) */}
-                <div className="font-mono text-4xl md:text-5xl lg:text-4xl xl:text-5xl tracking-tight font-bold self-center my-auto w-full text-center text-white drop-shadow-[0_0_20px_rgba(34,197,94,0.6)]">
-                  2
+
+                <div className="font-mono text-4xl sm:text-5xl font-bold text-white tracking-tight">
+                  {prizeStat?.value || '₹30,000+'}
                 </div>
-              </SpotlightCard>
+              </div>
             </motion.div>
+            {/* -------------------------------------------------------- */}
+
+            {/* Live Registrations */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              className="col-span-1 p-5 md:p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-400/30 backdrop-blur-sm transition-all flex flex-col justify-between h-40"
+            >
+              <div className="flex justify-between items-center">
+                <span className="text-xs font-medium text-slate-300 uppercase tracking-wider">
+                  {regStat?.label || 'Registrations'}
+                </span>
+                <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-[10px] text-blue-300 font-mono">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                  LIVE
+                </span>
+              </div>
+
+              <div className="font-mono text-3xl sm:text-4xl font-bold text-white mt-auto">
+                {regStat?.value || '0'}
+              </div>
+            </motion.div>
+
+            {/* Colleges Represented */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              className="col-span-1 p-5 md:p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-400/30 backdrop-blur-sm transition-all flex flex-col justify-between h-40"
+            >
+              <div className="flex justify-between items-center">
+                <span className="text-xs font-medium text-slate-300 uppercase tracking-wider">
+                  {collegeStat?.label || 'Colleges'}
+                </span>
+                <Building2 className="w-4 h-4 text-blue-400" />
+              </div>
+
+              <div className="font-mono text-3xl sm:text-4xl font-bold text-white mt-auto">
+                {collegeStat?.value || '0'}
+              </div>
+            </motion.div>
+
+            {/* Event Duration Banner */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              className="col-span-2 p-5 rounded-2xl bg-white/[0.02] border border-white/10 flex justify-between items-center"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-400/20 flex items-center justify-center text-blue-400">
+                  <Calendar className="w-4 h-4" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-white">2 Action-Packed Days</p>
+                  <p className="text-[11px] text-slate-300">Workshop & Competitions</p>
+                </div>
+              </div>
+              <a
+                href="#tracks"
+                className="inline-flex items-center gap-1 text-xs font-medium text-blue-400 hover:text-white transition-colors"
+              >
+                Explore Tracks <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            </motion.div>
+
           </motion.div>
-          
+
         </div>
       </div>
     </motion.section>

@@ -87,7 +87,15 @@ export default function Step4Review({
         </div>
 
         <div className="flex flex-col sm:flex-row items-center gap-4 bg-black/40 p-4 rounded-xl">
-          <img src={qrCodeUrl} alt="UPI Payment QR" className="w-32 h-32 rounded-lg bg-white p-1" />
+          <img 
+            src={qrCodeUrl} 
+            alt="UPI Payment QR" 
+            width="128" 
+            height="128" 
+            loading="lazy" 
+            decoding="async" 
+            className="w-32 h-32 rounded-lg bg-white p-1" 
+          />
           <div className="text-xs text-white/70 space-y-2 text-center sm:text-left">
             <p className="font-semibold text-white">Scan with GPay / PhonePe / Paytm / BHIM</p>
             <p>UPI ID: <span className="font-mono text-primary">{upiId}</span></p>
