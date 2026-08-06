@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { motion } from 'motion/react';
 import Countdown from './Countdown';
 import StepList from './StepList';
@@ -43,6 +43,47 @@ function parseTeamMax(teamSize: string) {
   return parseInt(m[1], 10);
 }
 
+// --- NEW INTERACTIVE CARD WRAPPER ---
+function RegistrationCard({ children, className = "p-8 md:p-12" }: { children: React.ReactNode, className?: string }) {
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => setMousePos({ x: -1000, y: -1000 })}
+      className={`relative group rounded-3xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.1)] shadow-2xl ${className}`}
+    >
+      {/* 1px Edge Illumination Mask */}
+      <div
+        className="absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        style={{
+          background: `radial-gradient(500px circle at ${mousePos.x}px ${mousePos.y}px, rgba(56,189,248,0.6), transparent 100%)`,
+          padding: '1px',
+          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+          WebkitMaskComposite: 'xor',
+          maskComposite: 'exclude',
+        }}
+      />
+      {/* Card Content */}
+      <div className="relative z-10">
+        {children}
+      </div>
+    </div>
+  );
+}
+// ------------------------------------
+
 export default function Registration() {
   const [step, setStep] = useState(1);
   const [participant, setParticipant] = useState<ParticipantType | null>(null);
@@ -65,6 +106,7 @@ export default function Registration() {
       } catch {}
     }
   }, []);
+
   useEffect(() => {
     const payload = { participant, personal, competition, step };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
@@ -108,27 +150,30 @@ export default function Registration() {
     }
   }
 
+  // --- Success State ---
   if (submittedId) {
     return (
       <section id="register" className="py-24">
         <div className="max-w-4xl mx-auto px-4 md:px-8">
-          <div className="glass-card p-12 md:p-16 text-center">
+          <RegistrationCard className="p-12 md:p-16 text-center">
             <div className="text-6xl mb-4">✅</div>
             <div className="font-display text-2xl mb-2">Registration Submitted</div>
             <div className="font-sans text-sm text-white/70 mb-4">Your Registration ID: <span className="font-mono">{submittedId}</span></div>
             <div className="font-sans text-sm text-white/70">We'll contact you with payment details shortly.</div>
-          </div>
+          </RegistrationCard>
         </div>
       </section>
     );
   }
 
+  // --- Main Form State ---
   return (
     <section id="register" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
           <div className="lg:col-span-2">
-            <div className="glass-card p-8 md:p-12">
+            <RegistrationCard>
               <div className="flex flex-col md:flex-row md:items-start md:gap-8">
                 <div className="w-full md:w-56">
                   <StepList steps={availableSteps} current={step} goTo={goToStep} participant={participant} />
@@ -149,7 +194,7 @@ export default function Registration() {
                   )}
                 </div>
               </div>
-            </div>
+            </RegistrationCard>
           </div>
 
           <div className="lg:col-span-1">
@@ -158,8 +203,9 @@ export default function Registration() {
               <SummaryPanel participant={participant} personal={personal} competition={competition} liveStats={liveStats} />
             </div>
           </div>
+          
         </div>
       </div>
     </section>
   );
-}
+} 

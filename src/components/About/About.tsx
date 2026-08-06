@@ -42,6 +42,7 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           
+          {/* --- LEFT COLUMN: Text Content --- */}
           <motion.div 
             initial="hidden"
             whileInView="visible"
@@ -58,20 +59,24 @@ export default function About() {
             <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-flex px-3 py-1 rounded-full bg-deep text-primary font-sans text-[11px] font-medium uppercase tracking-[0.05em] self-start">
               About the Fest
             </motion.div>
+            
             <motion.h2 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="font-display text-4xl md:text-[44px] font-medium tracking-[-0.01em]">
               Where Ideas <br/><span className="text-white/50">Meet Execution</span>
             </motion.h2>
+            
             <motion.p variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="font-sans text-base text-white/70 leading-[1.6]">
               Innovatrium '26 is the flagship technical fest of IEEE SB Brindavan College of Engineering. 
               Spanning across two days, it brings together students from various colleges to learn, 
               innovate, and compete.
             </motion.p>
+            
             <motion.p variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="font-sans text-base text-white/70 leading-[1.6]">
               Day 1 features an exclusive hands-on workshop led by industry experts. Day 2 is action-packed 
               with competitive tracks designed to test your technical mettle and creative problem-solving skills.
             </motion.p>
           </motion.div>
 
+          {/* --- RIGHT COLUMN: Stats Cards --- */}
           <motion.div 
             initial="hidden"
             whileInView="visible"
@@ -85,6 +90,7 @@ export default function About() {
             }}
             className="grid grid-cols-2 gap-4"
           >
+            {/* Dynamic Stats Cards */}
             {liveStats.map((stat, idx) => (
               <motion.div 
                 key={idx} 
@@ -98,12 +104,16 @@ export default function About() {
                   <div className="font-sans text-[11px] sm:text-[13px] font-medium text-white/80 tracking-wide self-start uppercase">
                     {stat.label}
                   </div>
-                  <div className={`font-mono text-4xl md:text-5xl lg:text-4xl xl:text-5xl tracking-tight font-bold self-center my-auto w-full text-center ${stat.isPrize ? 'bg-gradient-to-b from-white via-reserved to-orange-900 text-transparent bg-clip-text drop-shadow-[0_0_15px_rgba(245,158,11,0.3)]' : 'bg-gradient-to-b from-white via-primary to-blue-900 text-transparent bg-clip-text drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]'}`}>
+                  
+                  {/* Cleaned up number styling (No Gradients) */}
+                  <div className={`font-mono text-4xl md:text-5xl lg:text-4xl xl:text-5xl tracking-tight font-bold self-center my-auto w-full text-center text-white ${stat.isPrize ? 'drop-shadow-[0_0_20px_rgba(245,158,11,0.6)]' : 'drop-shadow-[0_0_20px_rgba(59,130,246,0.6)]'}`}>
                     {stat.value}
                   </div>
                 </SpotlightCard>
               </motion.div>
             ))}
+            
+            {/* Hardcoded "Action Packed Days" Card */}
             <motion.div 
               variants={{ hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1 } }}
               className="col-span-2 sm:col-span-1"
@@ -115,7 +125,9 @@ export default function About() {
                 <div className="font-sans text-[11px] sm:text-[13px] font-medium text-white/80 tracking-wide self-start uppercase">
                   Action Packed Days
                 </div>
-                <div className="font-mono text-4xl md:text-5xl lg:text-4xl xl:text-5xl tracking-tight font-bold self-center my-auto w-full text-center bg-gradient-to-b from-white via-[#22c55e] to-green-900 text-transparent bg-clip-text drop-shadow-[0_0_15px_rgba(34,197,94,0.3)]">
+                
+                {/* Cleaned up number styling (No Gradients) */}
+                <div className="font-mono text-4xl md:text-5xl lg:text-4xl xl:text-5xl tracking-tight font-bold self-center my-auto w-full text-center text-white drop-shadow-[0_0_20px_rgba(34,197,94,0.6)]">
                   2
                 </div>
               </SpotlightCard>

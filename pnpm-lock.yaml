@@ -35,6 +35,9 @@ importers:
       motion:
         specifier: ^12.23.24
         version: 12.43.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      ogl:
+        specifier: ^1.0.11
+        version: 1.0.11
       react:
         specifier: ^19.0.1
         version: 19.2.8
@@ -1301,6 +1304,9 @@ packages:
     resolution: {integrity: sha512-W67iLl4J2EXEGTbfeHCffrjDfitvLANg0UlX3wFUUSTx92KXRFegMHUVgSqE+wvhAbi4WqjGg9czysTV2Epbew==}
     engines: {node: '>= 0.4'}
 
+  ogl@1.0.11:
+    resolution: {integrity: sha512-kUpC154AFfxi16pmZUK4jk3J+8zxwTWGPo03EoYA8QPbzikHoaC82n6pNTbd+oEaJonaE8aPWBlX7ad9zrqLsA==}
+
   on-finished@2.4.1:
     resolution: {integrity: sha512-oVlzkg3ENAhCk2zdv7IJwd/QUD4z2RxRwpkcGY8psCVcCYZNq4wYnVWALHM+brtuJjePWiYF/ClmuDr8Ch5+kg==}
     engines: {node: '>= 0.8'}
@@ -2538,6 +2544,8 @@ snapshots:
   node-releases@2.0.52: {}
 
   object-inspect@1.13.4: {}
+
+  ogl@1.0.11: {}
 
   on-finished@2.4.1:
     dependencies:
