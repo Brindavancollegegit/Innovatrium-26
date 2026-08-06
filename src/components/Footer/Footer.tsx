@@ -24,7 +24,7 @@ export default function Footer() {
             <a href="#" className="w-10 h-10 rounded-full glass-card flex items-center justify-center font-sans text-[11px] font-medium text-white/60 uppercase hover:text-primary transition-colors">
               IN
             </a>
-            <a href="#" className="w-10 h-10 rounded-full glass-card flex items-center justify-center font-sans text-[11px] font-medium text-white/60 uppercase hover:text-primary transition-colors">
+            <a href="https://www.instagram.com/ieee.brindavan" className="w-10 h-10 rounded-full glass-card flex items-center justify-center font-sans text-[11px] font-medium text-white/60 uppercase hover:text-primary transition-colors">
               IG
             </a>
             <a href="#" className="w-10 h-10 rounded-full glass-card flex items-center justify-center font-sans text-[11px] font-medium text-white/60 uppercase hover:text-primary transition-colors">
@@ -40,8 +40,8 @@ export default function Footer() {
             <div className="flex items-center gap-4 font-sans text-[14px]">
               <span className="text-white/30">|</span>
               <span>Created by Tharjun</span>
-              <a href="mailto:your-email@example.com" className="hover:text-white transition-colors underline decoration-white/20 underline-offset-4">Email</a>
-              <a href="https://github.com/yourusername" target="_blank" rel="noreferrer" className="hover:text-white transition-colors underline decoration-white/20 underline-offset-4">GitHub</a>
+              <a href="mailto:your-tharjun00@gmail.com.com" className="hover:text-white transition-colors underline decoration-white/20 underline-offset-4">Email</a>
+              <a href="https://github.com/biatrix00" target="_blank" rel="noreferrer" className="hover:text-white transition-colors underline decoration-white/20 underline-offset-4">GitHub</a>
             </div>
           </div>
           <button 

@@ -60,7 +60,7 @@ export const college = {
   name: 'Brindavan College of Engineering',
   address: 'Dwarakanagar, Bagalur Main Road, Yelahanka, Bengaluru',
   positioning: 'Empowering future innovators through academic excellence and hands-on learning.',
-  website: 'https://brindavancollege.com'
+  website: 'https://brindavancollege.edu.in'
 };
 
 export const registration = {

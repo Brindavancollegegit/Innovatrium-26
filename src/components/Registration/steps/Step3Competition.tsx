@@ -1,4 +1,4 @@
-import React from 'react';
+import { ArrowLeft, ArrowRight, Plus, Trash2, Users, CheckCircle2, Shield } from 'lucide-react';
 
 export default function Step3Competition({ tracks, value, onChange, onNext, onBack }: any) {
   const selectedTrack = tracks.find((t: any) => t.competitionId === value.competitionId);
@@ -7,7 +7,7 @@ export default function Step3Competition({ tracks, value, onChange, onNext, onBa
     : 4;
 
   function addMember() {
-    if (value.members.length >= maxTeam - 1) return; // -1 because team lead is personal info
+    if (value.members.length >= maxTeam - 1) return; // Team lead is personal info
     onChange({ ...value, members: [...value.members, { name: '', email: '', phone: '' }] });
   }
 
@@ -16,69 +16,98 @@ export default function Step3Competition({ tracks, value, onChange, onNext, onBa
     onChange({ ...value, members: updated });
   }
 
+  const isFormValid = value.competitionId && value.teamName?.trim();
+
   return (
     <div>
+      {/* Competition Selection */}
       <div className="mb-6">
-        <label className="block text-sm text-white/70 mb-2">Select Competition *</label>
+        <label className="block text-xs font-semibold uppercase tracking-wider text-white/70 mb-3">
+          Select Competition Track *
+        </label>
         <div className="grid grid-cols-1 gap-3">
-          {tracks.map((t: any) => (
-            <button
-              key={t.competitionId}
-              type="button"
-              onClick={() => onChange({ ...value, competitionId: t.competitionId })}
-              className={`p-4 rounded-xl border text-left transition-all ${
-                value.competitionId === t.competitionId
-                  ? 'bg-primary/10 border-primary text-white'
-                  : 'bg-[rgba(255,255,255,0.02)] border-[rgba(255,255,255,0.06)]'
-              }`}
-            >
-              <div className="flex justify-between items-center">
-                <span className="font-medium text-white">{t.title}</span>
-                <span className="text-xs px-3 py-1 rounded-full bg-white/10 text-white/80">{t.teamSize}</span>
-              </div>
-              <p className="text-xs text-white/60 mt-1">{t.tagline}</p>
-            </button>
-          ))}
+          {tracks.map((t: any) => {
+            const isSelected = value.competitionId === t.competitionId;
+            return (
+              <button
+                key={t.competitionId}
+                type="button"
+                onClick={() => onChange({ ...value, competitionId: t.competitionId })}
+                className={`p-4 rounded-2xl border text-left transition-all cursor-pointer active:scale-[0.99] ${
+                  isSelected
+                    ? 'bg-blue-500/15 border-blue-400 text-white shadow-lg shadow-blue-500/10 ring-1 ring-blue-400'
+                    : 'bg-white/[0.02] border-white/10 hover:bg-white/[0.05] text-white/80'
+                }`}
+              >
+                <div className="flex justify-between items-start gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="font-display font-medium text-base text-white">{t.title}</span>
+                    {isSelected && <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />}
+                  </div>
+                  <span className="text-[11px] px-2.5 py-1 rounded-full bg-white/10 text-white/80 shrink-0 font-mono">
+                    {t.teamSize}
+                  </span>
+                </div>
+                <p className="text-xs text-white/60 mt-1.5 leading-relaxed">{t.tagline}</p>
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      <div className="mb-4">
-        <label className="block text-sm text-white/70 mb-1">Team Name *</label>
+      {/* Team Name */}
+      <div className="mb-6">
+        <label className="flex items-center gap-1.5 text-xs font-medium text-white/70 mb-1.5">
+          <Shield className="w-3.5 h-3.5 text-white/50" /> Team Name *
+        </label>
         <input
+          type="text"
           value={value.teamName}
           onChange={(e) => onChange({ ...value, teamName: e.target.value })}
-          placeholder="Enter team name"
-          className="w-full p-3 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.04)] text-white outline-none"
+          placeholder="e.g. CyberVanguard"
+          className="w-full h-11 sm:h-12 px-4 rounded-xl bg-white/[0.03] border border-white/10 focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 text-white text-base sm:text-sm outline-none transition-all placeholder:text-white/30"
         />
       </div>
 
-      <div className="mb-6">
-        <div className="flex justify-between items-center mb-2">
-          <label className="block text-sm text-white/70">Additional Team Members</label>
-          <span className="text-xs text-white/50">Max {maxTeam - 1} additional members</span>
+      {/* Additional Team Members */}
+      <div className="mb-8">
+        <div className="flex justify-between items-center mb-3">
+          <label className="flex items-center gap-1.5 text-xs font-medium text-white/70">
+            <Users className="w-3.5 h-3.5 text-white/50" /> Additional Team Members
+          </label>
+          <span className="text-[11px] text-white/40 font-mono">
+            {value.members.length} of {maxTeam - 1} added
+          </span>
         </div>
 
         <div className="space-y-3">
           {value.members.map((m: any, i: number) => (
-            <div key={i} className="p-3 rounded-xl bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.04)] space-y-2">
-              <div className="flex justify-between text-xs text-white/60">
-                <span>Member {i + 2}</span>
-                <button type="button" onClick={() => removeMember(i)} className="text-rose-400 hover:underline">
-                  Remove
+            <div key={i} className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/10 space-y-2.5">
+              <div className="flex justify-between items-center text-xs text-white/60">
+                <span className="font-semibold text-white/80">Member {i + 2} Details</span>
+                <button
+                  type="button"
+                  onClick={() => removeMember(i)}
+                  className="inline-flex items-center gap-1 text-rose-400 hover:text-rose-300 text-[11px] transition-colors cursor-pointer"
+                >
+                  <Trash2 className="w-3 h-3" /> Remove
                 </button>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 <input
-                  placeholder="Name"
+                  type="text"
+                  placeholder="Full Name"
                   value={m.name}
                   onChange={(e) => {
                     const next = [...value.members];
                     next[i] = { ...next[i], name: e.target.value };
                     onChange({ ...value, members: next });
                   }}
-                  className="p-2 text-sm rounded-lg bg-black/30 border border-white/5 text-white"
+                  className="h-10 px-3 text-base sm:text-xs rounded-xl bg-black/40 border border-white/10 text-white focus:border-blue-400 outline-none"
                 />
                 <input
+                  type="email"
                   placeholder="Email"
                   value={m.email}
                   onChange={(e) => {
@@ -86,17 +115,19 @@ export default function Step3Competition({ tracks, value, onChange, onNext, onBa
                     next[i] = { ...next[i], email: e.target.value };
                     onChange({ ...value, members: next });
                   }}
-                  className="p-2 text-sm rounded-lg bg-black/30 border border-white/5 text-white"
+                  className="h-10 px-3 text-base sm:text-xs rounded-xl bg-black/40 border border-white/10 text-white focus:border-blue-400 outline-none"
                 />
                 <input
+                  type="tel"
+                  maxLength={10}
                   placeholder="Phone"
                   value={m.phone}
                   onChange={(e) => {
                     const next = [...value.members];
-                    next[i] = { ...next[i], phone: e.target.value };
+                    next[i] = { ...next[i], phone: e.target.value.replace(/\D/g, '') };
                     onChange({ ...value, members: next });
                   }}
-                  className="p-2 text-sm rounded-lg bg-black/30 border border-white/5 text-white"
+                  className="h-10 px-3 text-base sm:text-xs rounded-xl bg-black/40 border border-white/10 text-white focus:border-blue-400 outline-none font-mono"
                 />
               </div>
             </div>
@@ -107,27 +138,35 @@ export default function Step3Competition({ tracks, value, onChange, onNext, onBa
           <button
             type="button"
             onClick={addMember}
-            className="mt-3 px-4 py-2 text-sm rounded-full bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)] text-white transition-colors"
+            className="mt-3 inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all cursor-pointer active:scale-95"
           >
-            + Add Member
+            <Plus className="w-3.5 h-3.5 text-sky-400" />
+            <span>Add Member {value.members.length + 2}</span>
           </button>
         )}
       </div>
 
-      <div className="flex items-center gap-3">
-        <button onClick={onBack} className="px-6 py-3 rounded-full bg-[rgba(255,255,255,0.05)] text-white">
-          Back
+      <div className="flex items-center justify-between gap-3">
+        <button 
+          type="button"
+          onClick={onBack} 
+          className="inline-flex items-center gap-1.5 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 text-white text-sm font-medium transition-all cursor-pointer active:scale-95"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back</span>
         </button>
         <button
-          disabled={!value.competitionId || !value.teamName}
+          type="button"
+          disabled={!isFormValid}
           onClick={onNext}
-          className={`btn-gradient px-8 py-3 rounded-full ${
-            !value.competitionId || !value.teamName ? 'opacity-50 cursor-not-allowed' : ''
+          className={`btn-gradient inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-medium text-sm transition-all shadow-md active:scale-95 ${
+            !isFormValid ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:shadow-blue-500/25'
           }`}
         >
-          Next
+          <span>Review & Pay</span>
+          <ArrowRight className="w-4 h-4" />
         </button>
       </div>
     </div>
   );
-}
+}

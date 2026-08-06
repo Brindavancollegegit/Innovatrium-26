@@ -2,6 +2,7 @@ import { tracks } from '../../data/content';
 import TrackCard from './TrackCard';
 import { motion } from 'motion/react';
 import SpotlightCard from '../ui/SpotlightCard';
+import { Sparkles, Zap } from 'lucide-react';
 
 export default function Tracks() {
   return (
@@ -30,25 +31,26 @@ export default function Tracks() {
               transition: { staggerChildren: 0.2 }
             }
           }}
-          className="flex flex-col items-center text-center mb-16"
+          className="flex flex-col items-center text-center mb-10 md:mb-14"
         >
           <motion.div 
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} 
-            className="inline-flex px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 font-sans text-xs font-semibold uppercase tracking-wider mb-4"
+            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 font-sans text-xs font-semibold uppercase tracking-wider mb-4"
           >
-            Competitive Events
+            <Zap className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Competitive Events</span>
           </motion.div>
 
           <motion.h2 
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} 
-            className="font-display text-4xl md:text-[44px] font-bold text-white tracking-tight mb-4"
+            className="font-display text-3xl sm:text-4xl md:text-[44px] font-bold text-white tracking-tight mb-4"
           >
             Competitive Tracks
           </motion.h2>
 
           <motion.p 
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} 
-            className="font-sans text-base text-white/80 max-w-2xl leading-relaxed"
+            className="font-sans text-sm sm:text-base text-white/80 max-w-2xl leading-relaxed"
           >
             Choose your battlefield. Engage in high-stakes problem solving, pitch your best ideas, 
             or showcase your research.
@@ -73,26 +75,26 @@ export default function Tracks() {
             <motion.div 
               key={track.competitionId.trim()} 
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="h-full" // Fixed height stretching
+              className="h-full"
             >
               <TrackCard {...track} />
             </motion.div>
           ))}
           
-          {/* Placeholder for future tracks */}
+          {/* Spotlight Card for Upcoming Tracks - Zero Emojis */}
           <motion.div 
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            className="h-full" // Fixed height stretching
+            className="h-full"
           >
             <SpotlightCard 
-              className="h-full p-8 flex flex-col items-center justify-center text-center border-dashed border-white/20 rounded-3xl bg-white/[0.02]" 
+              className="h-full min-h-[280px] p-8 flex flex-col items-center justify-center text-center border-dashed border-white/20 rounded-3xl bg-white/[0.02]" 
               spotlightColor="rgba(52, 211, 153, 0.08)"
             >
-              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 mb-3">
-                ✨
+              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-400/25 flex items-center justify-center text-emerald-400 mb-3 shadow-inner">
+                <Sparkles className="w-5 h-5 text-emerald-400 animate-pulse" />
               </div>
-              <h3 className="font-display text-lg font-semibold text-white/60 mb-1">More Tracks</h3>
-              <p className="font-sans text-xs text-white/40">Revealing soon...</p>
+              <h3 className="font-display text-lg font-semibold text-white/80 mb-1">More Tracks</h3>
+              <p className="font-sans text-xs text-white/50">Revealing exciting new challenges soon...</p>
             </SpotlightCard>
           </motion.div>
         </motion.div>

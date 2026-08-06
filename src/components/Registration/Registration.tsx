@@ -430,7 +430,7 @@ export default function Registration() {
             </RegistrationCard>
           </div>
 
-          <div className="lg:col-span-1 space-y-4">
+          <div className="lg:col-span-1 lg:sticky lg:top-24 space-y-4 self-start">
             <Countdown targetDate={registration.closesAt} />
             <SummaryPanel participant={participant} personal={personal} competition={competition} liveStats={liveStats} />
           </div>
