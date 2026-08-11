@@ -4,6 +4,7 @@
  * 1. Sanitization against Google Sheets / CSV Formula Injection (CWE-1236)
  * 2. Strict type-safe schema checks for all participant and payment inputs
  * 3. Prevention of XSS and control-character attacks
+ * 4. Updated to support 100% Free Registrations ('FREE' UTR & ₹0 Total Fee)
  */
 
 export interface PersonalDetails {
@@ -86,8 +87,10 @@ export function validatePhone(phone: string): boolean {
 }
 
 export function validateUTR(utr: string): boolean {
-  const cleanUtr = utr.trim().replace(/\D/g, '');
-  // Standard Indian Banking UTR / UPI Reference is strictly 12 digits
+  const trimmed = (utr || '').trim().toUpperCase();
+  // Allow 'FREE' for free passes or validate standard 12-digit UPI/Banking UTRs
+  if (trimmed === 'FREE' || trimmed === '') return true;
+  const cleanUtr = trimmed.replace(/\D/g, '');
   return /^\d{12}$/.test(cleanUtr);
 }
 
@@ -186,18 +189,19 @@ export function validateAndSanitizeRegistration(payload: RawRegistrationPayload)
     });
   }
 
-  // 4. Payment Check
+  // 4. Free Pass / Payment Check (Updated for ₹0 Event Fee)
   const pay = payload.payment || ({} as PaymentDetails);
-  const cleanUtr = pay.utrNumber?.replace(/\D/g, '') || '';
-  if (!validateUTR(cleanUtr)) {
-    errors.utrNumber = 'Invalid UTR / Transaction Reference. Must be exactly 12 numeric digits.';
+  const rawUtr = (pay.utrNumber || 'FREE').trim().toUpperCase();
+
+  // Preserve 'FREE' or clean digits
+  const sanitizedUtr = rawUtr === 'FREE' ? 'FREE' : rawUtr.replace(/\D/g, '');
+
+  if (!validateUTR(sanitizedUtr)) {
+    errors.utrNumber = 'Invalid transaction reference.';
   }
 
-  // Calculate expected fee
-  const expectedFee = payload.participant === 'ieee' ? 300 : 350;
-  if (pay.totalAmount !== expectedFee) {
-    errors.totalAmount = `Incorrect payment amount. Expected ₹${expectedFee}.`;
-  }
+  // Expected fee is now ₹0 across all categories
+  const expectedFee = 0;
 
   const isValid = Object.keys(errors).length === 0;
 
@@ -222,7 +226,7 @@ export function validateAndSanitizeRegistration(payload: RawRegistrationPayload)
       members: sanitizedMembers,
     },
     payment: {
-      utrNumber: cleanUtr,
+      utrNumber: sanitizedUtr || 'FREE',
       totalAmount: expectedFee,
     },
     timestamp: payload.timestamp || new Date().toISOString(),

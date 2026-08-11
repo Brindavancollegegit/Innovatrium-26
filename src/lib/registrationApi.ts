@@ -12,7 +12,7 @@ export interface SubmissionResponse {
 }
 
 export async function submitRegistration(payload: RawRegistrationPayload): Promise<SubmissionResponse> {
-  // 1. Client-side Validation & Formula Injection Sanitization
+  // 1. Client-side Validation & Sanitization
   const validation = validateAndSanitizeRegistration(payload);
   if (!validation.isValid || !validation.sanitized) {
     const firstErrorMessage = Object.values(validation.errors)[0] || 'Invalid form input.';
@@ -21,15 +21,15 @@ export async function submitRegistration(payload: RawRegistrationPayload): Promi
 
   const sanitizedPayload = validation.sanitized;
 
-  // 2. Local Fallback Simulation if no Google Apps Script endpoint is provided
+  // 2. Local Fallback Simulation for Free Registrations (if endpoint not set)
   if (!ENDPOINT) {
-    console.warn('[Innovatrium API] VITE_REGISTRATION_ENDPOINT is not configured. Simulating local success.');
+    console.warn('[Innovatrium API] VITE_REGISTRATION_ENDPOINT is not configured. Simulating free registration success.');
     const mockId = 'INV26-' + Math.random().toString(36).substring(2, 10).toUpperCase();
     await new Promise((resolve) => setTimeout(resolve, 800));
     return {
       success: true,
       id: mockId,
-      amount: sanitizedPayload.payment.totalAmount,
+      amount: 0, // Free Pass
       timestamp: sanitizedPayload.timestamp,
     };
   }
@@ -39,7 +39,7 @@ export async function submitRegistration(payload: RawRegistrationPayload): Promi
     const res = await fetch(ENDPOINT, {
       method: 'POST',
       headers: {
-        // text/plain prevents CORS preflight rejection by Google Apps Script redirect server
+        // text/plain prevents CORS preflight redirection issues on Google Apps Script
         'Content-Type': 'text/plain;charset=utf-8',
       },
       body: JSON.stringify(sanitizedPayload),
@@ -67,7 +67,7 @@ export async function submitRegistration(payload: RawRegistrationPayload): Promi
       return {
         success: true,
         id: data.id,
-        amount: data.amount,
+        amount: data.amount ?? 0,
         timestamp: data.timestamp || sanitizedPayload.timestamp,
       };
     } else {
@@ -87,7 +87,7 @@ export async function submitRegistration(payload: RawRegistrationPayload): Promi
 
 export async function getLiveStats(): Promise<{ registrations: number; colleges: number }> {
   if (!ENDPOINT) {
-    return { registrations: 42, colleges: 12 };
+    return { registrations: 0, colleges: 0 };
   }
 
   try {
@@ -95,7 +95,7 @@ export async function getLiveStats(): Promise<{ registrations: number; colleges:
     const contentType = res.headers.get('content-type');
 
     if (!res.ok || !contentType || !contentType.includes('application/json')) {
-      return { registrations: 42, colleges: 12 };
+      return { registrations: 0, colleges: 0 };
     }
 
     const data = await res.json();
@@ -105,6 +105,6 @@ export async function getLiveStats(): Promise<{ registrations: number; colleges:
     };
   } catch (error) {
     console.error('Error fetching live stats from Google Apps Script:', error);
-    return { registrations: 42, colleges: 12 };
+    return { registrations: 0, colleges: 0 };
   }
 }

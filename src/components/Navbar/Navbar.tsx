@@ -29,38 +29,29 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-2.5 sm:top-4 md:top-6 left-0 right-0 z-50 px-3 sm:px-4 md:px-8">
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 rounded-[32px] sm:rounded-[40px] border border-white/10 bg-[#030712]/85 px-3 py-2 sm:px-4 sm:py-2.5 shadow-[0_16px_40px_rgba(0,0,0,0.45)] backdrop-blur-md">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 rounded-[32px] sm:rounded-[40px] border border-white/10 bg-[#030712]/85 px-3 py-2.5 sm:px-5 sm:py-3 shadow-[0_16px_40px_rgba(0,0,0,0.45)] backdrop-blur-md">
         
-        {/* Institutional & IEEE Logos */}
-        <div className="flex min-w-0 flex-1 items-center gap-1.5 sm:gap-3 md:gap-4">
+        <div className="flex min-w-0 flex-1 items-center gap-2.5 sm:gap-4 md:gap-5">
+          
           {/* Brindavan Logo */}
-          <div className="flex items-center shrink-0 bg-white p-1 sm:p-1.5 md:p-2.5 rounded-xl sm:rounded-2xl shadow-sm border border-white/20 h-[32px] sm:h-[38px] md:h-14 transition-transform hover:scale-105">
-            <img 
-              src="/Brindavan-logo.webp" 
-              alt="Brindavan College" 
-              width="140" 
-              height="42" 
-              fetchPriority="high" 
-              className="h-full w-auto object-contain" 
-            />
-          </div>
+          <img 
+            src="/Brindavan-logo.webp" 
+            alt="Brindavan College" 
+            className="h-14 sm:h-16 md:h-[80px] w-auto object-contain shrink-0 transition-transform hover:scale-105" 
+          />
           
           {/* IEEE SB Logo */}
-          <div className="flex items-center shrink-0 bg-white p-[3px] sm:p-1 md:p-2 rounded-xl sm:rounded-2xl shadow-sm border border-white/20 h-[30px] sm:h-[34px] md:h-12 transition-transform hover:scale-105">
-            <img 
-              src="/IEEE-logo.webp" 
-              alt="IEEE" 
-              width="100" 
-              height="36" 
-              className="h-full w-auto object-contain" 
-            />
-          </div>
+          <img 
+            src="/IEEE-logo.webp" 
+            alt="IEEE" 
+            className="h-[30px] sm:h-[42px] md:h-[74px] w-auto object-contain shrink-0 transition-transform hover:scale-105" 
+          />
 
-          {/* Society Logos */}
-          <div className="flex items-center gap-1 sm:gap-2 shrink-0 bg-white p-[3px] sm:p-1 md:p-1.5 rounded-xl sm:rounded-2xl shadow-sm border border-white/20 h-[28px] sm:h-[32px] md:h-10 transition-transform hover:scale-105 overflow-hidden">
-            <img src="/CS-society.webp" alt="CS Society" width="30" height="30" className="h-full max-h-[16px] sm:max-h-[22px] md:max-h-none w-auto object-contain" />
-            <img src="/SP-Society.webp" alt="SP Society" width="30" height="30" className="h-full max-h-[16px] sm:max-h-[22px] md:max-h-none w-auto object-contain" />
-            <img src="/WIE.webp" alt="WIE" width="30" height="30" className="h-full max-h-[16px] sm:max-h-[22px] md:max-h-none w-auto object-contain" />
+          {/* Society Logos Cluster */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0 transition-transform hover:scale-105">
+            <img src="/CS-society.webp" alt="CS Society" className="h-6 sm:h-9 md:h-[42px] w-auto object-contain" />
+            <img src="/SP-Society.webp" alt="SP Society" className="h-6 sm:h-9 md:h-[42px] w-auto object-contain" />
+            <img src="/WIE.webp" alt="WIE" className="h-6 sm:h-9 md:h-[42px] w-auto object-contain" />
           </div>
 
           <div className="hidden xl:flex flex-col pl-3 border-l border-white/20">
@@ -69,7 +60,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Desktop Center Links */}
+        {/* CENTER LINKS */}
         <div className="hidden lg:flex items-center gap-5 glass-card px-7 py-2.5">
           {navLinks.map((item) => (
             <a 
@@ -82,7 +73,7 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Right CTA */}
+        {/* RIGHT CTA */}
         <div className="flex items-center justify-end gap-2 shrink-0">
           <a 
             href="#register" 
@@ -102,11 +93,9 @@ export default function Navbar() {
         </div>
       </div>
       
-      {/* Mobile Slide-down Drawer */}
+      {/* MOBILE DRAWER */}
       {isOpen && (
         <div className="lg:hidden absolute top-full left-3 right-3 mt-2 rounded-[24px] border border-white/15 bg-[#05080c]/98 p-5 shadow-[0_24px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200">
-          
-          {/* Quick Meta Header */}
           <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10 text-xs text-white/60">
             <span className="flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5 text-blue-400" /> 2-Day Tech Fest
@@ -147,4 +136,3 @@ export default function Navbar() {
     </nav>
   );
 }
-

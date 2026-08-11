@@ -47,7 +47,7 @@ export const coordinators = [
 ];
 
 export const venue = {
-  name: 'Main Auditorium, Brindavan College of Engineering',
+  name: 'Dr APJ Abdul Kalam Auditorium, Brindavan College of Engineering',
   facilities: [
     'Accommodation & Food Available',
     'High-Speed Wi-Fi',

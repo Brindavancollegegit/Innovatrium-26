@@ -29,8 +29,8 @@ export default function Step1Participant({ value, onChange, onNext }: any) {
           <div className="text-xs text-white/60 mt-1">Lead participant holds an active IEEE membership.</div>
           
           <div className="mt-4 pt-3 border-t border-white/10 flex items-baseline justify-between">
-            <span className="text-xs text-white/50">Team Flat Fee</span>
-            <span className="font-mono text-lg font-bold text-sky-400">₹300</span>
+            
+            <span className="font-mono text-lg font-bold text-sky-400">Free</span>
           </div>
         </button>
 
@@ -55,8 +55,7 @@ export default function Step1Participant({ value, onChange, onNext }: any) {
           <div className="text-xs text-white/60 mt-1">Open to all university and college students.</div>
           
           <div className="mt-4 pt-3 border-t border-white/10 flex items-baseline justify-between">
-            <span className="text-xs text-white/50">Team Flat Fee</span>
-            <span className="font-mono text-lg font-bold text-emerald-400">₹350</span>
+            <span className="font-mono text-lg font-bold text-emerald-400">Free</span>
           </div>
         </button>
       </div>
@@ -76,4 +75,4 @@ export default function Step1Participant({ value, onChange, onNext }: any) {
       </div>
     </div>
   );
-}
+}

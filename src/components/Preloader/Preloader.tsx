@@ -5,47 +5,89 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    // Smooth, unhurried 3.5 second total loading duration
+    const duration = 3500; 
+    const startTime = Date.now();
+
     const interval = setInterval(() => {
-      setProgress(p => {
-        if (p >= 100) {
-          clearInterval(interval);
-          setTimeout(onComplete, 150); 
-          return 100;
-        }
-        return p + Math.floor(Math.random() * 25) + 20;
-      });
-    }, 35);
+      const elapsed = Date.now() - startTime;
+      const current = Math.min(Math.floor((elapsed / duration) * 100), 100);
+
+      setProgress(current);
+
+      if (current >= 100) {
+        clearInterval(interval);
+        // Brief pause at 100% before smooth fade-out
+        setTimeout(onComplete, 250); 
+      }
+    }, 20);
+
     return () => clearInterval(interval);
   }, [onComplete]);
 
   return (
     <motion.div 
-      className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#05080A] pointer-events-auto select-none"
+      initial={{ opacity: 1 }}
+      exit={{ 
+        opacity: 0,
+        transition: { duration: 0.7, ease: [0.65, 0, 0.35, 1] } 
+      }}
     >
-      <motion.div 
-        className="absolute inset-0 bg-[#05080A] pointer-events-auto"
-        initial={{ opacity: 1 }}
-        exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
-      />
-      
-      {/* Numbers in right corner */}
-      <motion.div 
-        className="absolute bottom-8 right-8 md:bottom-12 md:right-12 font-display text-5xl md:text-[140px] font-bold text-white/5"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0, transition: { duration: 0.4 } }}
-      >
-        {Math.min(progress, 100)}
-      </motion.div>
+      <div className="flex flex-col items-center max-w-md px-6 text-center">
+        
+        {/* Scaled-Up Logo Pair */}
+        <motion.div 
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex items-center justify-center gap-6 mb-8"
+        >
+          <img 
+            src="/Brindavan-logo.webp" 
+            alt="Brindavan College" 
+            className="h-10 sm:h-14 md:h-16 w-auto object-contain opacity-95" 
+          />
+          <div className="w-[1px] h-7 bg-white/20" />
+          <img 
+            src="/IEEE-logo.webp" 
+            alt="IEEE SB" 
+            className="h-9 sm:h-12 md:h-14 w-auto object-contain opacity-95" 
+          />
+        </motion.div>
 
-      <motion.h1 
-        initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-        animate={{ opacity: 1, scale: 1, filter: "blur(0px)", transition: { duration: 0.8, ease: "easeOut" } }}
-        exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)", transition: { duration: 0.8, ease: "easeInOut" } }}
-        className="font-display text-4xl sm:text-5xl md:text-[80px] font-bold leading-[1.05] tracking-[-0.02em] text-white text-center hyphens-none relative z-10 pointer-events-auto"
-      >
-        Innovatrium <span className="text-gradient-accent">'26</span>
-      </motion.h1>
+        {/* Larger Title with Gradient Accent '26 */}
+        <motion.h1 
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
+          className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white mb-10"
+        >
+          Innovatrium{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-emerald-400">
+            '26
+          </span>
+        </motion.h1>
+
+        {/* Ultra-Thin Progress Bar */}
+        <div className="w-52 sm:w-64 h-[1px] bg-white/15 relative overflow-hidden mb-4">
+          <div 
+            className="h-full bg-gradient-to-r from-blue-400 to-emerald-400 transition-all duration-75 ease-out"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+
+        {/* Monospace Percentage Counter */}
+        <motion.span 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="font-mono text-sm text-white/50 tracking-widest"
+        >
+          {String(progress).padStart(2, '0')}%
+        </motion.span>
+
+      </div>
     </motion.div>
   );
 }
