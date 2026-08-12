@@ -13,7 +13,12 @@ export default function Venue() {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* Subtle section glow */}
+      {/* Background Enhancements */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617] opacity-90 z-0 pointer-events-none" />
+      <div className="absolute inset-0 bg-map-dots opacity-20 mix-blend-overlay pointer-events-none" style={{ backgroundSize: '30px 30px', backgroundImage: 'radial-gradient(rgba(245, 158, 11, 0.4) 1px, transparent 1px)' }} />
+      <div className="absolute top-1/2 left-0 w-[800px] h-[800px] rounded-full border border-amber-500/10 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-[600px] h-[600px] rounded-full border border-amber-500/10 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-amber-500/5 blur-[80px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         
         <div className="grid lg:grid-cols-12 gap-8 items-stretch">
@@ -73,14 +78,19 @@ export default function Venue() {
                   </div>
                 </div>
                 
-                <div className="w-full md:w-48 aspect-square md:aspect-[3/4] relative rounded-lg overflow-hidden border border-white/10 bg-black/50 shrink-0 flex items-center justify-center">
-                  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-40 mix-blend-luminosity"></div>
+                <a 
+                  href="https://www.google.com/maps/dir/13.007948,77.5054171/Brindavan+College+of+Engineering,+Bagalur+Main+Rd,+Dwarka+Nagar,+Dwarakanagar,+Yelahanka,+Bengaluru,+Karnataka+560063"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full md:w-48 aspect-square md:aspect-[3/4] relative rounded-lg overflow-hidden border border-white/10 bg-black/50 shrink-0 flex items-center justify-center group"
+                >
+                  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-40 mix-blend-luminosity transition-transform duration-500 group-hover:scale-110"></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                  <div className="relative z-10 flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors cursor-pointer">
-                    <Navigation className="w-8 h-8 text-reserved" />
+                  <div className="relative z-10 flex flex-col items-center gap-2 text-white/60 group-hover:text-white transition-colors cursor-pointer">
+                    <Navigation className="w-8 h-8 text-amber-500 group-hover:-translate-y-1 transition-transform" />
                     <span className="font-sans text-[11px] font-medium uppercase tracking-[0.05em]">Get Directions</span>
                   </div>
-                </div>
+                </a>
               </div>
             </SpotlightCard>
           </motion.div>

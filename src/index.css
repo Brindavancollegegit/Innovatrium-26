@@ -5,7 +5,7 @@
   --font-display: "Unbounded", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  --color-base: #05080A;
+  --color-base: #020617; /* Deep midnight slate */
   --color-primary: #ffffff;
   --color-deep: rgba(255, 255, 255, 0.03);
   --color-glow: #ffffff;
@@ -23,6 +23,57 @@
   body {
     @apply text-white overflow-x-hidden antialiased selection:bg-white/30 selection:text-white;
     background-color: var(--color-base);
+  }
+}
+
+/* =========================================================================
+   Animated Aurora / Mesh Background
+   ========================================================================= */
+.animated-aurora-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  overflow: hidden;
+  background-color: #020617;
+  pointer-events: none;
+}
+
+.animated-aurora-bg::before,
+.animated-aurora-bg::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(79, 70, 229, 0.06) 0%, transparent 50%);
+  animation: aurora-shift 20s linear infinite alternate;
+  filter: blur(60px);
+}
+
+.animated-aurora-bg::after {
+  background: 
+    radial-gradient(circle at 30% 70%, rgba(34, 197, 94, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+  animation: aurora-shift 25s linear infinite alternate-reverse;
+}
+
+@keyframes aurora-shift {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
   }
 }
 
@@ -65,9 +116,40 @@
 .bg-grid-pattern {
   background-size: 60px 60px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+}
+
+.bg-isometric-grid {
+  background-size: 40px 40px;
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+}
+
+.bg-topographic-grid {
+  background-size: 100px 100px;
+  background-image: 
+    repeating-radial-gradient(
+      circle at 0 0, 
+      transparent 0, 
+      rgba(255, 255, 255, 0.06) 1px, 
+      transparent 2px, 
+      transparent 20px
+    );
+  mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+}
+
+/* Technical Blueprint Grid */
+.bg-technical-grid {
+  background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px;
+  background-image: 
+    linear-gradient(to right, rgba(59, 130, 246, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(59, 130, 246, 0.15) 1px, transparent 1px),
+    linear-gradient(to right, rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at center, black 70%, transparent 100%);
 }
 
 .glass-card {

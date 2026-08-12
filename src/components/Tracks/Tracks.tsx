@@ -14,8 +14,13 @@ export default function Tracks() {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* Subtle background section glow */}
-      <div className="absolute bottom-0 left-[-100px] w-[350px] h-[350px] bg-[#22C55E]/10 blur-3xl opacity-20 pointer-events-none rounded-full" />
+      {/* High-Effort Background: Diagonal Stripes & Dual Spotlights */}
+      <div className="absolute inset-0 z-0 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(-45deg, rgba(255,255,255,0.03), rgba(255,255,255,0.03) 1px, transparent 1px, transparent 24px)' }}></div>
+      <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-emerald-500/20 blur-[140px] pointer-events-none rounded-full translate-x-1/3 -translate-y-1/3 mix-blend-screen" />
+      <div className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-blue-600/20 blur-[140px] pointer-events-none rounded-full -translate-x-1/4 translate-y-1/3 mix-blend-screen" />
+      
+      {/* Top and Bottom Fades to blend into adjacent sections */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617] pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         

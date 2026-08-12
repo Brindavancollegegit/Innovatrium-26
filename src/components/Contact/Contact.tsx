@@ -13,7 +13,12 @@ export default function Contact() {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* Subtle section glow */}
+      {/* Background Enhancements */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617] opacity-90 z-0 pointer-events-none" />
+      <div className="absolute inset-0 bg-noise opacity-30 mix-blend-overlay pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-emerald-500/5 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-blue-500/10 blur-[120px] rounded-[100%] pointer-events-none" />
+      
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         
         <motion.div 

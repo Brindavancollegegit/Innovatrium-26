@@ -49,6 +49,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
+      <div className="animated-aurora-bg"></div>
       <div className="bg-noise"></div>
       <CustomCursor />
       

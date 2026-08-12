@@ -55,7 +55,7 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
             Fades to a dark solid color at the edges to maintain text readability.
         */}
         <div 
-          className="absolute inset-0 transition-all duration-300 ease-out"
+          className="absolute inset-0 transition-all duration-300 ease-out z-10"
           style={{
             background: isHovered 
               ? `radial-gradient(700px circle at ${mousePos.x}px ${mousePos.y}px, transparent 15%, rgba(3, 7, 18, 0.85) 65%, #030712 100%)`
@@ -63,8 +63,11 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
           }}
         />
         
+        {/* Abstract Grid Overlay */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-40 mix-blend-overlay z-10 pointer-events-none" />
+
         {/* Base bottom fade to ensure the countdown card never loses contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/50 to-transparent opacity-90 z-20 pointer-events-none" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 pointer-events-auto">

@@ -65,5 +65,5 @@ export const college = {
 
 export const registration = {
   // ISO 8601 UTC time when registration closes. Change this value in one place to update the countdown.
-  closesAt: '2026-09-10T12:00:00Z'
+  closesAt: '2026-09-15T12:00:00Z'
 };

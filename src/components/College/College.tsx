@@ -12,8 +12,12 @@ export default function College() {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* Background Glow - Blue Theme */}
-      <div className="absolute top-1/2 left-[-100px] -translate-y-1/2 w-[350px] h-[350px] bg-blue-600/10 blur-3xl opacity-20 pointer-events-none rounded-full" />
+      {/* Background Enhancements */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617] opacity-90 z-0 pointer-events-none" />
+      <div className="absolute inset-0 bg-map-dots opacity-20 mix-blend-overlay pointer-events-none" style={{ backgroundSize: '30px 30px', backgroundImage: 'radial-gradient(rgba(59, 130, 246, 0.4) 1px, transparent 1px)' }} />
+      <div className="absolute top-1/2 left-[-100px] w-[800px] h-[800px] rounded-full border border-blue-500/10 -translate-y-1/2 pointer-events-none" />
+      <div className="absolute top-1/2 left-[-100px] w-[600px] h-[600px] rounded-full border border-blue-500/10 -translate-y-1/2 pointer-events-none" />
+      <div className="absolute top-1/2 left-[-100px] -translate-y-1/2 w-[350px] h-[350px] bg-blue-600/10 blur-3xl opacity-30 pointer-events-none rounded-full" />
       
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         
