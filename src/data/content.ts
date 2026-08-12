@@ -39,10 +39,10 @@ export const coordinators = [
     email: 'tharjun00@gmail.com',
   },
   {
-    name: 'Mohan H',
+    name: 'Mohan H M',
     role: 'IEEE Chair',
-    phone: '+91 98765 43211',
-    email: 'john.smith@example.com',
+    phone: '+91 901977688',
+    email: 'mohanhmmaheshn@gmail.com',
   }
 ];
 
