@@ -41,13 +41,13 @@ export const coordinators = [
   {
     name: 'Mohan H M',
     role: 'IEEE Chair',
-    phone: '+91 901977688',
+    phone: '+91 9019177688',
     email: 'mohanhmmaheshn@gmail.com',
   }
 ];
 
 export const venue = {
-  name: 'Dr APJ Abdul Kalam Auditorium, Brindavan College of Engineering',
+  name: 'Brindavan College Of Engineering',
   facilities: [
     'Accommodation & Food Available',
     'High-Speed Wi-Fi',
