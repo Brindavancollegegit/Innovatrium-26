@@ -14,13 +14,15 @@ export default function Tracks() {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* High-Effort Background: Diagonal Stripes & Dual Spotlights */}
-      <div className="absolute inset-0 z-0 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(-45deg, rgba(255,255,255,0.03), rgba(255,255,255,0.03) 1px, transparent 1px, transparent 24px)' }}></div>
-      <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-emerald-500/20 blur-[140px] pointer-events-none rounded-full translate-x-1/3 -translate-y-1/3 mix-blend-screen" />
-      <div className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-blue-600/20 blur-[140px] pointer-events-none rounded-full -translate-x-1/4 translate-y-1/3 mix-blend-screen" />
+      {/* Background Elements - Hexagonal Tech-Hive */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617] pointer-events-none opacity-80" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/15 blur-[120px] rounded-full mix-blend-screen pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/15 blur-[120px] rounded-full mix-blend-screen pointer-events-none translate-x-1/4 -translate-y-1/4" />
       
-      {/* Top and Bottom Fades to blend into adjacent sections */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617] pointer-events-none" />
+      {/* Animated Hex Pattern */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-hex-hive opacity-40 mix-blend-screen" />
+      </div>
       
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         
@@ -55,7 +57,7 @@ export default function Tracks() {
 
           <motion.p 
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} 
-            className="font-sans text-sm sm:text-base text-white/80 max-w-2xl leading-relaxed"
+            className="font-sans text-sm sm:text-base !text-white/80 max-w-2xl leading-relaxed"
           >
             Choose your battlefield. Engage in high-stakes problem solving, pitch your best ideas, 
             or showcase your research.

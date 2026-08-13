@@ -38,9 +38,9 @@ export default function About() {
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
     >
-      {/* Background Image Replacement - Technical Blueprint Grid */}
+      {/* Background Image Replacement - Fluid Aurora Mesh */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute inset-0 bg-technical-grid mix-blend-screen" />
+        <div className="absolute inset-0 bg-fluid-mesh mix-blend-screen opacity-80" />
         <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-blue-500/10 blur-[120px] rounded-full translate-x-1/4 -translate-y-1/4 mix-blend-screen" />
         <div className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-emerald-500/10 blur-[120px] rounded-full -translate-x-1/4 translate-y-1/4 mix-blend-screen" />
         

@@ -12,9 +12,9 @@ export default function Workshop() {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* Background Enhancements */}
+      {/* Background Enhancements - Hexagonal Tech-Hive */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617] opacity-80 z-0 pointer-events-none" />
-      <div className="absolute inset-0 bg-isometric-grid opacity-30 pointer-events-none mix-blend-overlay" />
+      <div className="absolute inset-0 bg-hex-hive opacity-50 pointer-events-none mix-blend-screen" />
       
       {/* Sweeping gradient spotlights */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/10 blur-[100px] rounded-full translate-x-1/4 -translate-y-1/4 pointer-events-none" />

@@ -11,11 +11,11 @@ export default function VideoSection() {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* Dynamic Geometric Orbs */}
+      {/* Dynamic Geometric Orbs & Fluid Mesh */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617] opacity-80 z-0 pointer-events-none" />
       <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-emerald-500/10 blur-[100px] rounded-full pointer-events-none" />
       <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute inset-0 bg-grid-pattern opacity-20 pointer-events-none mix-blend-overlay" />
+      <div className="absolute inset-0 bg-fluid-mesh opacity-40 pointer-events-none mix-blend-overlay" />
 
       <div className="max-w-5xl mx-auto px-4 md:px-8 relative z-10">
         <motion.div 

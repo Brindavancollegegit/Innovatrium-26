@@ -77,17 +77,17 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
           />
         </div>
 
-        {/* Monospace Percentage Counter */}
-        <motion.span 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="font-mono text-sm text-white/50 tracking-widest"
-        >
-          {String(progress).padStart(2, '0')}%
-        </motion.span>
-
       </div>
+
+      {/* Huge Bottom-Right Percentage Counter */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 font-display text-7xl sm:text-8xl md:text-[10rem] font-black italic text-white/10 tracking-tighter leading-none"
+      >
+        {String(progress).padStart(2, '0')}
+      </motion.div>
     </motion.div>
   );
 }

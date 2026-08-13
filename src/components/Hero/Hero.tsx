@@ -44,7 +44,7 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
       className="relative isolate min-h-[100svh] overflow-hidden pt-28 pb-16 lg:pt-36 lg:pb-24 flex items-center justify-center bg-[#030712]"
     >
       {/* --- WEBGL SHADER BACKGROUND --- */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      <div className="absolute top-0 left-0 w-full h-[100svh] z-0 overflow-hidden pointer-events-none">
         
         {/* The Three.js Canvas */}
         <WaveShader />
@@ -52,14 +52,14 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
         {/* 
             Interactive Spotlight Overlay:
             Creates a transparent hole at the cursor's location, revealing the shader.
-            Fades to a dark solid color at the edges to maintain text readability.
+            Reduced darkness to make the background much brighter.
         */}
         <div 
           className="absolute inset-0 transition-all duration-300 ease-out z-10"
           style={{
             background: isHovered 
-              ? `radial-gradient(700px circle at ${mousePos.x}px ${mousePos.y}px, transparent 15%, rgba(3, 7, 18, 0.85) 65%, #030712 100%)`
-              : `radial-gradient(circle at center, rgba(3, 7, 18, 0.4) 0%, rgba(3, 7, 18, 0.85) 70%, #030712 100%)`
+              ? `radial-gradient(800px circle at ${mousePos.x}px ${mousePos.y}px, transparent 15%, rgba(3, 7, 18, 0.4) 65%, rgba(3, 7, 18, 0.8) 100%)`
+              : `radial-gradient(circle at center, transparent 0%, rgba(3, 7, 18, 0.4) 70%, rgba(3, 7, 18, 0.8) 100%)`
           }}
         />
         
@@ -67,7 +67,7 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
         <div className="absolute inset-0 bg-grid-pattern opacity-40 mix-blend-overlay z-10 pointer-events-none" />
 
         {/* Base bottom fade to ensure the countdown card never loses contrast */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/50 to-transparent opacity-90 z-20 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/40 to-transparent opacity-60 z-20 pointer-events-none" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 pointer-events-auto">

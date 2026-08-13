@@ -374,8 +374,11 @@ export default function Registration() {
 
   // Main Form View
   return (
-    <section id="register" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+    <section id="register" className="py-24 relative overflow-hidden bg-[#020617]">
+      {/* Clean Dark Background */}
+      <div className="absolute inset-0 bg-[#020617] z-0 pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <RegistrationCard>

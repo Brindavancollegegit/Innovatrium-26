@@ -13,9 +13,8 @@ export default function Venue() {
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* Background Enhancements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617] opacity-90 z-0 pointer-events-none" />
-      <div className="absolute inset-0 bg-map-dots opacity-20 mix-blend-overlay pointer-events-none" style={{ backgroundSize: '30px 30px', backgroundImage: 'radial-gradient(rgba(245, 158, 11, 0.4) 1px, transparent 1px)' }} />
+      {/* Background Enhancements (Cleaned) */}
+      <div className="absolute inset-0 bg-[#020617] z-0 pointer-events-none" />
       <div className="absolute top-1/2 left-0 w-[800px] h-[800px] rounded-full border border-amber-500/10 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       <div className="absolute top-1/2 left-0 w-[600px] h-[600px] rounded-full border border-amber-500/10 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-amber-500/5 blur-[80px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
