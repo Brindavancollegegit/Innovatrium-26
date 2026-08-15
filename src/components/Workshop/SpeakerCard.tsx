@@ -1,5 +1,5 @@
 import SpotlightCard from '../ui/SpotlightCard';
-import { Lock } from 'lucide-react';
+import { Lock } from '@phosphor-icons/react';
 
 interface SpeakerProps {
   name: string;
@@ -28,7 +28,7 @@ export default function SpeakerCard({
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-[#030712]/70 backdrop-blur-sm rounded-2xl">
           <div className="flex flex-col items-center gap-3 animate-pulse">
             <div className="flex items-center justify-center w-12 h-12 rounded-full border border-cyan-500/30 bg-cyan-500/10 shadow-[0_0_20px_rgba(34,211,238,0.2)]">
-              <Lock className="w-5 h-5 text-cyan-400" />
+              <Lock weight="duotone" className="w-5 h-5 text-cyan-400" />
             </div>
             <div className="text-center">
               <h3 className="font-display text-xl font-bold text-white tracking-tight drop-shadow-md">Revealing Soon</h3>

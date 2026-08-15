@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowRight, Calendar, MapPin, Trophy, Users, Building2, Sparkles } from 'lucide-react';
+import { ArrowRight, CalendarBlank, MapPin, Trophy, Users, Buildings, Sparkle } from '@phosphor-icons/react';
 import { motion } from 'motion/react';
 import Countdown from '../Registration/Countdown';
 import { registration } from '../../data/content';
@@ -7,24 +7,8 @@ import { getLiveStats } from '../../lib/registrationApi';
 import WaveShader from './WaveShader';
 
 export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
-  const [liveStats, setLiveStats] = useState({ registrations: 0, colleges: 0 });
   const [mousePos, setMousePos] = useState({ x: 500, y: 500 });
   const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    let mounted = true;
-    getLiveStats().then((result: any) => {
-      if (!mounted) return;
-      setLiveStats({ 
-        registrations: result.registrations || 0, 
-        colleges: result.colleges || 0 
-      });
-    });
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
 
   // Update mouse position for the spotlight reveal
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
@@ -91,7 +75,7 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-semibold backdrop-blur-sm shadow-md"
             >
-              <Sparkles className="w-3.5 h-3.5 animate-pulse text-emerald-300" />
+              <Sparkle weight="duotone" className="w-3.5 h-3.5 animate-pulse text-emerald-300" />
               <span>Presented by IEEE SB Brindavan</span>
             </motion.div>
 
@@ -118,15 +102,15 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
               className="flex flex-wrap justify-center lg:justify-start gap-2.5 font-sans text-xs sm:text-sm font-medium"
             >
               <div className="flex items-center gap-2 rounded-xl border border-white/15 bg-[#030712]/70 px-3.5 py-2 backdrop-blur-sm text-gray-200 shadow-sm">
-                <Calendar className="w-4 h-4 text-blue-400" />
+                <CalendarBlank weight="duotone" className="w-4 h-4 text-blue-400" />
                 <span>2 Days Event</span>
               </div>
               <div className="flex items-center gap-2 rounded-xl border border-white/15 bg-[#030712]/70 px-3.5 py-2 backdrop-blur-sm text-gray-200 shadow-sm">
-                <MapPin className="w-4 h-4 text-emerald-400" />
+                <MapPin weight="duotone" className="w-4 h-4 text-emerald-400" />
                 <span>Brindavan College</span>
               </div>
               <div className="flex items-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/20 px-3.5 py-2 backdrop-blur-sm text-emerald-300 font-semibold shadow-md">
-                <Trophy className="w-4 h-4 text-emerald-400" />
+                <Trophy weight="duotone" className="w-4 h-4 text-emerald-400" />
                 <span>Prize Pool: ₹30,000+</span>
               </div>
             </motion.div>
@@ -141,7 +125,7 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
                 className="group flex w-full sm:w-auto items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 text-white font-semibold text-sm px-8 py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5"
               >
                 <span>Register Now</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight weight="duotone" className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
               <a 
                 href="#tracks" 
@@ -163,38 +147,11 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
               {/* Card Header */}
               <div className="flex items-center justify-between pb-5 border-b border-white/10 mb-6">
                 <div className="flex items-center gap-2">
-                  <span className="relative flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                  </span>
-                  <span className="text-xs font-semibold text-gray-200 tracking-wider uppercase">Live Activity</span>
+                  <span className="text-xs font-semibold text-gray-200 tracking-wider uppercase">Event Registration</span>
                 </div>
                 <span className="text-xs text-gray-400">
                   Closes {new Date(registration.closesAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                 </span>
-              </div>
-
-              {/* Live Statistics */}
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-                  <div className="flex items-center gap-2 text-blue-400 text-xs font-medium mb-1">
-                    <Users className="w-3.5 h-3.5" />
-                    <span>Registrations</span>
-                  </div>
-                  <div className="font-display text-2xl font-bold text-white">
-                    {liveStats.registrations}+
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-                  <div className="flex items-center gap-2 text-emerald-400 text-xs font-medium mb-1">
-                    <Building2 className="w-3.5 h-3.5" />
-                    <span>Colleges</span>
-                  </div>
-                  <div className="font-display text-2xl font-bold text-white">
-                    {liveStats.colleges}
-                  </div>
-                </div>
               </div>
 
               {/* Countdown Component */}

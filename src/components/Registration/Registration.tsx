@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, useRef } from 'react';
-import { Printer, Download, RotateCcw, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Printer, DownloadSimple, ArrowCounterClockwise, CheckCircle, ShieldCheck } from '@phosphor-icons/react';
 import Countdown from './Countdown';
 import StepList from './StepList';
 import SummaryPanel from './SummaryPanel';
@@ -8,7 +8,7 @@ import Step2Personal from './steps/Step2Personal';
 import Step3Competition from './steps/Step3Competition';
 import Step4Review from './steps/Step4Review';
 import { registration, tracks } from '../../data/content';
-import { submitRegistration, getLiveStats } from '../../lib/registrationApi';
+import { submitRegistration } from '../../lib/registrationApi';
 
 type ParticipantType = 'ieee' | 'non-ieee';
 
@@ -69,7 +69,7 @@ export default function Registration() {
   const [competition, setCompetition] = useState<CompetitionSelection>({ competitionId: undefined, teamName: '', members: [] });
   const [submitting, setSubmitting] = useState(false);
   const [submittedData, setSubmittedData] = useState<any>(null);
-  const [liveStats, setLiveStats] = useState({ registrations: 0, colleges: 0 });
+
   const [submissionError, setSubmissionError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -128,13 +128,7 @@ export default function Registration() {
     }
   };
 
-  useEffect(() => {
-    let mounted = true;
-    getLiveStats().then((r: any) => {
-      if (mounted) setLiveStats({ registrations: r.registrations || 0, colleges: r.colleges || 0 });
-    });
-    return () => { mounted = false; };
-  }, []);
+
 
   const availableSteps = [1, 2, 3, 4];
 
@@ -297,7 +291,7 @@ export default function Registration() {
             <div className="flex justify-between items-start border-b border-white/10 pb-6 mb-6">
               <div>
                 <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-6 h-6 text-primary shrink-0" />
+                  <ShieldCheck weight="duotone" className="w-6 h-6 text-sky-400 shrink-0" />
                   <h1 className="text-2xl font-bold font-display text-white">Event Registration Pass</h1>
                 </div>
                 <p className="text-sm text-white/60 mt-1">Pass ID: <span className="font-mono text-primary font-bold">{submittedData.id}</span></p>
@@ -347,7 +341,7 @@ export default function Registration() {
                 onClick={handlePrint}
                 className="btn-gradient inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-primary/30 transition-all cursor-pointer"
               >
-                <Printer className="w-4 h-4" /> Print / Save PDF
+                <Printer weight="duotone" className="w-4 h-4" /> Print / Save PDF
               </button>
 
               <button
@@ -355,7 +349,7 @@ export default function Registration() {
                 onClick={handleDownloadInvoice}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium border border-white/15 transition-all cursor-pointer"
               >
-                <Download className="w-4 h-4" /> Download Pass (HTML)
+                <DownloadSimple weight="duotone" className="w-4 h-4" /> Download Pass (HTML)
               </button>
 
               <button
@@ -363,7 +357,7 @@ export default function Registration() {
                 onClick={handleReset}
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white text-sm transition-all ml-auto cursor-pointer"
               >
-                <RotateCcw className="w-3.5 h-3.5" /> Register Another
+                <ArrowCounterClockwise weight="duotone" className="w-3.5 h-3.5" /> Register Another
               </button>
             </div>
           </div>
@@ -435,7 +429,7 @@ export default function Registration() {
 
           <div className="lg:col-span-1 lg:sticky lg:top-24 space-y-4 self-start">
             <Countdown targetDate={registration.closesAt} />
-            <SummaryPanel participant={participant} personal={personal} competition={competition} liveStats={liveStats} />
+            <SummaryPanel participant={participant} personal={personal} competition={competition} />
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import { tracks } from '../../data/content';
 import TrackCard from './TrackCard';
 import { motion } from 'motion/react';
 import SpotlightCard from '../ui/SpotlightCard';
-import { Sparkles, Zap } from 'lucide-react';
+import { Sparkle, Lightning } from '@phosphor-icons/react';
 
 export default function Tracks() {
   return (
@@ -44,7 +44,7 @@ export default function Tracks() {
             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} 
             className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 font-sans text-xs font-semibold uppercase tracking-wider mb-4"
           >
-            <Zap className="w-3.5 h-3.5 text-emerald-400" />
+            <Lightning weight="duotone" className="w-3.5 h-3.5 text-emerald-400" />
             <span>Competitive Events</span>
           </motion.div>
 
@@ -98,7 +98,7 @@ export default function Tracks() {
               spotlightColor="rgba(52, 211, 153, 0.08)"
             >
               <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-400/25 flex items-center justify-center text-emerald-400 mb-3 shadow-inner">
-                <Sparkles className="w-5 h-5 text-emerald-400 animate-pulse" />
+                <Sparkle weight="duotone" className="w-5 h-5 text-emerald-400 animate-pulse" />
               </div>
               <h3 className="font-display text-lg font-semibold text-white/80 mb-1">More Tracks</h3>
               <p className="font-sans text-xs text-white/50">Revealing exciting new challenges soon...</p>

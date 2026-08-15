@@ -2,32 +2,10 @@ import { useEffect, useState } from 'react';
 import { getLiveStats } from '../../lib/registrationApi';
 import { stats as initialStats } from '../../data/content';
 import { motion } from 'motion/react';
-import { Calendar, Building2, Trophy, Sparkles, ArrowUpRight } from 'lucide-react';
+import { CalendarBlank, Buildings, Trophy, Sparkle, ArrowUpRight } from '@phosphor-icons/react';
 
 export default function About() {
-  const [liveStats, setLiveStats] = useState(initialStats);
-
-  useEffect(() => {
-    async function fetchStats() {
-      try {
-        const data = await getLiveStats();
-        setLiveStats((current) =>
-          current.map((stat) => {
-            if (stat.key === 'colleges') return { ...stat, value: data.colleges?.toString() || stat.value };
-            if (stat.key === 'registrations') return { ...stat, value: data.registrations?.toString() || stat.value };
-            return stat;
-          })
-        );
-      } catch (e) {
-        console.error('Failed to fetch stats', e);
-      }
-    }
-    fetchStats();
-  }, []);
-
-  const prizeStat = liveStats.find((s) => s.isPrize || s.key === 'prize');
-  const regStat = liveStats.find((s) => s.key === 'registrations');
-  const collegeStat = liveStats.find((s) => s.key === 'colleges');
+  const prizeStat = initialStats.find((s) => s.isPrize || s.key === 'prize');
 
   return (
     <motion.section
@@ -66,7 +44,7 @@ export default function About() {
               variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
               className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-400/25 text-blue-300 font-sans text-xs font-semibold uppercase tracking-wider self-start"
             >
-              <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+              <Sparkle weight="duotone" className="w-3.5 h-3.5 text-blue-400" />
               <span>About The Fest</span>
             </motion.div>
 
@@ -93,7 +71,7 @@ export default function About() {
             >
               <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-400/30 transition-colors">
                 <div className="flex items-center gap-2 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-2">
-                  <Calendar className="w-4 h-4" />
+                  <CalendarBlank weight="duotone" className="w-4 h-4" />
                   Day 1
                 </div>
                 <h4 className="text-white font-semibold text-sm mb-1">Expert Workshop</h4>
@@ -104,7 +82,7 @@ export default function About() {
 
               <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-400/30 transition-colors">
                 <div className="flex items-center gap-2 text-sky-400 text-xs font-semibold uppercase tracking-wider mb-2">
-                  <Trophy className="w-4 h-4" />
+                  <Trophy weight="duotone" className="w-4 h-4" />
                   Day 2
                 </div>
                 <h4 className="text-white font-semibold text-sm mb-1">Competitive Tracks</h4>
@@ -144,73 +122,33 @@ export default function About() {
               />
 
               {/* Inner Card Backdrop with Radial Backlight */}
-              <div className="relative h-full p-6 md:p-8 rounded-[23px] bg-[#080d14]/90 backdrop-blur-md z-10 flex flex-col justify-between overflow-hidden">
+              <div className="relative h-[200px] sm:h-[220px] p-6 md:p-8 rounded-[23px] bg-[#080d14]/90 backdrop-blur-md z-10 overflow-hidden group/badge">
                 
                 {/* Backlight Spotlights behind Prize Amount */}
-                <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-amber-500/15 blur-2xl rounded-full pointer-events-none group-hover:bg-amber-500/25 transition-all duration-500" />
-                <div className="absolute -top-10 -left-10 w-48 h-48 bg-blue-500/15 blur-2xl rounded-full pointer-events-none group-hover:bg-blue-500/25 transition-all duration-500" />
+                <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-amber-500/20 blur-3xl rounded-full pointer-events-none group-hover:bg-amber-500/30 transition-all duration-500" />
+                <div className="absolute top-0 left-0 w-48 h-48 bg-blue-500/10 blur-2xl rounded-full pointer-events-none" />
 
-                <div className="flex justify-between items-start mb-6 relative z-10">
+                {/* Large Trophy Illustration on Right */}
+                <div className="absolute right-0 bottom-0 translate-x-4 sm:translate-x-8 translate-y-4 sm:translate-y-8 w-40 h-40 sm:w-56 sm:h-56 opacity-90 group-hover/badge:scale-110 group-hover/badge:-rotate-6 transition-transform duration-700 pointer-events-none z-0">
+                  <img src="/trophy.webp" alt="Prize Trophy" className="w-full h-full object-contain drop-shadow-[0_10px_20px_rgba(245,158,11,0.4)]" />
+                </div>
+
+                <div className="relative z-10 flex flex-col h-full justify-between max-w-[65%] sm:max-w-[60%]">
                   <div>
-                    <span className="text-xs font-semibold uppercase tracking-widest text-slate-200 block mb-1">
+                    <span className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-amber-400 block mb-1">
                       {prizeStat?.label || 'Prize Pool'}
                     </span>
-                    <p className="text-xs text-slate-300">Awarded across all competitive tracks</p>
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-[180px] sm:max-w-[220px]">Awarded across all competitive tracks</p>
                   </div>
 
-                  {/* Glowing Trophy Badge */}
-                  <div className="relative group/badge">
-                    <div className="absolute -inset-1 bg-amber-400/40 rounded-xl blur-sm opacity-60 group-hover/badge:opacity-100 transition duration-300" />
-                    <div className="relative w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-400/40 flex items-center justify-center text-amber-300 shrink-0 shadow-[0_0_15px_rgba(245,158,11,0.25)]">
-                      <Trophy className="w-5 h-5" />
-                    </div>
+                  {/* Glowing Text Amount */}
+                  <div className="font-mono text-4xl sm:text-5xl font-bold text-white tracking-tight drop-shadow-[0_0_25px_rgba(245,158,11,0.3)]">
+                    {prizeStat?.value || '₹30,000+'}
                   </div>
                 </div>
-
-                {/* Glowing Text Amount */}
-                <div className="font-mono text-4xl sm:text-5xl font-bold text-white tracking-tight relative z-10 drop-shadow-[0_0_25px_rgba(245,158,11,0.3)]">
-                  {prizeStat?.value || '₹30,000+'}
-                </div>
-              </div>
-            </motion.div>
-            {/* -------------------------------------------------------- */}
-
-            {/* Live Registrations */}
-            <motion.div
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="col-span-1 p-5 md:p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-400/30 backdrop-blur-sm transition-all flex flex-col justify-between h-40"
-            >
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-medium text-slate-300 uppercase tracking-wider">
-                  {regStat?.label || 'Registrations'}
-                </span>
-                <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-[10px] text-blue-300 font-mono">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-                  LIVE
-                </span>
-              </div>
-
-              <div className="font-mono text-3xl sm:text-4xl font-bold text-white mt-auto">
-                {regStat?.value || '0'}
               </div>
             </motion.div>
 
-            {/* Colleges Represented */}
-            <motion.div
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="col-span-1 p-5 md:p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-400/30 backdrop-blur-sm transition-all flex flex-col justify-between h-40"
-            >
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-medium text-slate-300 uppercase tracking-wider">
-                  {collegeStat?.label || 'Colleges'}
-                </span>
-                <Building2 className="w-4 h-4 text-blue-400" />
-              </div>
-
-              <div className="font-mono text-3xl sm:text-4xl font-bold text-white mt-auto">
-                {collegeStat?.value || '0'}
-              </div>
-            </motion.div>
 
             {/* Event Duration Banner */}
             <motion.div
@@ -219,7 +157,7 @@ export default function About() {
             >
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-400/20 flex items-center justify-center text-blue-400">
-                  <Calendar className="w-4 h-4" />
+                  <CalendarBlank weight="duotone" className="w-4 h-4" />
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-white">2 Action-Packed Days</p>
@@ -230,7 +168,7 @@ export default function About() {
                 href="#tracks"
                 className="inline-flex items-center gap-1 text-xs font-medium text-blue-400 hover:text-white transition-colors"
               >
-                Explore Tracks <ArrowUpRight className="w-3.5 h-3.5" />
+                Explore Tracks <ArrowUpRight weight="duotone" className="w-3.5 h-3.5" />
               </a>
             </motion.div>
 

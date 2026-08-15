@@ -1,30 +1,17 @@
 import { useState } from 'react';
-import { 
-  ArrowRight, 
-  Menu, 
-  X, 
-  Home, 
-  Info, 
-  Layers, 
-  Sparkles, 
-  MapPin, 
-  GraduationCap, 
-  Mail,
-  Calendar,
-  Ticket
-} from 'lucide-react';
+import { ArrowRight, List, X, House, Info, Stack, Sparkle, MapPin, GraduationCap, Envelope, CalendarBlank, Ticket } from '@phosphor-icons/react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { href: '#home', label: 'Home', icon: Home },
+    { href: '#home', label: 'Home', icon: House },
     { href: '#about', label: 'About', icon: Info },
-    { href: '#workshop', label: 'Workshop', icon: Sparkles },
-    { href: '#tracks', label: 'Tracks', icon: Layers },
+    { href: '#workshop', label: 'Workshop', icon: Sparkle },
+    { href: '#tracks', label: 'Tracks', icon: Stack },
     { href: '#venue', label: 'Venue', icon: MapPin },
     { href: '#college', label: 'College', icon: GraduationCap },
-    { href: '#contact', label: 'Contact', icon: Mail },
+    { href: '#contact', label: 'Contact', icon: Envelope },
   ];
 
   return (
@@ -79,7 +66,7 @@ export default function Navbar() {
             href="#register" 
             className="hidden sm:inline-flex items-center gap-2 btn-gradient font-sans text-[13px] font-medium px-5 py-2 rounded-full transition-all shadow-md hover:shadow-emerald-500/25 active:scale-[0.98]"
           >
-            <Ticket className="w-3.5 h-3.5" />
+            <Ticket weight="duotone" className="w-3.5 h-3.5" />
             <span>Register Now</span>
           </a>
           
@@ -88,7 +75,7 @@ export default function Navbar() {
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle navigation menu"
           >
-            {isOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            {isOpen ? <X weight="duotone" className="w-4 h-4" /> : <List weight="duotone" className="w-4 h-4" />}
           </button>
         </div>
       </div>
@@ -98,10 +85,10 @@ export default function Navbar() {
         <div className="lg:hidden absolute top-full left-3 right-3 mt-2 rounded-[24px] border border-white/15 bg-[#05080c]/98 p-5 shadow-[0_24px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10 text-xs text-white/60">
             <span className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 text-blue-400" /> 2-Day Tech Fest
+              <CalendarBlank weight="duotone" className="w-3.5 h-3.5 text-blue-400" /> 2-Day Tech Fest
             </span>
             <span className="flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-emerald-400" /> Bengaluru
+              <MapPin weight="duotone" className="w-3.5 h-3.5 text-emerald-400" /> Bengaluru
             </span>
           </div>
 
@@ -127,9 +114,9 @@ export default function Navbar() {
             onClick={() => setIsOpen(false)}
             className="flex w-full items-center justify-center gap-2 rounded-xl btn-gradient py-3 font-sans text-[14px] font-semibold transition-all shadow-lg active:scale-[0.98]"
           >
-            <Ticket className="w-4 h-4" />
+            <Ticket weight="duotone" className="w-4 h-4" />
             <span>Register for Fest</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight weight="duotone" className="w-4 h-4" />
           </a>
         </div>
       )}

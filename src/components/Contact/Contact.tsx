@@ -1,5 +1,5 @@
 import { coordinators } from '../../data/content';
-import { Mail, Phone } from 'lucide-react';
+import { Envelope, Phone } from '@phosphor-icons/react';
 import { motion } from 'motion/react';
 import SpotlightCard from '../ui/SpotlightCard';
 
@@ -63,10 +63,10 @@ export default function Contact() {
                   <p className="font-sans text-[11px] font-medium uppercase tracking-[0.05em] text-primary mb-4">{coordinator.role}</p>
                   <div className="flex flex-col gap-2">
                     <a href={`tel:${coordinator.phone.replace(/\s+/g, '')}`} className="inline-flex items-center gap-2 font-sans text-[14px] text-white/70 hover:text-white transition-colors">
-                      <Phone className="w-4 h-4" /> {coordinator.phone}
+                      <Phone weight="duotone" className="w-4 h-4" /> {coordinator.phone}
                     </a>
                     <a href={`mailto:${coordinator.email}`} className="inline-flex items-center gap-2 font-sans text-[14px] text-white/70 hover:text-white transition-colors">
-                      <Mail className="w-4 h-4" /> {coordinator.email}
+                      <Envelope weight="duotone" className="w-4 h-4" /> {coordinator.email}
                     </a>
                   </div>
                 </div>

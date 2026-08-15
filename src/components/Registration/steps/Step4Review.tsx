@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AlertCircle, ArrowLeft, ShieldCheck, Ticket, CheckCircle2 } from 'lucide-react';
+import { WarningCircle, ArrowLeft, ShieldCheck, Ticket, CheckCircle } from '@phosphor-icons/react';
 
 export default function Step4Review({
   participant,
@@ -22,7 +22,7 @@ export default function Step4Review({
         <div className="flex items-center justify-between mb-1">
           <div className="font-display text-xl font-bold text-white">Review & Confirm</div>
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-300 font-mono text-xs font-semibold uppercase tracking-wider">
-            <Ticket className="w-3.5 h-3.5" /> FREE PASS
+            <Ticket weight="duotone" className="w-3.5 h-3.5" /> FREE PASS
           </span>
         </div>
         <div className="text-xs sm:text-sm text-slate-300 mb-4">
@@ -32,7 +32,7 @@ export default function Step4Review({
         {/* Server Submission Error Banner */}
         {submissionError && (
           <div className="mb-4 p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-start gap-3 text-rose-300">
-            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-rose-400" />
+            <WarningCircle weight="duotone" className="w-5 h-5 shrink-0 mt-0.5 text-rose-400" />
             <div className="text-xs sm:text-sm">
               <p className="font-semibold text-rose-200">Registration Failed</p>
               <p className="text-rose-300/90 text-xs mt-0.5">{submissionError}</p>
@@ -102,7 +102,7 @@ export default function Step4Review({
       <div className="mb-6 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-blue-500/10 border border-emerald-400/30 space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+            <CheckCircle weight="duotone" className="w-5 h-5 text-emerald-400" />
             <span className="!text-white text-sm sm:text-base font-semibold">Total Registration Fee</span>
           </div>
           <div className="text-right">
@@ -137,7 +137,7 @@ export default function Step4Review({
           onClick={() => onEdit(3)} 
           className="inline-flex items-center gap-1.5 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 text-white text-sm font-medium transition-all cursor-pointer active:scale-95"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft weight="duotone" className="w-4 h-4" />
           <span>Back</span>
         </button>
 
@@ -151,7 +151,7 @@ export default function Step4Review({
               : 'bg-gradient-to-r from-emerald-400 via-teal-300 to-sky-400 text-slate-950 hover:shadow-[0_0_25px_rgba(52,211,153,0.4)] cursor-pointer'
           }`}
         >
-          <ShieldCheck className="w-4 h-4" />
+          <ShieldCheck weight="duotone" className="w-4 h-4" />
           <span>{submitting ? 'Confirming Pass...' : 'Confirm & Claim Free Pass'}</span>
         </button>
       </div>

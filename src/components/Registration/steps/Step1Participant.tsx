@@ -1,4 +1,4 @@
-import { CheckCircle2, Award, Users, ArrowRight } from 'lucide-react';
+import { CheckCircle, Medal, Users, ArrowRight } from '@phosphor-icons/react';
 
 export default function Step1Participant({ value, onChange, onNext }: any) {
   return (
@@ -20,9 +20,9 @@ export default function Step1Participant({ value, onChange, onNext }: any) {
         >
           <div className="flex justify-between items-start mb-3">
             <div className="w-9 h-9 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-300">
-              <Award className="w-5 h-5" />
+              <Medal weight="duotone" className="w-5 h-5" />
             </div>
-            {value === 'ieee' && <CheckCircle2 className="w-5 h-5 text-blue-400" />}
+            {value === 'ieee' && <CheckCircle weight="duotone" className="w-5 h-5 text-blue-400" />}
           </div>
 
           <div className="font-display font-semibold text-lg text-white">IEEE Member</div>
@@ -46,9 +46,9 @@ export default function Step1Participant({ value, onChange, onNext }: any) {
         >
           <div className="flex justify-between items-start mb-3">
             <div className="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-300">
-              <Users className="w-5 h-5" />
+              <Users weight="duotone" className="w-5 h-5" />
             </div>
-            {value === 'non-ieee' && <CheckCircle2 className="w-5 h-5 text-blue-400" />}
+            {value === 'non-ieee' && <CheckCircle weight="duotone" className="w-5 h-5 text-blue-400" />}
           </div>
 
           <div className="font-display font-semibold text-lg text-white">Non-IEEE Participant</div>
@@ -70,7 +70,7 @@ export default function Step1Participant({ value, onChange, onNext }: any) {
           }`}
         >
           <span>Continue to Personal Info</span>
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight weight="duotone" className="w-4 h-4" />
         </button>
       </div>
     </div>

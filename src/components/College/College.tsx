@@ -1,5 +1,5 @@
 import { college } from '../../data/content';
-import { ExternalLink, MapPin, Building2 } from 'lucide-react';
+import { ArrowUpRight, MapPin, Buildings } from '@phosphor-icons/react';
 import { motion } from 'motion/react';
 
 export default function College() {
@@ -46,7 +46,7 @@ export default function College() {
               {/* Floating Venue Badge */}
               <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 flex items-center gap-3 p-3.5 rounded-2xl bg-slate-900/80 border border-blue-400/30 backdrop-blur-sm">
                 <div className="w-9 h-9 rounded-xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-300 shrink-0">
-                  <Building2 className="w-5 h-5" />
+                  <Buildings weight="duotone" className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-wider text-blue-400">Host Campus</p>
@@ -72,7 +72,7 @@ export default function College() {
 
                 {/* Address with Location Icon */}
                 <div className="flex items-start gap-2.5 !text-slate-100 font-sans text-sm md:text-base mb-6">
-                  <MapPin className="w-4 h-4 text-blue-400 shrink-0 mt-1" />
+                  <MapPin weight="duotone" className="w-4 h-4 text-blue-400 shrink-0 mt-1" />
                   <span>{college.address}</span>
                 </div>
                 
@@ -93,7 +93,7 @@ export default function College() {
                   className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-blue-600/30 border border-blue-400/40 text-white font-sans text-sm font-semibold hover:bg-blue-500 hover:text-white hover:border-blue-300 transition-all duration-300 group/btn shadow-md hover:shadow-[0_0_25px_rgba(59,130,246,0.4)]"
                 >
                   <span className="text-white">Visit Official Website</span>
-                  <ExternalLink className="w-4 h-4 text-blue-300 group-hover/btn:text-white transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                  <ArrowUpRight weight="duotone" className="w-4 h-4 text-blue-300 group-hover/btn:text-emerald-500 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                 </a>
               </div>
 

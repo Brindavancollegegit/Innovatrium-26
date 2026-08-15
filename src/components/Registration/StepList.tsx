@@ -1,4 +1,4 @@
-import { CheckCircle2, Lock, User, Users, FileText, CreditCard } from 'lucide-react';
+import { CheckCircle, Lock, User, Users, FileText, CreditCard } from '@phosphor-icons/react';
 
 export default function StepList({ steps, current, goTo, isStepAccessible }: any) {
   const stepMeta: Record<number, { label: string; icon: any }> = {
@@ -89,11 +89,11 @@ export default function StepList({ steps, current, goTo, isStepAccessible }: any
                 </span>
                 {isCompleted ? (
                   <span className="inline-flex items-center gap-1 text-emerald-400 text-[11px] font-semibold lowercase">
-                    <CheckCircle2 className="w-3.5 h-3.5" /> done
+                    <CheckCircle weight="duotone" className="w-3.5 h-3.5" /> done
                   </span>
                 ) : !accessible ? (
                   <span className="inline-flex items-center gap-1 text-white/40 text-[10px]">
-                    <Lock className="w-3 h-3" /> locked
+                    <Lock weight="duotone" className="w-3 h-3" /> locked
                   </span>
                 ) : null}
               </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight, User, Mail, Phone, Building2, BookOpen, Calendar, AlertCircle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, User, Envelope, Phone, Buildings, BookOpen, CalendarBlank, WarningCircle } from '@phosphor-icons/react';
 
 export default function Step2Personal({ participant, value, onChange, onNext, onBack }: any) {
   const [errors, setErrors] = useState<any>({});
@@ -39,7 +39,7 @@ export default function Step2Personal({ participant, value, onChange, onNext, on
             />
             {errors.ieeeNumber && (
               <p className="flex items-center gap-1 text-rose-400 text-xs mt-1.5">
-                <AlertCircle className="w-3.5 h-3.5" /> {errors.ieeeNumber}
+                <WarningCircle weight="duotone" className="w-3.5 h-3.5" /> {errors.ieeeNumber}
               </p>
             )}
           </div>
@@ -48,7 +48,7 @@ export default function Step2Personal({ participant, value, onChange, onNext, on
         {/* Full Name */}
         <div>
           <label className="flex items-center gap-1.5 text-xs font-medium text-white/70 mb-1.5">
-            <User className="w-3.5 h-3.5 text-white/50" /> Full Name *
+            <User weight="duotone" className="w-3.5 h-3.5 text-sky-400" /> Full Name *
           </label>
           <input
             type="text"
@@ -62,7 +62,7 @@ export default function Step2Personal({ participant, value, onChange, onNext, on
         {/* Email */}
         <div>
           <label className="flex items-center gap-1.5 text-xs font-medium text-white/70 mb-1.5">
-            <Mail className="w-3.5 h-3.5 text-white/50" /> Email Address *
+            <Envelope weight="duotone" className="w-3.5 h-3.5 text-sky-400" /> Email Address *
           </label>
           <input
             type="email"
@@ -74,7 +74,7 @@ export default function Step2Personal({ participant, value, onChange, onNext, on
           />
           {errors.email && (
             <p className="flex items-center gap-1 text-rose-400 text-xs mt-1.5">
-              <AlertCircle className="w-3.5 h-3.5" /> {errors.email}
+              <WarningCircle weight="duotone" className="w-3.5 h-3.5" /> {errors.email}
             </p>
           )}
         </div>
@@ -82,7 +82,7 @@ export default function Step2Personal({ participant, value, onChange, onNext, on
         {/* Phone */}
         <div>
           <label className="flex items-center gap-1.5 text-xs font-medium text-white/70 mb-1.5">
-            <Phone className="w-3.5 h-3.5 text-white/50" /> Phone (WhatsApp) *
+            <Phone weight="duotone" className="w-3.5 h-3.5 text-sky-400" /> Phone (WhatsApp) *
           </label>
           <input
             type="tel"
@@ -95,7 +95,7 @@ export default function Step2Personal({ participant, value, onChange, onNext, on
           />
           {errors.phone && (
             <p className="flex items-center gap-1 text-rose-400 text-xs mt-1.5">
-              <AlertCircle className="w-3.5 h-3.5" /> {errors.phone}
+              <WarningCircle weight="duotone" className="w-3.5 h-3.5" /> {errors.phone}
             </p>
           )}
         </div>
@@ -103,7 +103,7 @@ export default function Step2Personal({ participant, value, onChange, onNext, on
         {/* College */}
         <div>
           <label className="flex items-center gap-1.5 text-xs font-medium text-white/70 mb-1.5">
-            <Building2 className="w-3.5 h-3.5 text-white/50" /> College / Institution *
+            <Buildings weight="duotone" className="w-3.5 h-3.5 text-sky-400" /> College / Institution *
           </label>
           <input
             type="text"
@@ -117,7 +117,7 @@ export default function Step2Personal({ participant, value, onChange, onNext, on
         {/* Branch */}
         <div>
           <label className="flex items-center gap-1.5 text-xs font-medium text-white/70 mb-1.5">
-            <BookOpen className="w-3.5 h-3.5 text-white/50" /> Branch / Department
+            <BookOpen weight="duotone" className="w-3.5 h-3.5 text-sky-400" /> Branch / Department
           </label>
           <input
             type="text"
@@ -131,7 +131,7 @@ export default function Step2Personal({ participant, value, onChange, onNext, on
         {/* Year of Study */}
         <div>
           <label className="flex items-center gap-1.5 text-xs font-medium text-white/70 mb-1.5">
-            <Calendar className="w-3.5 h-3.5 text-white/50" /> Year of Study
+            <CalendarBlank weight="duotone" className="w-3.5 h-3.5 text-sky-400" /> Year of Study
           </label>
           <select
             value={value.year}
@@ -153,7 +153,7 @@ export default function Step2Personal({ participant, value, onChange, onNext, on
           onClick={onBack} 
           className="inline-flex items-center gap-1.5 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 text-white text-sm font-medium transition-all cursor-pointer active:scale-95"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft weight="duotone" className="w-4 h-4" />
           <span>Back</span>
         </button>
         <button
@@ -165,7 +165,7 @@ export default function Step2Personal({ participant, value, onChange, onNext, on
           }`}
         >
           <span>Choose Competition Track</span>
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight weight="duotone" className="w-4 h-4" />
         </button>
       </div>
     </div>

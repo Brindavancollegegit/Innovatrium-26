@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Plus, Trash2, Users, CheckCircle2, Shield } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Plus, Trash, Users, CheckCircle, Shield } from '@phosphor-icons/react';
 
 export default function Step3Competition({ tracks, value, onChange, onNext, onBack }: any) {
   const selectedTrack = tracks.find((t: any) => t.competitionId === value.competitionId);
@@ -42,7 +42,7 @@ export default function Step3Competition({ tracks, value, onChange, onNext, onBa
                 <div className="flex justify-between items-start gap-2">
                   <div className="flex items-center gap-2">
                     <span className="font-display font-medium text-base text-white">{t.title}</span>
-                    {isSelected && <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />}
+                    {isSelected && <CheckCircle weight="duotone" className="w-4 h-4 text-blue-400 shrink-0" />}
                   </div>
                   <span className="text-[11px] px-2.5 py-1 rounded-full bg-white/10 text-white/80 shrink-0 font-mono">
                     {t.teamSize}
@@ -58,7 +58,7 @@ export default function Step3Competition({ tracks, value, onChange, onNext, onBa
       {/* Team Name */}
       <div className="mb-6">
         <label className="flex items-center gap-1.5 text-xs font-medium text-white/70 mb-1.5">
-          <Shield className="w-3.5 h-3.5 text-white/50" /> Team Name *
+          <Shield weight="duotone" className="w-3.5 h-3.5 text-sky-400" /> Team Name *
         </label>
         <input
           type="text"
@@ -73,7 +73,7 @@ export default function Step3Competition({ tracks, value, onChange, onNext, onBa
       <div className="mb-8">
         <div className="flex justify-between items-center mb-3">
           <label className="flex items-center gap-1.5 text-xs font-medium text-white/70">
-            <Users className="w-3.5 h-3.5 text-white/50" /> Additional Team Members
+            <Users weight="duotone" className="w-3.5 h-3.5 text-sky-400" /> Additional Team Members
           </label>
           <span className="text-[11px] text-white/40 font-mono">
             {value.members.length} of {maxTeam - 1} added
@@ -90,7 +90,7 @@ export default function Step3Competition({ tracks, value, onChange, onNext, onBa
                   onClick={() => removeMember(i)}
                   className="inline-flex items-center gap-1 text-rose-400 hover:text-rose-300 text-[11px] transition-colors cursor-pointer"
                 >
-                  <Trash2 className="w-3 h-3" /> Remove
+                  <Trash weight="duotone" className="w-3 h-3" /> Remove
                 </button>
               </div>
 
@@ -140,7 +140,7 @@ export default function Step3Competition({ tracks, value, onChange, onNext, onBa
             onClick={addMember}
             className="mt-3 inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all cursor-pointer active:scale-95"
           >
-            <Plus className="w-3.5 h-3.5 text-sky-400" />
+            <Plus weight="duotone" className="w-3.5 h-3.5 text-sky-400" />
             <span>Add Member {value.members.length + 2}</span>
           </button>
         )}
@@ -152,7 +152,7 @@ export default function Step3Competition({ tracks, value, onChange, onNext, onBa
           onClick={onBack} 
           className="inline-flex items-center gap-1.5 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 text-white text-sm font-medium transition-all cursor-pointer active:scale-95"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft weight="duotone" className="w-4 h-4" />
           <span>Back</span>
         </button>
         <button
@@ -164,9 +164,9 @@ export default function Step3Competition({ tracks, value, onChange, onNext, onBa
           }`}
         >
           <span>Review & Pay</span>
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight weight="duotone" className="w-4 h-4" />
         </button>
       </div>
     </div>
   );
-}
+}

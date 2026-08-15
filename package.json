@@ -11,13 +11,13 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
     "@tailwindcss/vite": "^4.1.14",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "@vitejs/plugin-react": "^5.0.4",
     "dotenv": "^17.2.3",
     "express": "^4.21.2",
-    "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
     "ogl": "^1.0.11",
     "react": "^19.0.1",

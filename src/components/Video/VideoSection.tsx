@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Play } from 'lucide-react';
+import { Play } from '@phosphor-icons/react';
 
 export default function VideoSection() {
   return (
@@ -55,7 +55,7 @@ export default function VideoSection() {
              <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-all duration-500 group-hover:bg-black/40 group-hover:backdrop-blur-none" />
              <div className="absolute inset-0 flex items-center justify-center">
                <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:bg-primary/90 transition-transform duration-300 group-hover:scale-110 shadow-[0_0_30px_rgba(59,130,246,0.3)]">
-                  <Play className="w-8 h-8 text-white ml-1" fill="currentColor" />
+                  <Play weight="duotone" className="w-8 h-8 text-sky-400 ml-1" fill="currentColor" />
                </div>
              </div>
           </div>

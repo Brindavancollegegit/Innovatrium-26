@@ -1,4 +1,4 @@
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp } from '@phosphor-icons/react';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -52,7 +52,7 @@ export default function Footer() {
             onClick={scrollToTop}
             className="font-sans text-[14px] inline-flex items-center gap-2 hover:text-white transition-colors mt-4 md:mt-0"
           >
-            Back to top <ArrowUp className="w-4 h-4" />
+            Back to top <ArrowUp weight="duotone" className="w-4 h-4" />
           </button>
         </div>
       </div>

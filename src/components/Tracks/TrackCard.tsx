@@ -1,11 +1,35 @@
+import { useState } from 'react';
+import { 
+  ArrowsClockwise, 
+  Users, 
+  PresentationChart, 
+  ArrowRight, 
+  CheckCircle, 
+  ShieldWarning, 
+  Lightning,
+  Sparkle,
+  Gear,
+  TerminalWindow
+} from '@phosphor-icons/react';
+
+const iconMap: Record<string, any> = {
+  PresentationChart,
+  Gear,
+  TerminalWindow,
+  Lightning
+};
 import SpotlightCard from '../ui/SpotlightCard';
 
-interface TrackProps {
+export interface TrackProps {
+  competitionId: string;
   title: string;
   tagline: string;
   teamSize: string;
   format: string;
-  slotsRemaining?: number;
+
+  icon?: string;
+  rules?: string[];
+  evaluation?: string[];
 }
 
 export default function TrackCard({
@@ -13,98 +37,185 @@ export default function TrackCard({
   tagline,
   teamSize,
   format,
-  slotsRemaining,
+
+  icon,
+  rules = [],
+  evaluation = [],
 }: TrackProps) {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const TrackIcon = icon && iconMap[icon] ? iconMap[icon] : Lightning;
+
   return (
-    <SpotlightCard
-      className="h-full p-7 md:p-8 flex flex-col group relative overflow-hidden rounded-3xl bg-[#080d14]/90 border border-white/10 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-400/50 hover:shadow-[0_0_25px_rgba(52,211,153,0.2)]"
-      spotlightColor="rgba(52, 211, 153, 0.15)"
+    <div 
+      className="w-full h-[520px] [perspective:1200px] cursor-pointer group select-none"
+      onClick={() => setIsFlipped(!isFlipped)}
     >
-      {/* Top Accent Gradient Bar */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div
+        className={`relative w-full h-full duration-700 [transform-style:preserve-3d] transition-transform ease-out ${
+          isFlipped ? '[transform:rotateY(180deg)]' : ''
+        }`}
+      >
+        {/* =========================================================
+            FRONT FACE: TECH POSTER STYLE
+            ========================================================= */}
+        <div className="absolute inset-0 w-full h-full [backface-visibility:hidden]">
+          <SpotlightCard
+            className="h-full p-7 md:p-8 flex flex-col justify-between relative overflow-hidden rounded-3xl bg-slate-900/95 backdrop-blur-xl border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:-translate-y-2 group-hover:border-sky-400 group-hover:shadow-[0_20px_40px_-15px_rgba(56,189,248,0.25)]"
+            spotlightColor="rgba(56, 189, 248, 0.05)"
+          >
+            {/* Top Accent Gradient Bar */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            
+            {/* Subtle Poster Radial Grid */}
+            <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:20px_20px] opacity-[0.04] pointer-events-none" />
+            
+            {/* Soft background glow blob */}
+            <div className="absolute top-0 right-0 w-48 h-48 bg-sky-400/10 rounded-full blur-3xl pointer-events-none transition-opacity duration-500 group-hover:opacity-100 opacity-50" />
 
-      {/* Header Section */}
-      <div className="flex justify-between items-start gap-4 mb-5">
-        <div className="flex items-center gap-3">
-          {/* Emerald Icon Badge */}
-          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-400/30 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-400 group-hover:text-slate-950 transition-all duration-300 shrink-0">
-            <svg
-              className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              />
-            </svg>
+            <div>
+              {/* Header Section */}
+              <div className="flex justify-between items-start gap-3 mb-6">
+                <div className="flex items-center gap-3">
+                  {/* Sky Icon Badge */}
+                  <div className="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-400/30 flex items-center justify-center text-sky-400 shadow-sm group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-sky-400 group-hover:to-blue-500 group-hover:text-white group-hover:border-transparent transition-all duration-500 shrink-0">
+                    <TrackIcon weight="duotone" className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono font-bold tracking-widest text-sky-400 uppercase">
+                      Official Track
+                    </span>
+                    <h3 className="font-display text-xl md:text-2xl font-bold text-white tracking-wide leading-tight">
+                      {title}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Flip Indicator */}
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-sky-400 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full group-hover:border-sky-400/40 transition-all shrink-0">
+                    <ArrowsClockwise weight="duotone" className="w-4 h-4 group-hover:rotate-180 transition-transform duration-500" />
+                    <span className="text-slate-300 group-hover:text-white transition-colors">Rules</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tagline / Poster Description */}
+              <p className="font-sans text-sm md:text-[15px] !text-slate-300 leading-relaxed font-normal mb-6">
+                {tagline}
+              </p>
+            </div>
+
+            {/* Bottom Metadata & Button */}
+            <div className="space-y-4">
+              {/* Translucent Glass Metadata Box */}
+              <div className="grid grid-cols-2 gap-3 p-2 rounded-2xl bg-white/[0.02] border border-white/10">
+                {/* Team Size */}
+                <div className="flex flex-col p-3 rounded-xl bg-white/[0.04] border border-white/10">
+                  <span className="flex items-center gap-1.5 text-xs font-medium mb-1 text-sky-400">
+                    <Users weight="duotone" className="w-4 h-4" />
+                    <span className="text-sky-300">Team Size</span>
+                  </span>
+                  <span className="font-sans text-sm font-semibold text-white">{teamSize}</span>
+                </div>
+
+                {/* Format */}
+                <div className="flex flex-col p-3 rounded-xl bg-white/[0.04] border border-white/10">
+                  <span className="flex items-center gap-1.5 text-xs font-medium mb-1 text-sky-400">
+                    <PresentationChart weight="duotone" className="w-4 h-4" />
+                    <span className="text-sky-300">Format</span>
+                  </span>
+                  <span className="font-sans text-sm font-semibold text-white">{format}</span>
+                </div>
+              </div>
+
+              {/* Flip & View Rules CTA */}
+              <div className="w-full py-3.5 px-6 rounded-xl bg-white/10 border border-white/20 shadow-sm text-sky-400 font-sans text-sm font-semibold flex items-center justify-center gap-2 group-hover:bg-gradient-to-r group-hover:from-sky-400 group-hover:to-blue-500 group-hover:text-white group-hover:border-transparent group-hover:shadow-lg group-hover:shadow-sky-500/25 transition-all duration-500">
+                <span className="transition-colors">View Guidelines & Rules</span>
+                <ArrowRight weight="duotone" className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+              </div>
+            </div>
+          </SpotlightCard>
+        </div>
+
+        {/* =========================================================
+            BACK FACE: RULES & GUIDELINES (PULLED FROM CONTENT.TS)
+            ========================================================= */}
+        <div className="absolute inset-0 w-full h-full [transform:rotateY(180deg)] [backface-visibility:hidden]">
+          <div className="h-full p-7 md:p-8 flex flex-col justify-between relative overflow-hidden rounded-3xl bg-slate-900/95 backdrop-blur-xl border border-white/10 shadow-[0_20px_40px_-15px_rgba(56,189,248,0.2)]">
+            
+            {/* Background Soft Blobs */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-sky-400/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+            
+            {/* Top Back Header */}
+            <div>
+              <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-sky-400">
+                  <ShieldWarning weight="duotone" className="w-5 h-5" />
+                  <span className="text-sky-300">Track Blueprint</span>
+                </div>
+                <div className="flex items-center gap-1 text-[11px] hover:text-white transition-colors text-sky-400">
+                  <ArrowsClockwise weight="duotone" className="w-4 h-4" />
+                  <span className="text-slate-400">Flip front</span>
+                </div>
+              </div>
+
+              <h4 className="font-display text-xl font-bold text-white mb-3">
+                {title}
+              </h4>
+
+              {/* Rules List from content.ts */}
+              {rules && rules.length > 0 ? (
+                <div className="space-y-2.5 max-h-[190px] overflow-y-auto pr-1">
+                  {rules.map((rule, idx) => (
+                    <div key={idx} className="flex items-start gap-2.5 text-xs md:text-[13px] text-slate-200 leading-relaxed font-normal">
+                      <CheckCircle weight="duotone" className="w-5 h-5 text-sky-400 mt-0.5 shrink-0" />
+                      <span>{rule}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-xs text-slate-400 italic">Rules will be briefed before the track begins.</p>
+              )}
+
+              {/* Evaluation Breakdown from content.ts */}
+              {evaluation && evaluation.length > 0 && (
+                <div className="mt-4 pt-3 border-t border-white/10">
+                  <div className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider mb-2 text-sky-400">
+                    <Sparkle weight="duotone" className="w-4 h-4" />
+                    <span className="text-sky-300">Evaluation Matrix</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {evaluation.map((crit, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2.5 py-1 bg-white/[0.05] border border-white/10 rounded-lg text-[11px] font-medium text-slate-200"
+                      >
+                        {crit}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Direct Register Action Button */}
+            <div className="pt-4 border-t border-white/10">
+              <a
+                href="#register"
+                onClick={(e) => {
+                  e.stopPropagation(); // Stops card from re-flipping when clicking register
+                }}
+                className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 font-sans text-sm font-bold shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-white"
+              >
+                <span>Register for {title}</span>
+                <ArrowRight weight="bold" className="w-4 h-4 text-white" />
+              </a>
+            </div>
+
           </div>
-          <h3 className="font-display text-xl md:text-2xl font-bold text-white tracking-wide">
-            {title}
-          </h3>
-        </div>
-
-        {/* Slot Badge */}
-        {slotsRemaining !== undefined && slotsRemaining > 0 && slotsRemaining <= 5 && (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/15 text-amber-300 font-sans text-xs font-semibold uppercase tracking-wider rounded-full border border-amber-400/30 shrink-0">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />
-            {slotsRemaining} left
-          </span>
-        )}
-      </div>
-
-      {/* High-Visibility White/Light Description */}
-      <p className="font-sans text-sm md:text-base !text-slate-100 leading-relaxed mb-8 flex-grow font-normal">
-        {tagline}
-      </p>
-
-      {/* Translucent Glass Metadata Box (No Black Fill) */}
-      <div className="grid grid-cols-2 gap-3 mb-8 p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 group-hover:border-emerald-500/30 transition-colors">
-        {/* Team Size */}
-        <div className="flex flex-col p-3 rounded-xl bg-white/[0.04] border border-white/10">
-          <span className="flex items-center gap-1.5 text-xs text-emerald-300 font-medium mb-1">
-            <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-            Team Size
-          </span>
-          <span className="font-sans text-sm font-semibold text-white">{teamSize}</span>
-        </div>
-
-        {/* Format */}
-        <div className="flex flex-col p-3 rounded-xl bg-white/[0.04] border border-white/10">
-          <span className="flex items-center gap-1.5 text-xs text-emerald-300 font-medium mb-1">
-            <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z" />
-            </svg>
-            Format
-          </span>
-          <span className="font-sans text-sm font-semibold text-white">{format}</span>
         </div>
       </div>
-
-      {/* Button with Emerald Gradient Hover */}
-      <div>
-        <a
-          href="#register"
-          className="group/btn relative inline-flex items-center justify-center w-full py-3.5 px-6 rounded-xl bg-white/10 border border-white/20 text-white font-sans text-sm font-semibold hover:bg-gradient-to-r hover:from-emerald-400 hover:to-teal-300 hover:text-slate-950 hover:border-transparent transition-all duration-300 shadow-md hover:shadow-[0_0_20px_rgba(52,211,153,0.3)]"
-        >
-          <span className="relative z-10 flex items-center justify-center gap-2">
-            Select Track
-            <svg
-              className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </span>
-        </a>
-      </div>
-    </SpotlightCard>
+    </div>
   );
 }
