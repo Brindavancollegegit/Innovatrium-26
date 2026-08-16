@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, List, X, House, Info, Stack, Sparkle, MapPin, GraduationCap, Envelope, CalendarBlank, Ticket } from '@phosphor-icons/react';
+import { ArrowRight, List, X, House, Info, Stack, Sparkle, MapPin, GraduationCap, Envelope, CalendarBlank, Ticket, Clock } from '@phosphor-icons/react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,6 +9,7 @@ export default function Navbar() {
     { href: '#about', label: 'About', icon: Info },
     { href: '#workshop', label: 'Workshop', icon: Sparkle },
     { href: '#tracks', label: 'Tracks', icon: Stack },
+    { href: '#timeline', label: 'Timeline', icon: Clock },
     { href: '#venue', label: 'Venue', icon: MapPin },
     { href: '#college', label: 'College', icon: GraduationCap },
     { href: '#contact', label: 'Contact', icon: Envelope },
@@ -18,27 +19,27 @@ export default function Navbar() {
     <nav className="fixed top-2.5 sm:top-4 md:top-6 left-0 right-0 z-50 px-3 sm:px-4 md:px-8">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 rounded-[32px] sm:rounded-[40px] border border-white/10 bg-[#030712]/85 px-3 py-2.5 sm:px-5 sm:py-3 shadow-[0_16px_40px_rgba(0,0,0,0.45)] backdrop-blur-md">
         
-        <div className="flex min-w-0 flex-1 items-center gap-2.5 sm:gap-4 md:gap-5">
+        <div className="flex items-center gap-3 sm:gap-4 lg:gap-5 xl:gap-6 shrink-0">
           
           {/* Brindavan Logo */}
           <img 
             src="/Brindavan-logo.webp" 
             alt="Brindavan College" 
-            className="h-14 sm:h-16 md:h-[80px] w-auto object-contain shrink-0 transition-transform hover:scale-105" 
+            className="h-10 sm:h-12 lg:h-16 xl:h-[72px] w-auto object-contain shrink-0 transition-transform hover:scale-105" 
           />
           
           {/* IEEE SB Logo */}
           <img 
             src="/IEEE-logo.webp" 
             alt="IEEE" 
-            className="h-[30px] sm:h-[42px] md:h-[74px] w-auto object-contain shrink-0 transition-transform hover:scale-105" 
+            className="h-[28px] sm:h-[34px] lg:h-[50px] xl:h-[64px] w-auto object-contain shrink-0 transition-transform hover:scale-105" 
           />
 
           {/* Society Logos Cluster */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0 transition-transform hover:scale-105">
-            <img src="/CS-society.webp" alt="CS Society" className="h-6 sm:h-9 md:h-[42px] w-auto object-contain" />
-            <img src="/SP-Society.webp" alt="SP Society" className="h-6 sm:h-9 md:h-[42px] w-auto object-contain" />
-            <img src="/WIE.webp" alt="WIE" className="h-6 sm:h-9 md:h-[42px] w-auto object-contain" />
+          <div className="flex items-center gap-1.5 sm:gap-2.5 xl:gap-3 shrink-0 transition-transform hover:scale-105">
+            <img src="/CS-society.webp" alt="CS Society" className="h-5 sm:h-7 lg:h-10 xl:h-[40px] w-auto object-contain" />
+            <img src="/SP-Society.webp" alt="SP Society" className="h-5 sm:h-7 lg:h-10 xl:h-[40px] w-auto object-contain" />
+            <img src="/WIE.webp" alt="WIE" className="h-5 sm:h-7 lg:h-10 xl:h-[40px] w-auto object-contain" />
           </div>
 
           <div className="hidden xl:flex flex-col pl-3 border-l border-white/20">
@@ -48,7 +49,7 @@ export default function Navbar() {
         </div>
 
         {/* CENTER LINKS */}
-        <div className="hidden lg:flex items-center gap-5 glass-card px-7 py-2.5">
+        <div className="hidden xl:flex items-center gap-4 glass-card px-5 py-2">
           {navLinks.map((item) => (
             <a 
               key={item.href} 
@@ -71,7 +72,7 @@ export default function Navbar() {
           </a>
           
           <button
-            className="lg:hidden flex h-[36px] w-[36px] items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 active:scale-95"
+            className="xl:hidden flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 active:scale-95"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle navigation menu"
           >
@@ -82,7 +83,7 @@ export default function Navbar() {
       
       {/* MOBILE DRAWER */}
       {isOpen && (
-        <div className="lg:hidden absolute top-full left-3 right-3 mt-2 rounded-[24px] border border-white/15 bg-[#05080c]/98 p-5 shadow-[0_24px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="xl:hidden absolute top-full left-3 right-3 mt-2 rounded-[24px] border border-white/15 bg-[#05080c]/98 p-5 shadow-[0_24px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10 text-xs text-white/60">
             <span className="flex items-center gap-1.5">
               <CalendarBlank weight="duotone" className="w-3.5 h-3.5 text-blue-400" /> 2-Day Tech Fest

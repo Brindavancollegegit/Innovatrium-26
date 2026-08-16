@@ -78,7 +78,7 @@ export default function Venue() {
                 </div>
                 
                 <a 
-                  href="https://www.google.com/maps/dir/13.007948,77.5054171/Brindavan+College+of+Engineering,+Bagalur+Main+Rd,+Dwarka+Nagar,+Dwarakanagar,+Yelahanka,+Bengaluru,+Karnataka+560063"
+                  href="https://maps.app.goo.gl/1JnFWecJPv7YPTYD8"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full md:w-48 aspect-square md:aspect-[3/4] relative rounded-lg overflow-hidden border border-white/10 bg-black/50 shrink-0 flex items-center justify-center group"

@@ -15,6 +15,7 @@ const VideoSection = lazy(() => import('./components/Video/VideoSection'));
 const About = lazy(() => import('./components/About/About'));
 const Workshop = lazy(() => import('./components/Workshop/Workshop'));
 const Tracks = lazy(() => import('./components/Tracks/Tracks'));
+const Timeline = lazy(() => import('./components/Timeline/Timeline'));
 const Venue = lazy(() => import('./components/Venue/Venue'));
 const College = lazy(() => import('./components/College/College'));
 const Registration = lazy(() => import('./components/Registration/Registration'));
@@ -75,6 +76,10 @@ export default function App() {
 
         <Suspense fallback={<SectionSkeleton />}>
           <Tracks />
+        </Suspense>
+
+        <Suspense fallback={<SectionSkeleton />}>
+          <Timeline />
         </Suspense>
 
         <Suspense fallback={<SectionSkeleton />}>

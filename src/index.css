@@ -478,3 +478,76 @@ select {
   }
 }
 
+/* =========================================================================
+   Timeline / Date Stamp Visual Effects
+   ========================================================================= */
+
+.date-fx-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .date-fx-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(
+      to right, 
+      transparent, 
+      rgba(255,255,255,0.4), 
+      transparent
+    );
+    transform: skewX(-25deg);
+    animation: date-shimmer 5s infinite;
+    pointer-events: none;
+    z-index: 10;
+  }
+  @keyframes date-shimmer {
+    0% { left: -100%; }
+    15% { left: 200%; }
+    100% { left: 200%; }
+  }
+}
+
+.date-fx-notch {
+  position: relative;
+}
+.date-fx-notch::before,
+.date-fx-notch::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  background-color: #030712; /* Match Hero background */
+  border-radius: 50%;
+  z-index: 1;
+  border: 1px dashed rgba(52, 211, 153, 0.4);
+  transition: border-color 0.3s ease;
+}
+.date-fx-notch::before {
+  left: -7px;
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+}
+.date-fx-notch::after {
+  right: -7px;
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+
+.date-fx-lift-glow {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.date-fx-lift-glow:hover {
+  transform: translateY(-2px);
+  box-shadow: -10px 0 25px -5px rgba(59, 130, 246, 0.4), 10px 0 25px -5px rgba(34, 197, 94, 0.4);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+.date-fx-lift-glow:hover.date-fx-notch::before,
+.date-fx-lift-glow:hover.date-fx-notch::after {
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
