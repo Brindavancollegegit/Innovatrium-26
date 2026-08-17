@@ -19,19 +19,19 @@ export const schedule: ScheduleDay[] = [
     theme: 'green',
     events: [
       {
-        time: '8:30 AM',
+        time: '9:00 AM',
         title: 'Check-in & Briefing',
         description: 'Final team check-ins and distribution of problem statements for the competitive tracks.',
         icon: 'user-circle'
       },
       {
-        time: '9:00 AM',
+        time: '10:00 AM',
         title: 'Competitive Tracks Commence',
         description: 'Reverse Engineering, Prompt Wars, and Poster Presentation tracks begin simultaneously.',
         icon: 'sword'
       },
       {
-        time: '1:00 PM',
+        time: '1:30 PM',
         title: 'Lunch Break',
         description: 'Refuel your energy before the final sprint of the competitions.',
         icon: 'coffee'
@@ -43,7 +43,7 @@ export const schedule: ScheduleDay[] = [
         icon: 'presentation-chart'
       },
       {
-        time: '4:00 PM',
+        time: :3:00 PM',
         title: 'Valedictory & Prize Distribution',
         description: 'Announcement of winners, distribution of the ₹30,000+ prize pool, and closing remarks.',
         icon: 'trophy'
