@@ -23,7 +23,7 @@ export default function About() {
         <div className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-emerald-500/10 blur-[120px] rounded-full -translate-x-1/4 translate-y-1/4 mix-blend-screen" />
         
         {/* Soft edge fading to blend with adjacent sections */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617] opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#030712] via-transparent to-[#030712] opacity-60" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
@@ -62,28 +62,17 @@ export default function About() {
               variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
               className="font-sans text-base text-slate-200 leading-relaxed font-normal"
             >
-              Innovatrium '26 is the flagship technical fest organized by IEEE SB Brindavan College of Engineering. Over two intense days, top student minds converge to build, pitch, and compete.
+              Innovatrium '26 is the flagship technical fest organized by IEEE SB Brindavan College of Engineering. Top student minds converge to build, pitch, and compete.
             </motion.p>
 
             <motion.div
               variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
-              className="grid sm:grid-cols-2 gap-4 mt-2"
+              className="grid gap-4 mt-2"
             >
-              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-400/30 transition-colors">
-                <div className="flex items-center gap-2 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-2">
-                  <CalendarBlank weight="duotone" className="w-4 h-4" />
-                  Day 1
-                </div>
-                <h4 className="text-white font-semibold text-sm mb-1">Expert Workshop</h4>
-                <p className="text-slate-300 text-xs leading-relaxed">
-                  Hands-on technical training sessions led by industry pioneers.
-                </p>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-400/30 transition-colors">
-                <div className="flex items-center gap-2 text-sky-400 text-xs font-semibold uppercase tracking-wider mb-2">
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-emerald-400/30 transition-colors">
+                <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
                   <Trophy weight="duotone" className="w-4 h-4" />
-                  Day 2
+                  Competitions
                 </div>
                 <h4 className="text-white font-semibold text-sm mb-1">Competitive Tracks</h4>
                 <p className="text-slate-300 text-xs leading-relaxed">
@@ -160,8 +149,8 @@ export default function About() {
                   <CalendarBlank weight="duotone" className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-white">2 Action-Packed Days</p>
-                  <p className="text-[11px] text-slate-300">Workshop & Competitions</p>
+                  <p className="text-xs font-semibold text-white">Action-Packed Tech Fest</p>
+                  <p className="text-[11px] text-slate-300">Competitive Tracks</p>
                 </div>
               </div>
               <a

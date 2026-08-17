@@ -14,50 +14,7 @@ export interface ScheduleDay {
 
 export const schedule: ScheduleDay[] = [
   {
-    day: 'Day 1',
-    date: 'Sept 15, 2026',
-    theme: 'blue',
-    events: [
-      {
-        time: '9:00 AM',
-        title: 'Registration & Check-in',
-        description: 'Collect your badges, swags, and get settled in. Breakfast will be served at the lounge.',
-        icon: 'identification-card'
-      },
-      {
-        time: '10:00 AM',
-        title: 'Inauguration Ceremony',
-        description: 'Welcome address by the IEEE SB Chair and keynotes from our distinguished chief guests.',
-        icon: 'microphone-stage'
-      },
-      {
-        time: '11:00 AM',
-        title: 'Expert Workshop Begins',
-        description: 'Immersive hands-on session on advanced cloud architecture and generative AI workflows.',
-        icon: 'laptop'
-      },
-      {
-        time: '1:30 PM',
-        title: 'Networking Lunch',
-        description: 'Connect with peers and mentors over a buffet lunch at the cafeteria.',
-        icon: 'coffee'
-      },
-      {
-        time: '2:30 PM',
-        title: 'Workshop: Phase 2',
-        description: 'Deep dive into practical implementation and deployment strategies.',
-        icon: 'code'
-      },
-      {
-        time: '4:30 PM',
-        title: 'Q&A and Day 1 Wrap-up',
-        description: 'Interactive session with the speakers followed by high tea.',
-        icon: 'chat-teardrop-text'
-      }
-    ]
-  },
-  {
-    day: 'Day 2',
+    day: 'Competition Day',
     date: 'Sept 16, 2026',
     theme: 'green',
     events: [

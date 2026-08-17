@@ -13,7 +13,7 @@ import Preloader from './components/Preloader/Preloader';
 // Lazy-loaded below-the-fold components
 const VideoSection = lazy(() => import('./components/Video/VideoSection'));
 const About = lazy(() => import('./components/About/About'));
-const Workshop = lazy(() => import('./components/Workshop/Workshop'));
+
 const Tracks = lazy(() => import('./components/Tracks/Tracks'));
 const Timeline = lazy(() => import('./components/Timeline/Timeline'));
 const Venue = lazy(() => import('./components/Venue/Venue'));
@@ -70,9 +70,7 @@ export default function App() {
           <About />
         </Suspense>
 
-        <Suspense fallback={<SectionSkeleton />}>
-          <Workshop />
-        </Suspense>
+
 
         <Suspense fallback={<SectionSkeleton />}>
           <Tracks />

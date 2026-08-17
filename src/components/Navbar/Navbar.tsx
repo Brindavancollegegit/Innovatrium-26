@@ -7,7 +7,7 @@ export default function Navbar() {
   const navLinks = [
     { href: '#home', label: 'Home', icon: House },
     { href: '#about', label: 'About', icon: Info },
-    { href: '#workshop', label: 'Workshop', icon: Sparkle },
+
     { href: '#tracks', label: 'Tracks', icon: Stack },
     { href: '#timeline', label: 'Timeline', icon: Clock },
     { href: '#venue', label: 'Venue', icon: MapPin },
@@ -86,7 +86,7 @@ export default function Navbar() {
         <div className="xl:hidden absolute top-full left-3 right-3 mt-2 rounded-[24px] border border-white/15 bg-[#05080c]/98 p-5 shadow-[0_24px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10 text-xs text-white/60">
             <span className="flex items-center gap-1.5">
-              <CalendarBlank weight="duotone" className="w-3.5 h-3.5 text-blue-400" /> 2-Day Tech Fest
+              <CalendarBlank weight="duotone" className="w-3.5 h-3.5 text-blue-400" /> Competition Day
             </span>
             <span className="flex items-center gap-1.5">
               <MapPin weight="duotone" className="w-3.5 h-3.5 text-emerald-400" /> Bengaluru

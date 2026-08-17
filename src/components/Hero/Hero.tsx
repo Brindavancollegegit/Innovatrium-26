@@ -20,14 +20,11 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
     });
   };
 
-  // Derive date range from schedule.ts
-  const startDay = schedule[0]?.date.split(',')[0] || 'Sept 15'; // "Sept 15"
-  const startMonth = startDay.split(' ')[0].toUpperCase(); // "SEPT"
-  const startDayNum = startDay.split(' ')[1]; // "15"
-  
-  const endParts = schedule[schedule.length - 1]?.date.split(',') || ['Sept 16', ' 2026'];
-  const endDayNum = endParts[0]?.split(' ').pop(); // "16"
-  const year = endParts[1]?.trim() || '2026'; // "2026"
+  // Derive date from schedule.ts
+  const eventDateStr = schedule[0]?.date || 'Sept 16, 2026';
+  const eventMonth = eventDateStr.split(' ')[0].toUpperCase();
+  const eventDayNum = eventDateStr.split(' ')[1]?.replace(',', '');
+  const year = eventDateStr.split(', ')[1] || '2026';
 
   return (
     <section 
@@ -58,6 +55,9 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
 
         {/* Base bottom fade to ensure the countdown card never loses contrast */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/40 to-transparent opacity-60 z-20 pointer-events-none" />
+        
+        {/* Seamless bottom edge blend into the next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#030712] via-[#030712]/80 to-transparent z-20 pointer-events-none translate-y-[1px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 pointer-events-auto">
@@ -101,9 +101,8 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
             >
               <CalendarBlank weight="duotone" className="w-5 h-5 text-emerald-300 shrink-0" />
               <div className="flex items-center gap-2">
-                <span className="text-white">{startMonth} {startDayNum}</span>
-                <span className="text-emerald-400 font-normal">–</span>
-                <span className="text-white">{endDayNum}, {year}</span>
+                <span className="text-white">{eventMonth} {eventDayNum}</span>
+                <span className="text-white">, {year}</span>
               </div>
               <div className="flex items-center gap-1.5 pl-2.5 border-l border-emerald-500/30 text-xs font-sans font-semibold text-emerald-300/80 group-hover:text-emerald-200 transition-colors">
                 <CalendarPlus weight="duotone" className="w-4 h-4 text-emerald-300" />
@@ -116,8 +115,8 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               className="text-base sm:text-lg text-slate-200 max-w-xl font-sans leading-relaxed drop-shadow-md"
             >
-              A 2-day immersive technology fest. Engage in hands-on workshops, 
-              innovative tracks, and collaborate with the brightest minds.
+              An immersive technology fest. Engage in
+              innovative tracks and collaborate with the brightest minds.
             </motion.p>
 
             {/* Meta Tags */}
@@ -127,7 +126,7 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
             >
               <div className="flex items-center gap-2 rounded-xl border border-white/15 bg-[#030712]/70 px-3.5 py-2 backdrop-blur-sm text-slate-200 shadow-sm">
                 <CalendarBlank weight="duotone" className="w-4 h-4 text-blue-400" />
-                <span>2 Days Event</span>
+                <span>Competition Day</span>
               </div>
               <div className="flex items-center gap-2 rounded-xl border border-white/15 bg-[#030712]/70 px-3.5 py-2 backdrop-blur-sm text-slate-200 shadow-sm">
                 <MapPin weight="duotone" className="w-4 h-4 text-emerald-400" />
@@ -173,8 +172,8 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
                   <CalendarBlank weight="duotone" className="w-4 h-4 text-emerald-300" />
                 </div>
                 <span className="font-mono text-xs sm:text-sm tracking-wide uppercase">
-                  <span className="font-semibold text-slate-300">Event Dates:</span>{' '}
-                  <span className="font-bold text-white">{startDay} – {endDayNum}, {year}</span>
+                  <span className="font-semibold text-slate-300">Event Date:</span>{' '}
+                  <span className="font-bold text-white">{eventDateStr}</span>
                 </span>
               </div>
               <span className="flex h-2 w-2 relative">

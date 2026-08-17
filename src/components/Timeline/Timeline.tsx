@@ -128,9 +128,8 @@ export default function Timeline() {
               />
               <defs>
                 <linearGradient id="timelineGradient" x1="0" y1="0" x2="0" y2="100%">
-                  <stop offset="0%" stopColor="#38bdf8" />
-                  <stop offset="50%" stopColor="#2dd4bf" />
-                  <stop offset="100%" stopColor="#34d399" />
+                  <stop offset="0%" stopColor="#34d399" />
+                  <stop offset="100%" stopColor="#10b981" />
                 </linearGradient>
               </defs>
             </svg>
@@ -141,13 +140,13 @@ export default function Timeline() {
             style={{ top: dotY }}
             className="absolute left-6 md:left-1/2 w-4 h-4 rounded-full bg-white shadow-[0_0_24px_rgba(255,255,255,1)] transform -translate-x-1/2 z-30"
           >
-            <div className="absolute inset-0 rounded-full bg-cyan-300 animate-ping opacity-75" />
+            <div className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-75" />
           </motion.div>
 
           {/* Events List */}
           <div className="relative z-10 space-y-24 pb-16 pt-8">
             {schedule.map((dayData, dayIdx) => {
-              const isBlue = dayData.theme === 'blue';
+              const isBlue = false;
               const themeText = isBlue ? 'text-cyan-200' : 'text-emerald-200';
               const themeBadgeBg = isBlue ? 'bg-cyan-500/15' : 'bg-emerald-500/15';
               const themeBorder = isBlue ? 'border-cyan-400/40' : 'border-emerald-400/40';
