@@ -166,7 +166,7 @@ export default function TrackCard({
 
               {/* Rules List from content.ts */}
               {rules && rules.length > 0 ? (
-                <div className="space-y-2.5 max-h-[190px] overflow-y-auto pr-1">
+                <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-1">
                   {rules.map((rule, idx) => (
                     <div key={idx} className="flex items-start gap-2.5 text-xs md:text-[13px] text-slate-200 leading-relaxed font-normal">
                       <CheckCircle weight="duotone" className="w-5 h-5 text-sky-400 mt-0.5 shrink-0" />
@@ -176,26 +176,6 @@ export default function TrackCard({
                 </div>
               ) : (
                 <p className="text-xs text-slate-400 italic">Rules will be briefed before the track begins.</p>
-              )}
-
-              {/* Evaluation Breakdown from content.ts */}
-              {evaluation && evaluation.length > 0 && (
-                <div className="mt-4 pt-3 border-t border-white/10">
-                  <div className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider mb-2 text-sky-400">
-                    <Sparkle weight="duotone" className="w-4 h-4" />
-                    <span className="text-sky-300">Evaluation Matrix</span>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {evaluation.map((crit, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2.5 py-1 bg-white/[0.05] border border-white/10 rounded-lg text-[11px] font-medium text-slate-200"
-                      >
-                        {crit}
-                      </span>
-                    ))}
-                  </div>
-                </div>
               )}
             </div>
 

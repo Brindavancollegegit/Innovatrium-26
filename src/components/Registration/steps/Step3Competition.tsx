@@ -163,7 +163,7 @@ export default function Step3Competition({ tracks, value, onChange, onNext, onBa
             !isFormValid ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:shadow-blue-500/25'
           }`}
         >
-          <span>Review & Pay</span>
+          <span>Review & Confirm</span>
           <ArrowRight weight="duotone" className="w-4 h-4" />
         </button>
       </div>

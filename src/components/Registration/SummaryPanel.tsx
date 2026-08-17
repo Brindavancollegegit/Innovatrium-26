@@ -43,7 +43,7 @@ export default function SummaryPanel({ participant, personal, competition }: any
               <UserCheck weight="duotone" className="w-3.5 h-3.5 text-sky-400" /> Category
             </span>
             <span className="font-mono font-medium text-white">
-              {participant === 'ieee' ? 'IEEE Member (Free)' : participant === 'non-ieee' ? 'General (Free)' : 'Not selected'}
+              {participant === 'ieee' ? 'IEEE Member' : participant === 'non-ieee' ? 'General' : 'Not selected'}
             </span>
           </div>
 
@@ -78,7 +78,7 @@ export default function SummaryPanel({ participant, personal, competition }: any
         {/* Verified Badge */}
         <div className="pt-2 flex items-center gap-2 text-[11px] text-white/40">
           <CheckCircle weight="duotone" className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-          <span>Automated invoice & instant verification</span>
+          <span>Instant registration confirmation</span>
         </div>
       </div>
     </div>

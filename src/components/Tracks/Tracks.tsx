@@ -87,23 +87,6 @@ export default function Tracks() {
               <TrackCard {...track} />
             </motion.div>
           ))}
-          
-          {/* Spotlight Card for Upcoming Tracks - Zero Emojis */}
-          <motion.div 
-            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-            className="h-full"
-          >
-            <SpotlightCard 
-              className="h-full min-h-[280px] p-8 flex flex-col items-center justify-center text-center border-dashed border-white/20 rounded-3xl bg-white/[0.02]" 
-              spotlightColor="rgba(52, 211, 153, 0.08)"
-            >
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-400/25 flex items-center justify-center text-emerald-400 mb-3 shadow-inner">
-                <Sparkle weight="duotone" className="w-5 h-5 text-emerald-400 animate-pulse" />
-              </div>
-              <h3 className="font-display text-lg font-semibold text-white/80 mb-1">More Tracks</h3>
-              <p className="font-sans text-xs text-white/50">Revealing exciting new challenges soon...</p>
-            </SpotlightCard>
-          </motion.div>
         </motion.div>
 
       </div>

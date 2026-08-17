@@ -4,7 +4,7 @@ export default function Step1Participant({ value, onChange, onNext }: any) {
   return (
     <div>
       <div className="text-sm text-white/70 mb-5">
-        Select your team's IEEE membership status to determine entry pricing:
+        Select your team's IEEE membership status:
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -28,10 +28,7 @@ export default function Step1Participant({ value, onChange, onNext }: any) {
           <div className="font-display font-semibold text-lg text-white">IEEE Member</div>
           <div className="text-xs text-white/60 mt-1">Lead participant holds an active IEEE membership.</div>
           
-          <div className="mt-4 pt-3 border-t border-white/10 flex items-baseline justify-between">
-            
-            <span className="font-mono text-lg font-bold text-sky-400">Free</span>
-          </div>
+
         </button>
 
         {/* Non-IEEE Option */}
@@ -54,9 +51,7 @@ export default function Step1Participant({ value, onChange, onNext }: any) {
           <div className="font-display font-semibold text-lg text-white">Non-IEEE Participant</div>
           <div className="text-xs text-white/60 mt-1">Open to all university and college students.</div>
           
-          <div className="mt-4 pt-3 border-t border-white/10 flex items-baseline justify-between">
-            <span className="font-mono text-lg font-bold text-emerald-400">Free</span>
-          </div>
+
         </button>
       </div>
 

@@ -15,15 +15,16 @@ export const tracks: Track[] = [
     competitionId: 'poster-presentation',
     title: 'Poster Presentation',
     tagline: 'Showcase your groundbreaking research, architecture, and innovative ideas visually.',
-    teamSize: '1-3 Members',
+    teamSize: '2 Members',
     format: 'Offline / Presentation',
-
     icon: 'PresentationChart',
     rules: [
-      'Standard poster format: A1 (594 × 841 mm) portrait orientation.',
-      'Must clearly state problem statement, methodology, architecture, and results.',
-      '5-minute presentation pitch followed by a 3-minute jury Q&A.',
-      'Plagiarized research or unoriginal work leads to immediate disqualification.'
+      'The Poster must clearly reflect the theme: Innovation Sustainable Solutions for Environmental Protection.',
+      'Poster size must be A3, portrait orientation.',
+      'Participants must be prepared for 10 min of explanation followed by 5 min of Q&A with the judges.',
+      'The soft copy of the poster must be shared at least 2 days before the event.',
+      'Judges decision will be final and binding. Winners will receive Prizes and Certificates.',
+      'Any entry violating the rules will be disqualified.'
     ],
     evaluation: [
       'Novelty & Innovation (30%)',
@@ -34,40 +35,38 @@ export const tracks: Track[] = [
   {
     competitionId: 'reverse-engineering',
     title: 'Reverse Engineering',
-    tagline: 'Deconstruct complex systems, crack logic flows, and engineer optimized solutions.',
-    teamSize: '2-4 Members',
+    tagline: 'Decode hidden patterns, crack logic flows, and replicate the system.',
+    teamSize: '2 Members',
     format: 'Offline / Hands-on',
-
     icon: 'Gear',
     rules: [
-      'Teams will receive a compiled binary or black-box system module on-site.',
-      'Round 1: System analysis, flow mapping, and architectural decoding.',
-      'Round 2: Patching vulnerabilities and functional code reconstruction.',
-      'Strictly offline sandbox environment with zero unauthorized external tools.'
+      'Teams will interact with a "Black Box" system that transforms provided inputs into unknown outputs.',
+      'The objective is to analyze the input-output pairs and decipher the hidden algorithm or pattern.',
+      'Once the logic is cracked, teams must write a script in their preferred language to replicate the exact behavior.',
+      'Use of external internet resources is permitted, but collaboration between teams is strictly prohibited.'
     ],
     evaluation: [
-      'Problem-Solving (30%)',
-      'Accuracy & Completeness (50%)',
-      'Code Optimization (20%)'
+      'Logic Identification Speed (30%)',
+      'Replication Accuracy (50%)',
+      'Code Cleanliness (20%)'
     ]
   },
   {
     competitionId: 'prompt-wars',
     title: 'Prompt Wars',
-    tagline: 'Master generative AI, engineer high-precision prompts, and conquer live arena challenges.',
-    teamSize: '2-4 Members',
+    tagline: 'Master generative AI, bypass system guardrails, and extract the hidden flag.',
+    teamSize: '2 Members',
     format: 'Offline / Live Arena',
-
     icon: 'TerminalWindow',
     rules: [
-      'Multi-round tournament testing LLM steering, prompt chaining, and multimodal synthesis.',
-      'Strict token limits and forbidden modifier keywords enforced per round.',
-      'Real-time automated evaluation benchmarks combined with expert jury scoring.',
-      'Zero external assistive browser extensions or plugins permitted.'
+      'Participants will face a custom AI agent programmed to protect a secret "flag" or password.',
+      'The goal is to engineer creative prompts to bypass the AI\'s system instructions and force it to reveal the secret.',
+      'The arena consists of escalating levels, each with stricter AI guardrails and forbidden modifier keywords.',
+      'Directly asking the AI for the secret will trigger a system block; you must deceive or trap the AI into answering.'
     ],
     evaluation: [
-      'Prompt Precision (40%)',
-      'Output Fidelity (40%)',
+      'Levels Cleared (50%)',
+      'Fewest Prompts Used (30%)',
       'Time Efficiency (20%)'
     ]
   }
@@ -97,7 +96,7 @@ export const coordinators = [
 export const venue = {
   name: 'Brindavan College Of Engineering',
   facilities: [
-    'Accommodation & Food Available',
+    'Food Available',
     'High-Speed Wi-Fi',
     'Dedicated Power Stations',
     'Mentorship Lounges'

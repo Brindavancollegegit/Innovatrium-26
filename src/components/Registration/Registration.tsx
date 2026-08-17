@@ -209,7 +209,7 @@ export default function Registration() {
         <div class="id">Registration Pass: ${submittedData.id}</div>
       </div>
       <div style="text-align: right;">
-        <span class="badge">Payment Pending Verification</span>
+        <span class="badge" style="background: #ecfdf5; color: #065f46; border-color: #a7f3d0;">Registration Confirmed</span>
         <div style="font-size: 12px; color: #64748b; margin-top: 6px;">${new Date(submittedData.timestamp).toLocaleDateString('en-US', { dateStyle: 'medium' })}</div>
       </div>
     </div>
@@ -235,17 +235,7 @@ export default function Registration() {
       <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Total Team Size: ${submittedData.competition.members.length + 1} Attendees</div>
     </div>
 
-    <div class="payment-box">
-      <div>
-        <div class="label" style="color: #0369a1;">Banking UTR / UPI Ref ID</div>
-        <div class="val" style="font-family: monospace; font-size: 16px; color: #0f172a;">${submittedData.payment.utrNumber}</div>
-        <div style="font-size: 11px; color: #64748b; margin-top: 2px;">Subject to reconciliation with bank records</div>
-      </div>
-      <div style="text-align: right;">
-        <div class="label" style="color: #0369a1;">Amount Paid</div>
-        <div class="amount">₹${submittedData.payment.totalAmount}</div>
-      </div>
-    </div>
+
 
     <div class="footer">
       Official Registration Confirmation for Innovatrium '26. Present this pass at the desk on event day.
@@ -298,7 +288,7 @@ export default function Registration() {
               </div>
               <div className="text-right">
                 <span className="print-status-badge inline-block px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                  Payment Pending Verification
+                  Registration Confirmed
                 </span>
                 <p className="text-xs text-white/50 mt-1">{new Date(submittedData.timestamp).toLocaleDateString()}</p>
               </div>
@@ -326,13 +316,7 @@ export default function Registration() {
                 <p className="text-xs text-white/60 mt-1">Total Members: {submittedData.competition.members.length + 1}</p>
               </div>
 
-              <div className="border-t border-white/10 pt-4 flex justify-between items-center bg-primary/10 p-4 rounded-xl">
-                <div>
-                  <p className="text-xs text-white/60">UTR / Transaction Ref: <span className="font-mono font-bold text-white">{submittedData.payment.utrNumber}</span></p>
-                  <p className="text-xs text-white/50">Amount Paid</p>
-                </div>
-                <div className="text-2xl font-bold font-mono text-primary">₹{submittedData.payment.totalAmount}</div>
-              </div>
+
             </div>
 
             <div className="mt-8 flex flex-wrap gap-4 print:hidden">

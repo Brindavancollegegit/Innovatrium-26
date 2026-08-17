@@ -1,91 +1,121 @@
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
-import { Play } from '@phosphor-icons/react';
+import { Sparkle } from '@phosphor-icons/react';
+
+// We duplicate the 8 items to create a perfect 16-sided seamless 3D cylinder
+const BASE_MEMORIES = [
+  { id: 1, title: 'Hackathon Arena', tag: 'LIVE SPRINT', imageUrl: 'pic1.webp' },
+  { id: 2, title: 'Code & Coffee', tag: 'DEVELOPMENT', imageUrl: 'pic2.webp' },
+  { id: 3, title: 'First Pitch', tag: 'JURY DEFENSE', imageUrl: 'pic3.webp' },
+  { id: 4, title: 'The Core Squad', tag: 'COMMUNITY', imageUrl: 'pic1.webp' },
+  { id: 5, title: 'Hardware Labs', tag: 'WORKSHOP', imageUrl: 'pic5.webp' },
+  { id: 6, title: 'Auditorium Echoes', tag: 'KEYNOTE', imageUrl: 'pic1.webp' },
+  { id: 7, title: 'Triumph', tag: 'VALEDICTORY', imageUrl: 'pic1.webp' },
+  { id: 8, title: 'Tech Expo', tag: 'INNOVATION', imageUrl: 'pic4.webp' },
+];
+
+const MEMORIES = [...BASE_MEMORIES, ...BASE_MEMORIES];
 
 export default function VideoSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  // Track scroll progress relative to the section's position
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    // "start 90%" means animation begins when top of container hits 90% of viewport height
-    // "center center" means animation finishes when center of container hits center of viewport
-    offset: ["start 90%", "center center"]
-  });
-
-  // Transform width from a narrow slit to almost full width
-  const maskWidth = useTransform(scrollYProgress, [0, 1], ["20%", "95%"]);
-  // Transform height from a small strip to full height of its container
-  const maskHeight = useTransform(scrollYProgress, [0, 1], ["100px", "100%"]);
-  // Round corners heavily at the start, square them off slightly at the end
-  const maskRadius = useTransform(scrollYProgress, [0, 1], ["50px", "24px"]);
-  // Scale the image slightly as it opens for a parallax effect
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.2, 1]);
-
   return (
     <section 
-      id="video" 
-      className="py-24 relative overflow-hidden"
+      id="activities" 
+      className="py-24 relative overflow-hidden bg-[#030712] select-none flex flex-col items-center justify-center min-h-screen"
     >
-      {/* Dynamic Geometric Orbs & Fluid Mesh */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#030712] via-transparent to-[#030712] opacity-80 z-0 pointer-events-none" />
-      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-emerald-500/10 blur-[100px] rounded-full pointer-events-none" />
-      <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute inset-0 bg-fluid-mesh opacity-40 pointer-events-none mix-blend-overlay" />
+      {/* 
+        THE MAGIC MATH:
+        Width = 300px. 16 Items. 
+        Angle = 360 / 16 = 22.5deg.
+        Radius = (300 / 2) / tan(11.25deg) = 150 / 0.1989 = 754px.
+      */}
+      <style>
+        {`
+          @keyframes spin-cylinder {
+            0% { transform: translateZ(350px) rotateY(0deg); }
+            100% { transform: translateZ(350px) rotateY(-360deg); }
+          }
+          .pano-cylinder {
+            transform-style: preserve-3d;
+            animation: spin-cylinder 35s linear infinite;
+          }
+          .pano-container:hover .pano-cylinder {
+            animation-play-state: paused;
+          }
+          .pano-panel {
+            backface-visibility: hidden;
+          }
+        `}
+      </style>
 
-      {/* Header Text */}
-      <div className="max-w-5xl mx-auto px-4 md:px-8 relative z-10">
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: { staggerChildren: 0.2 }
-            }
-          }}
-          className="flex flex-col items-center text-center mb-4"
-        >
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/10 border border-blue-400/25 text-blue-300 font-sans text-xs font-semibold uppercase tracking-wider mb-4">
-            Teaser
-          </motion.div>
-          <motion.h2 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="font-display text-4xl md:text-[44px] font-bold tracking-tight text-white mb-4">
-            Experience Innovatrium
-          </motion.h2>
-          <motion.p variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="font-sans text-base text-slate-300 max-w-2xl leading-relaxed">
-            Get a glimpse of the energy, innovation, and excitement that awaits you.
-          </motion.p>
-        </motion.div>
+      {/* Background Ambient Glows */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#030712] via-transparent to-[#030712] opacity-90 z-0 pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-emerald-500/10 blur-[150px] rounded-full pointer-events-none" />
+
+      {/* Header Section */}
+      <div className="max-w-3xl mx-auto px-4 relative z-20 text-center mb-12">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-sans text-xs font-bold uppercase tracking-widest mb-6 shadow-xl">
+          <Sparkle weight="fill" className="w-4 h-4" />
+          <span>IEEE SB Activities</span>
+        </div>
+
+        <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+          Moments & Milestones
+        </h2>
+        
+        <p className="font-sans text-base text-slate-400 font-light max-w-xl mx-auto">
+          A continuous glimpse into the late nights, the breakthroughs, and the vibrant community that powers Innovatrium.
+        </p>
       </div>
 
-      {/* Scroll-Triggered Expanding Video Mask */}
-      <div ref={containerRef} className="w-full h-[50vh] md:h-[75vh] flex justify-center items-center mt-12 relative z-10 px-4 md:px-0">
-        <motion.div 
-          style={{ 
-            width: maskWidth,
-            height: maskHeight,
-            borderRadius: maskRadius
-          }}
-          className="relative overflow-hidden group shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 bg-[#0b1329] flex-shrink-0"
-        >
-          {/* The actual video / image background inside */}
-          <motion.div 
-              style={{ scale: imageScale }}
-              className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80')] bg-cover bg-center origin-center"
-          />
+      {/* True 3D Panoramic Stage */}
+      <div 
+        className="pano-container relative w-full h-[400px] md:h-[450px] flex items-center justify-center z-10"
+        style={{ perspective: '1000px' }} 
+      >
+        {/* Edge Mask Gradients to fade out the sides beautifully */}
+        <div className="absolute top-0 left-0 w-16 md:w-48 h-full bg-gradient-to-r from-[#030712] to-transparent z-30 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-16 md:w-48 h-full bg-gradient-to-l from-[#030712] to-transparent z-30 pointer-events-none" />
+
+        {/* The Rotating Cylinder */}
+        <div className="pano-cylinder relative w-0 h-0 flex items-center justify-center">
           
-          {/* Dark overlay that brightens on hover */}
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-all duration-700 group-hover:bg-black/20 group-hover:backdrop-blur-none" />
-          
-          {/* Play Button */}
-          <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-emerald-500/20 border border-emerald-400/30 backdrop-blur-md flex items-center justify-center cursor-pointer hover:bg-emerald-500/40 transition-all duration-300 group-hover:scale-110 shadow-[0_0_30px_rgba(16,185,129,0.3)]">
-                <Play weight="duotone" className="w-8 h-8 md:w-10 md:h-10 text-emerald-300 ml-1" />
+          {MEMORIES.map((item, index) => {
+            const angle = index * 22.5; // 360 / 16
+            
+            return (
+              <div
+                key={index}
+                className="pano-panel absolute w-[300px] h-[400px] md:h-[450px] bg-slate-900 cursor-pointer group"
+                style={{
+                  // 1. Rotate to position on cylinder
+                  // 2. Push outward by exact radius (754px)
+                  // 3. Rotate 180deg so the image faces INWARD toward the center
+                  transform: `rotateY(${angle}deg) translateZ(754px) rotateY(180deg)`,
+                  // Slight border to define the panels exactly like the Framer example
+                  borderRight: '1px solid rgba(255, 255, 255, 0.05)',
+                }}
+              >
+                {/* Background Image */}
+                <img
+                  src={item.imageUrl}
+                  alt={item.title}
+                  className="w-full h-full object-cover brightness-[0.6] group-hover:brightness-100 transition-all duration-500 pointer-events-none"
+                />
+
+                {/* Dark Vignette Overlay for Text Readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-90" />
+
+                {/* Card Info Overlay */}
+                <div className="absolute bottom-0 left-0 w-full p-6 flex flex-col justify-end translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                  <span className="inline-block self-start px-2.5 py-1 rounded-md bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 font-mono text-[10px] font-bold tracking-widest uppercase mb-2 opacity-80 group-hover:opacity-100 transition-opacity">
+                    {item.tag}
+                  </span>
+                  <h3 className="font-display text-xl md:text-2xl font-bold text-white tracking-wide">
+                    {item.title}
+                  </h3>
+                </div>
               </div>
-          </div>
-        </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
