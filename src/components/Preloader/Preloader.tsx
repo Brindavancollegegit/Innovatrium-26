@@ -52,7 +52,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
           <img 
             src="/IEEE-logo.webp" 
             alt="IEEE SB" 
-            className="h-9 sm:h-12 md:h-14 w-auto object-contain opacity-95" 
+            className="h-12 sm:h-16 md:h-20 w-auto object-contain opacity-95" 
           />
         </motion.div>
 

@@ -32,7 +32,7 @@ export default function Navbar() {
           <img 
             src="/IEEE-logo.webp" 
             alt="IEEE" 
-            className="h-[28px] sm:h-[34px] lg:h-[50px] xl:h-[64px] w-auto object-contain shrink-0 transition-transform hover:scale-105" 
+            className="h-11 sm:h-14 lg:h-[72px] xl:h-[84px] w-auto object-contain shrink-0 transition-transform hover:scale-105" 
           />
 
           {/* Society Logos Cluster */}

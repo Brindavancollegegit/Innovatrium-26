@@ -43,7 +43,7 @@ export const schedule: ScheduleDay[] = [
         icon: 'presentation-chart'
       },
       {
-        time: :3:00 PM',
+        time: '3:00 PM',
         title: 'Valedictory & Prize Distribution',
         description: 'Announcement of winners, distribution of the ₹30,000+ prize pool, and closing remarks.',
         icon: 'trophy'
