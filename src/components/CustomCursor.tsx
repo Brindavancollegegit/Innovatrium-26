@@ -67,7 +67,7 @@ export default function CustomCursor() {
 
   return (
     <motion.div
-      className="custom-cursor fixed top-0 left-0 z-[100] pointer-events-none will-change-transform"
+      className="custom-cursor fixed top-0 left-0 z-[999999] pointer-events-none will-change-transform"
       style={{
         x: cursorX,
         y: cursorY,
