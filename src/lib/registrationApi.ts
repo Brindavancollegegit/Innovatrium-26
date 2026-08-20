@@ -1,6 +1,6 @@
 import { validateAndSanitizeRegistration, RawRegistrationPayload } from './validation';
 
-const DEFAULT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxe10pM7SQOmYNpw8bGk-wchgiIUh5zRnbsOHlQQC9h16Q6oQaC0tYVReynqRfxCftl/exec';
+const DEFAULT_ENDPOINT = '/api/register';
 const ENDPOINT = (import.meta as any).env.VITE_REGISTRATION_ENDPOINT || DEFAULT_ENDPOINT;
 
 export interface SubmissionResponse {
@@ -21,29 +21,14 @@ export async function submitRegistration(payload: RawRegistrationPayload): Promi
 
   const sanitizedPayload = validation.sanitized;
 
-  // 2. Local Fallback Simulation for Free Registrations (if endpoint not set)
-  if (!ENDPOINT) {
-    console.warn('[Innovatrium API] VITE_REGISTRATION_ENDPOINT is not configured. Simulating free registration success.');
-    const mockId = 'INV26-' + Math.random().toString(36).substring(2, 10).toUpperCase();
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    return {
-      success: true,
-      id: mockId,
-      amount: 0, // Free Pass
-      timestamp: sanitizedPayload.timestamp,
-    };
-  }
-
-  // 3. Secure Dispatch to Google Apps Script Web App
+  // 3. Secure Dispatch to Vercel Serverless Function Proxy
   try {
     const res = await fetch(ENDPOINT, {
       method: 'POST',
       headers: {
-        // text/plain prevents CORS preflight redirection issues on Google Apps Script
-        'Content-Type': 'text/plain;charset=utf-8',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(sanitizedPayload),
-      redirect: 'follow',
     });
 
     const text = await res.text();

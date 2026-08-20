@@ -9,7 +9,6 @@ import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
 import CustomCursor from './components/CustomCursor';
 import Preloader from './components/Preloader/Preloader';
-import CEOLaunchScreen from './components/Launch/CEOLaunchScreen';
 
 // Lazy-loaded below-the-fold components
 const VideoSection = lazy(() => import('./components/Video/VideoSection'));
@@ -35,9 +34,6 @@ function SectionSkeleton({ className = "py-24" }: { className?: string }) {
 }
 
 export default function App() {
-  const [hasLaunched, setHasLaunched] = useState(() => {
-    return !!sessionStorage.getItem('site_launched');
-  });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -54,14 +50,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
-      <CEOLaunchScreen onComplete={() => setHasLaunched(true)} />
       
       <div className="animated-aurora-bg"></div>
       <div className="bg-noise"></div>
       <CustomCursor />
       
       <AnimatePresence>
-        {hasLaunched && isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+        {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
 
       <Navbar />
