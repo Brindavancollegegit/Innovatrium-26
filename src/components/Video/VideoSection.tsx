@@ -2,14 +2,14 @@ import { Sparkle } from '@phosphor-icons/react';
 
 // We duplicate the 8 items to create a perfect 16-sided seamless 3D cylinder
 const BASE_MEMORIES = [
-  { id: 1, title: 'Hackathon Arena', tag: 'LIVE SPRINT', imageUrl: 'pic1.webp' },
-  { id: 2, title: 'Code & Coffee', tag: 'DEVELOPMENT', imageUrl: 'pic2.webp' },
-  { id: 3, title: 'First Pitch', tag: 'JURY DEFENSE', imageUrl: 'pic3.webp' },
+  { id: 1, title: '"Official Launch', tag: 'LIVE SPRINT', imageUrl: 'launch.webp' },
+  { id: 2, title: 'CS Society', tag: 'INNAUGRATION', imageUrl: 'pic2.webp' },
+  { id: 3, title: 'SPS Society', tag: 'INNAUGRATION', imageUrl: 'pic5.webp' },
   { id: 4, title: 'The Core Squad', tag: 'COMMUNITY', imageUrl: 'pic1.webp' },
-  { id: 5, title: 'Hardware Labs', tag: 'WORKSHOP', imageUrl: 'pic5.webp' },
-  { id: 6, title: 'Auditorium Echoes', tag: 'KEYNOTE', imageUrl: 'pic1.webp' },
-  { id: 7, title: 'Triumph', tag: 'VALEDICTORY', imageUrl: 'pic1.webp' },
-  { id: 8, title: 'Tech Expo', tag: 'INNOVATION', imageUrl: 'pic4.webp' },
+  { id: 5, title: 'Official Launch', tag: 'ACHIVE', imageUrl: 'launch.webp' },
+  { id: 6, title: 'CS Society', tag: 'KEYNOTE', imageUrl: 'pic2.webp' },
+  { id: 7, title: 'SPS Society', tag: 'VALEDICTORY', imageUrl: 'pic5.webp' },
+  { id: 8, title: 'Wie Society', tag: 'INNOVATION', imageUrl: 'pic4.webp' },
 ];
 
 const MEMORIES = [...BASE_MEMORIES, ...BASE_MEMORIES];
