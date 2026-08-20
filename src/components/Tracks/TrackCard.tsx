@@ -53,7 +53,7 @@ export default function TrackCard({
       <div
         className={`relative w-full h-full duration-700 [transform-style:preserve-3d] transition-transform ease-out ${
           isFlipped ? '[transform:rotateY(180deg)]' : ''
-        }`}
+        } group-hover:[transform:rotateY(180deg)]`}
       >
         {/* =========================================================
             FRONT FACE: TECH POSTER STYLE

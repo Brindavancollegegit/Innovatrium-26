@@ -33,17 +33,17 @@ export const tracks: Track[] = [
     ]
   },
   {
-    competitionId: 'reverse-engineering',
-    title: 'Reverse Engineering',
-    tagline: 'Decode hidden patterns, crack logic flows, and replicate the system.',
+    competitionId: 'app-2.0',
+    title: 'App 2.0',
+    tagline: 'Redesign iconic everyday apps to solve real-world constraints through rapid product logic and live defense.',
     teamSize: '2 Members',
-    format: 'Offline / Hands-on',
+    format: 'Offline / Pitch',
     icon: 'Gear',
     rules: [
-      'Teams will interact with a "Black Box" system that transforms provided inputs into unknown outputs.',
-      'The objective is to analyze the input-output pairs and decipher the hidden algorithm or pattern.',
-      'Once the logic is cracked, teams must write a script in their preferred language to replicate the exact behavior.',
-      'Use of external internet resources is permitted, but collaboration between teams is strictly prohibited.'
+      'Draw a random chit pairing a popular everyday app with a unique real-world problem constraint.',
+      'Get 15 minutes of offline prep to map out a 3-step redesigned user flow and solution on chart paper.',
+      'Deliver a crisp 3-minute pitch covering user frustration, redesign logic, and practical adoption.',
+      'Tackle a live 45-second judge curveball testing feature abuse, accessibility, or edge case defense.',
     ],
     evaluation: [
       'Logic Identification Speed (30%)',
@@ -59,10 +59,10 @@ export const tracks: Track[] = [
     format: 'Offline / Live Arena',
     icon: 'TerminalWindow',
     rules: [
-      'Participants will face a custom AI agent programmed to protect a secret "flag" or password.',
-      'The goal is to engineer creative prompts to bypass the AI\'s system instructions and force it to reveal the secret.',
-      'The arena consists of escalating levels, each with stricter AI guardrails and forbidden modifier keywords.',
-      'Directly asking the AI for the secret will trigger a system block; you must deceive or trap the AI into answering.'
+      'Round 1 (Visual Replication): Recreate a complex reference image with maximum visual and compositional fidelity in limited attempts.',
+      'Round 2 (Guardrail Jailbreak): Prompt a heavily restricted LLM to bypass builtin rules and reveal a forbidden secret token.',
+      'Work under strict prompt count limits and token caps—shorter, more precise prompts win tie-breakers.',
+      'Standardized workstations and identical AI models provided on-site for zero-luck, equal fairness.',
     ],
     evaluation: [
       'Levels Cleared (50%)',

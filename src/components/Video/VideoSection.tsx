@@ -2,7 +2,7 @@ import { Sparkle } from '@phosphor-icons/react';
 
 // We duplicate the 8 items to create a perfect 16-sided seamless 3D cylinder
 const BASE_MEMORIES = [
-  { id: 1, title: '"Official Launch', tag: 'LIVE SPRINT', imageUrl: 'launch.webp' },
+  { id: 1, title: 'Official Launch', tag: 'LIVE SPRINT', imageUrl: 'launch.webp' },
   { id: 2, title: 'CS Society', tag: 'INNAUGRATION', imageUrl: 'pic2.webp' },
   { id: 3, title: 'SPS Society', tag: 'INNAUGRATION', imageUrl: 'pic5.webp' },
   { id: 4, title: 'The Core Squad', tag: 'COMMUNITY', imageUrl: 'pic1.webp' },
@@ -93,12 +93,21 @@ export default function VideoSection() {
                   borderRight: '1px solid rgba(255, 255, 255, 0.05)',
                 }}
               >
-                {/* Background Image */}
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className="w-full h-full object-cover brightness-[0.6] group-hover:brightness-100 transition-all duration-500 pointer-events-none"
-                />
+                {/* Cinematic Image Container (Solves cropping) */}
+                <div className="absolute inset-0 w-full h-full brightness-[0.6] group-hover:brightness-100 transition-all duration-500 overflow-hidden pointer-events-none">
+                  {/* Blurred Backdrop to fill empty space seamlessly */}
+                  <img
+                    src={item.imageUrl}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover blur-xl scale-125 opacity-50"
+                  />
+                  {/* Uncropped Main Image */}
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    className="absolute inset-0 w-full h-full object-contain z-10 shadow-2xl"
+                  />
+                </div>
 
                 {/* Dark Vignette Overlay for Text Readability */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-90" />
