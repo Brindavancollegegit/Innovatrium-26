@@ -107,11 +107,11 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
                 Bengaluru's Inter-College<br className="hidden lg:block" /> Tech Showdown
               </h2>
               
-              <p className="!text-white max-w-xl text-sm sm:text-base leading-relaxed hidden sm:block font-medium drop-shadow-md">
+              <p className="text-white max-w-xl text-sm sm:text-base leading-relaxed hidden sm:block font-medium drop-shadow-md">
                 Step out of the classroom and into the arena.
               </p>
               
-              <p className="!font-black !text-transparent !bg-clip-text !bg-gradient-to-r !from-blue-200 via-white !to-emerald-200 !tracking-[0.2em] text-sm sm:text-base mt-1 drop-shadow-lg text-center lg:text-left">
+              <p className="font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-200 via-white to-emerald-200 tracking-[0.2em] text-sm sm:text-base mt-1 drop-shadow-lg text-center lg:text-left">
                 BUILD | DEFEND | INNOVATE | WIN
               </p>
             </motion.div>
@@ -125,16 +125,16 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto">
                 <a 
                   href="#register" 
-                  className="group flex w-full sm:w-auto items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 text-white font-bold text-sm sm:text-base px-10 py-4 rounded-xl transition-all duration-200 shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)] hover:-translate-y-1 uppercase tracking-wider border !border-white/10"
+                  className="group flex w-full sm:w-auto items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 text-white font-bold text-sm sm:text-base px-10 py-4 rounded-xl transition-all duration-200 shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)] hover:-translate-y-1 uppercase tracking-wider border border-white/10"
                 >
                   <span>Register Now</span>
                   <ArrowRight weight="bold" className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </a>
 
-                <div className="flex items-center gap-2 px-6 py-4 rounded-xl border border-yellow-400/50 bg-yellow-400/20 backdrop-blur-md !text-white font-black shadow-[0_0_20px_rgba(250,204,21,0.3)] relative overflow-hidden w-full sm:w-auto justify-center">
+                <div className="flex items-center gap-2 px-6 py-4 rounded-xl border border-yellow-400/50 bg-yellow-400/20 backdrop-blur-md text-white font-black shadow-[0_0_20px_rgba(250,204,21,0.3)] relative overflow-hidden w-full sm:w-auto justify-center">
                   <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/0 via-yellow-400/30 to-yellow-400/0 animate-[shimmer_3s_infinite]" />
                   <Trophy weight="fill" className="w-5 h-5 text-yellow-300 relative z-10" />
-                  <span className="!text-white text-sm sm:text-base tracking-wide relative z-10 drop-shadow-md whitespace-nowrap">₹30,000+ Prize Pool</span>
+                  <span className="text-white text-sm sm:text-base tracking-wide relative z-10 drop-shadow-md whitespace-nowrap">₹30,000+ Prize Pool</span>
                 </div>
               </div>
               
