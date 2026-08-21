@@ -165,6 +165,11 @@ export default function Registration() {
       setSubmittedData({ ...payload, id: res.id });
       localStorage.removeItem(STORAGE_KEY);
       
+      const registerElement = document.getElementById('register');
+      if (registerElement) {
+        registerElement.scrollIntoView({ behavior: 'smooth' });
+      }
+      
       // Delay WhatsApp modal until after printing animation (3.5s)
       setTimeout(() => {
         setShowWhatsAppModal(true);

@@ -42,7 +42,7 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
 
         {/* Interactive Spotlight Overlay */}
         <div 
-          className="absolute inset-0 transition-all duration-300 ease-out z-10"
+          className="absolute inset-0 transition-all duration-300 ease-out z-10 hidden sm:block"
           style={{
             background: isHovered 
               ? `radial-gradient(800px circle at ${mousePos.x}px ${mousePos.y}px, transparent 15%, rgba(3, 7, 18, 0.4) 65%, rgba(3, 7, 18, 0.8) 100%)`
@@ -74,86 +74,81 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
           className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
         >
           {/* --- LEFT COLUMN: Event Details --- */}
-          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left gap-6 lg:gap-8 w-full z-20">
             
+            {/* 1. Date Stamp (Top on Mobile & Desktop) */}
+            <motion.div
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md font-mono text-xs sm:text-sm font-bold text-slate-300 tracking-widest uppercase shadow-xl"
+            >
+              <span className="text-emerald-400">DATE &bull;</span> {eventMonth} {eventDayNum}, {year}
+            </motion.div>
 
-
-            {/* Title */}
-            <motion.h1 
+            {/* 2. Title with Subtle Grid BG */}
+            <motion.div 
               variants={{ hidden: { opacity: 0, y: 25 }, visible: { opacity: 1, y: 0 } }}
-              className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.05] drop-shadow-2xl"
+              className="relative w-full flex justify-center lg:justify-start py-2"
             >
-              Innovatrium <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-emerald-400 to-teal-200">'26</span>
-            </motion.h1>
-
-            {/* Standalone Date Stamp */}
-            <motion.div
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="group inline-flex items-center gap-3 px-5 py-2.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/15 hover:border-emerald-400/60 backdrop-blur-md font-mono text-sm sm:text-base font-bold text-emerald-300 tracking-wider shadow-[0_0_20px_rgba(16,185,129,0.15)] transition-all duration-300 cursor-pointer"
-              onClick={() => alert("Calendar integration coming soon!")}
-            >
-              <CalendarBlank weight="duotone" className="w-5 h-5 text-emerald-300 shrink-0" />
-              <div className="flex items-center gap-2">
-                <span className="text-white">{eventMonth} {eventDayNum}</span>
-                <span className="text-white">, {year}</span>
-              </div>
-              <div className="flex items-center gap-1.5 pl-2.5 border-l border-emerald-500/30 text-xs font-sans font-semibold text-emerald-300/80 group-hover:text-emerald-200 transition-colors">
-                <CalendarPlus weight="duotone" className="w-4 h-4 text-emerald-300" />
-                <span className="hidden sm:inline">Add</span>
-              </div>
+              {/* Subtle tech grid behind title */}
+              <div className="absolute -inset-10 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)] pointer-events-none z-0 hidden sm:block" />
+              <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.05] drop-shadow-2xl relative z-10">
+                Innovatrium <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-emerald-400 to-teal-200">'26</span>
+              </h1>
             </motion.div>
 
-            {/* Subtitle */}
+            {/* 3. Shortened Punchy Description */}
             <motion.div
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="text-base sm:text-lg text-slate-200 max-w-xl font-sans leading-relaxed drop-shadow-md space-y-4"
+              className="flex flex-col items-center lg:items-start gap-3 lg:gap-4 w-full"
             >
-              <p>Step out of the classroom and into the arena.</p>
-              <p>
-                IEEE SB Brindavan presents INNOVATRIUM ’26 — Bengaluru’s premier inter-college tech showdown, spanning GenAI challenges, rapid product redesign, and sustainable engineering research.
+              <h2 className="text-lg sm:text-2xl font-black text-white tracking-widest uppercase opacity-90 leading-snug">
+                Bengaluru's Inter-College<br className="hidden lg:block" /> Tech Showdown
+              </h2>
+              
+              <div className="text-emerald-400 font-mono text-xs sm:text-sm font-bold tracking-widest uppercase bg-emerald-500/10 px-4 py-1.5 rounded-full border border-emerald-500/20">
+                GenAI <span className="opacity-50 mx-1">&bull;</span> Product <span className="opacity-50 mx-1">&bull;</span> Sustainability
+              </div>
+
+              <p className="text-slate-300 max-w-xl text-sm sm:text-base leading-relaxed hidden sm:block">
+                Step out of the classroom and into the arena. IEEE SB Brindavan presents INNOVATRIUM ’26.
               </p>
-              <p className="font-semibold text-white">
-                Build. Defend. Innovate. Win.
+              
+              <p className="font-bold text-white tracking-widest text-sm sm:text-base mt-2">
+                BUILD. DEFEND. INNOVATE. WIN.
               </p>
             </motion.div>
 
-            {/* Meta Tags */}
+            {/* 4. Action Buttons (Register Now -> full width on mobile) */}
             <motion.div 
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} 
-              className="flex flex-wrap justify-center lg:justify-start gap-2.5 font-sans text-xs sm:text-sm font-medium"
-            >
-              <div className="flex items-center gap-2 rounded-xl border border-white/15 bg-[#030712]/70 px-3.5 py-2 backdrop-blur-sm text-slate-200 shadow-sm">
-                <CalendarBlank weight="duotone" className="w-4 h-4 text-blue-400" />
-                <span>Competition Day</span>
-              </div>
-              <div className="flex items-center gap-2 rounded-xl border border-white/15 bg-[#030712]/70 px-3.5 py-2 backdrop-blur-sm text-slate-200 shadow-sm">
-                <MapPin weight="duotone" className="w-4 h-4 text-emerald-400" />
-                <span>Brindavan College</span>
-              </div>
-              <div className="flex items-center gap-2 rounded-xl border border-emerald-500/40 bg-emerald-500/20 px-3.5 py-2 backdrop-blur-sm text-emerald-300 font-semibold shadow-md">
-                <Trophy weight="duotone" className="w-4 h-4 text-emerald-400" />
-                <span>Prize Pool: ₹30,000+</span>
-              </div>
-            </motion.div>
-
-            {/* Action Buttons */}
-            <motion.div 
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} 
-              className="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto pt-2"
+              className="flex flex-col items-center lg:items-start gap-4 w-full sm:w-auto mt-4"
             >
               <a 
                 href="#register" 
-                className="group flex w-full sm:w-auto items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 text-white font-semibold text-sm px-8 py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5"
+                className="group flex w-full sm:w-auto items-center justify-center gap-2 bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 text-white font-bold text-sm sm:text-base px-10 py-4 rounded-xl transition-all duration-200 shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)] hover:-translate-y-1 uppercase tracking-wider border border-white/10"
               >
                 <span>Register Now</span>
-                <ArrowRight weight="duotone" className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight weight="bold" className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </a>
+              
               <a 
                 href="#tracks" 
-                className="flex w-full sm:w-auto items-center justify-center gap-2 border border-white/20 bg-[#030712]/70 hover:bg-white/10 text-slate-200 font-medium text-sm px-6 py-3.5 rounded-xl backdrop-blur-sm transition-all duration-200"
+                className="group flex items-center justify-center gap-2 text-slate-300 hover:text-white font-semibold text-sm px-6 py-2 transition-all duration-200"
               >
-                Explore Tracks
+                Explore Tracks <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 opacity-50 group-hover:opacity-100" />
               </a>
+            </motion.div>
+
+            {/* 5. Prize Pool (Prominent at bottom of hero) */}
+            <motion.div 
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} 
+              className="flex items-center gap-3 mt-4 lg:mt-2"
+            >
+              <div className="flex items-center gap-2 px-6 py-3 rounded-xl border border-emerald-500/40 bg-emerald-500/10 backdrop-blur-sm text-emerald-300 font-bold shadow-lg shadow-emerald-500/10 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 animate-[shimmer_3s_infinite]" />
+                <Trophy weight="fill" className="w-5 h-5 text-emerald-400 relative z-10" />
+                <span className="text-sm sm:text-base tracking-wide relative z-10">₹30,000+ Prize Pool</span>
+              </div>
             </motion.div>
 
           </div>
@@ -161,25 +156,8 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
           {/* --- RIGHT COLUMN: Live Activity & Countdown Glass Card --- */}
           <motion.div 
             variants={{ hidden: { opacity: 0, scale: 0.95, y: 20 }, visible: { opacity: 1, scale: 1, y: 0 } }}
-            className="lg:col-span-5 w-full max-w-md mx-auto flex flex-col gap-5"
+            className="lg:col-span-5 w-full max-w-md mx-auto flex flex-col gap-5 relative z-20 mt-8 lg:mt-0"
           >
-            {/* Prominent Date Bar Above Card */}
-            <div className="w-full flex items-center justify-between px-5 py-3.5 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-md shadow-lg shadow-emerald-500/5 transition-all duration-300 hover:border-emerald-400/50">
-              <div className="flex items-center gap-2.5">
-                <div className="p-1.5 rounded-lg bg-emerald-500/20 border border-emerald-400/30">
-                  <CalendarBlank weight="duotone" className="w-4 h-4 text-emerald-300" />
-                </div>
-                <span className="font-mono text-xs sm:text-sm tracking-wide uppercase">
-                  <span className="font-semibold text-slate-300">Event Date:</span>{' '}
-                  <span className="font-bold text-white">{eventDateStr}</span>
-                </span>
-              </div>
-              <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-              </span>
-            </div>
-
             <div className="relative rounded-3xl border border-white/20 bg-[#030712]/80 p-6 sm:p-7 backdrop-blur-md shadow-2xl hover:border-emerald-500/40 transition-colors duration-300">
               
               {/* Card Header */}
