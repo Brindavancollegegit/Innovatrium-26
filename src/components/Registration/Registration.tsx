@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Printer, DownloadSimple, ArrowCounterClockwise, CheckCircle, ShieldCheck, WhatsappLogo } from '@phosphor-icons/react';
 import Countdown from './Countdown';
 import StepList from './StepList';
@@ -70,6 +71,7 @@ export default function Registration() {
   const [submitting, setSubmitting] = useState(false);
   const [submittedData, setSubmittedData] = useState<any>(null);
   const [showWhatsAppModal, setShowWhatsAppModal] = useState(false);
+  const [isWhatsAppClosed, setIsWhatsAppClosed] = useState(false);
 
   const [submissionError, setSubmissionError] = useState<string | null>(null);
 
@@ -161,8 +163,12 @@ export default function Registration() {
       }
 
       setSubmittedData({ ...payload, id: res.id });
-      setShowWhatsAppModal(true);
       localStorage.removeItem(STORAGE_KEY);
+      
+      // Delay WhatsApp modal until after printing animation (3.5s)
+      setTimeout(() => {
+        setShowWhatsAppModal(true);
+      }, 3500);
     } catch (e: any) {
       setSubmitting(false);
       setSubmissionError('An unexpected network error occurred. Please try again.');
@@ -268,6 +274,7 @@ export default function Registration() {
   const handleReset = () => {
     setSubmittedData(null);
     setStep(1);
+    setIsWhatsAppClosed(false);
     setParticipant(null);
     setPersonal({ fullName: '', email: '', phone: '', college: '', branch: '', year: '', ieeeNumber: '' });
     setCompetition({ competitionId: undefined, teamName: '', members: [] });
@@ -295,7 +302,7 @@ export default function Registration() {
                   href="https://chat.whatsapp.com/BEnG1v55C6oGuIHpn4olcb" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  onClick={() => setShowWhatsAppModal(false)}
+                  onClick={() => { setShowWhatsAppModal(false); setIsWhatsAppClosed(true); }}
                   className="w-full inline-flex justify-center items-center gap-2 px-6 py-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-black text-sm font-bold tracking-wide transition-all shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:scale-[1.02] hover:-translate-y-1"
                 >
                   <WhatsappLogo weight="bold" className="w-6 h-6" />
@@ -303,7 +310,7 @@ export default function Registration() {
                 </a>
                 
                 <button 
-                  onClick={() => setShowWhatsAppModal(false)}
+                  onClick={() => { setShowWhatsAppModal(false); setIsWhatsAppClosed(true); }}
                   className="text-slate-500 text-xs hover:text-white transition-colors mt-2 underline underline-offset-4"
                 >
                   I'll do this later, show my pass
@@ -313,52 +320,126 @@ export default function Registration() {
           </div>
         )}
 
-      <section id="register" className="py-20">
-        <div className="max-w-3xl mx-auto px-4">
-          <div id="printable-receipt-card" className="p-8 md:p-12 rounded-3xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.1)] shadow-2xl text-left">
-            <div className="flex justify-between items-start border-b border-white/10 pb-6 mb-6">
-              <div>
-                <div className="flex items-center gap-2">
-                  <ShieldCheck weight="duotone" className="w-6 h-6 text-sky-400 shrink-0" />
-                  <h1 className="text-2xl font-bold font-display text-white">Event Registration Pass</h1>
+      <section id="register" className="py-20 relative">
+        <div className="max-w-3xl mx-auto px-4 flex flex-col items-center">
+          
+          {/* REALISTIC POS TERMINAL / PRINTER */}
+          <div className="w-full max-w-[380px] mx-auto relative z-20 print:hidden mt-4">
+            <div className="bg-gradient-to-b from-slate-700 to-slate-800 rounded-t-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] border border-slate-600 border-b-black pb-3 px-5 pt-4 relative">
+              
+              <div className="flex justify-between items-center mb-4">
+                <div className="flex gap-2 items-center">
+                  <div className="w-2 h-2 rounded-full bg-red-500/20" />
+                  <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse" />
                 </div>
-                <p className="text-sm text-white/60 mt-1">Pass ID: <span className="font-mono text-primary font-bold">{submittedData.id}</span></p>
+                <div className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-widest flex items-center gap-2">
+                  <Printer weight="fill" className="w-3 h-3 opacity-50" />
+                  Terminal Ready
+                </div>
               </div>
-              <div className="text-right">
-                <span className="print-status-badge inline-block px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                  Registration Confirmed
-                </span>
-                <p className="text-xs text-white/50 mt-1">{new Date(submittedData.timestamp).toLocaleDateString()}</p>
+
+              {/* The Slit */}
+              <div className="h-3.5 w-full bg-[#020617] rounded-full shadow-[inset_0_4px_8px_rgba(0,0,0,0.9)] border-b border-slate-600/50 relative overflow-hidden flex items-start justify-center">
+                  <div className="w-full h-1 bg-black opacity-80" />
               </div>
             </div>
+          </div>
 
-            <div className="space-y-4 text-sm text-white/80">
-              <div className="print-card-box grid grid-cols-1 sm:grid-cols-2 gap-4 bg-white/5 p-4 rounded-xl">
-                <div>
-                  <p className="text-xs text-white/50">Lead Participant</p>
-                  <p className="font-semibold text-white">{submittedData.personal.fullName}</p>
-                  <p className="text-xs">{submittedData.personal.email}</p>
-                  <p className="text-xs">{submittedData.personal.phone}</p>
+          {/* THE TICKET (sliding out of the slit) */}
+          <div className="overflow-hidden relative z-10 w-full max-w-sm mx-auto -mt-2 pb-8">
+            <motion.div 
+              id="printable-receipt-card" 
+              initial={{ y: '-100%' }}
+              animate={{ y: 0 }}
+              transition={{ delay: 0.5, duration: 2.5, ease: "linear" }}
+              className="w-full drop-shadow-[0_20px_20px_rgba(0,0,0,0.6)] text-slate-900 relative"
+            >
+              <div className="w-full bg-white">
+                {/* Top Banner (Flat Top) */}
+                <div className="h-32 bg-gradient-to-br from-slate-900 to-slate-800 relative p-6 flex flex-col justify-end">
+                  <div className="absolute top-4 right-4 text-white/50">
+                    <ShieldCheck weight="fill" className="w-6 h-6 text-sky-400" />
+                  </div>
+                  <h2 className="text-white text-2xl font-bold font-display leading-tight">Innovatrium '26</h2>
+                  <p className="text-sky-400 text-[10px] font-bold tracking-widest uppercase mt-1">Official Entry Pass</p>
                 </div>
-                <div>
-                  <p className="text-xs text-white/50">College & Category</p>
-                  <p className="font-semibold text-white">{submittedData.personal.college}</p>
-                  <p className="text-xs print-highlight">{submittedData.participant === 'ieee' ? `IEEE Member (ID: ${submittedData.personal.ieeeNumber || 'Verified'})` : 'Non-IEEE Participant'}</p>
-                  <p className="text-xs text-white/60">{submittedData.personal.branch} — {submittedData.personal.year}</p>
+
+                {/* Ticket Details */}
+                <div className="p-7">
+                  <p className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">Track</p>
+                  <h3 className="text-2xl font-black text-slate-900 leading-none mb-7 tracking-tight capitalize">
+                    {submittedData.competition.competitionId.replace(/-/g, ' ')}
+                  </h3>
+
+                  <div className="grid grid-cols-3 gap-y-6 gap-x-2 mb-2">
+                    <div>
+                      <p className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">Team</p>
+                      <p className="text-slate-800 font-bold text-sm truncate">{submittedData.competition.teamName || 'Solo'}</p>
+                    </div>
+                    <div>
+                      <p className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">Size</p>
+                      <p className="text-slate-800 font-bold text-sm">{submittedData.competition.members.length + 1}</p>
+                    </div>
+                    <div>
+                      <p className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">Type</p>
+                      <p className="text-slate-800 font-bold text-sm truncate">{submittedData.participant === 'ieee' ? 'IEEE' : 'General'}</p>
+                    </div>
+
+                    <div>
+                      <p className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">Lead</p>
+                      <p className="text-slate-800 font-bold text-sm truncate">{submittedData.personal.fullName.split(' ')[0]}</p>
+                    </div>
+                    <div>
+                      <p className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">Date</p>
+                      <p className="text-slate-800 font-bold text-sm">26 Sep</p>
+                    </div>
+                    <div>
+                      <p className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">Time</p>
+                      <p className="text-slate-800 font-bold text-sm">9:00 AM</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Perforated Line with Cutouts */}
+                <div className="relative h-8 flex items-center justify-center bg-white">
+                  {/* Left Cutout */}
+                  <div className="absolute -left-4 w-8 h-8 bg-[#020617] rounded-full z-10 shadow-[inset_-3px_0_5px_rgba(0,0,0,0.1)]" />
+                  {/* Dashed Line */}
+                  <div className="w-full border-t-2 border-dashed border-slate-200 mx-4" />
+                  {/* Right Cutout */}
+                  <div className="absolute -right-4 w-8 h-8 bg-[#020617] rounded-full z-10 shadow-[inset_3px_0_5px_rgba(0,0,0,0.1)]" />
+                </div>
+
+                {/* QR Code Section */}
+                <div className="px-6 pb-6 pt-2 bg-white text-center flex flex-col items-center">
+                  <div className="p-2 border-2 border-slate-100 rounded-xl mb-3 shadow-sm bg-white">
+                    <img 
+                      src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(submittedData.id)}&color=0f172a`} 
+                      alt="Check-in QR Code"
+                      className="w-24 h-24"
+                    />
+                  </div>
+                  <p className="text-slate-500 font-mono text-[11px] tracking-[0.25em] uppercase font-semibold">
+                    {submittedData.id.replace('-', ' ')}
+                  </p>
                 </div>
               </div>
+              
+              {/* Realistic Torn Edge SVG Pattern */}
+              <div 
+                className="w-full h-2 relative -mt-[1px]"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='4' viewBox='0 0 12 4' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,0 12,0 6,4' fill='%23ffffff'/%3E%3C/svg%3E")`,
+                  backgroundRepeat: 'repeat-x',
+                  backgroundPosition: 'top'
+                }}
+              />
+            </motion.div>
+          </div>
 
-              <div className="border-t border-white/10 pt-4">
-                <p className="text-xs text-white/50 mb-1">Competition Track & Team</p>
-                <p className="font-semibold text-white">{submittedData.competition.competitionId} (Team: {submittedData.competition.teamName})</p>
-                <p className="text-xs text-white/60 mt-1">Total Members: {submittedData.competition.members.length + 1}</p>
-              </div>
-
-
-            </div>
-
+          <div className="w-full max-w-2xl mt-8 flex flex-col gap-4 z-20">
             {/* Email Notification Alert */}
-            <div className="mt-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-start gap-3 print:hidden">
+            <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-start gap-3 print:hidden w-full">
               <CheckCircle weight="duotone" className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
               <div>
                 <p className="font-semibold text-emerald-400 text-sm">Check your email for your Digital ID</p>
@@ -369,7 +450,7 @@ export default function Registration() {
             </div>
 
             {/* WhatsApp Community Alert */}
-            <div className="mt-4 p-5 rounded-xl bg-[#25D366]/10 border border-[#25D366]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
+            <div className="p-5 rounded-xl bg-[#25D366]/10 border border-[#25D366]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden w-full">
               <div className="flex items-start gap-3">
                 <WhatsappLogo weight="duotone" className="w-6 h-6 text-[#25D366] shrink-0 mt-0.5" />
                 <div>
@@ -389,7 +470,7 @@ export default function Registration() {
               </a>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-4 print:hidden">
+            <div className="mt-4 flex flex-wrap justify-center gap-4 print:hidden w-full">
               <button
                 type="button"
                 onClick={handlePrint}
@@ -409,12 +490,13 @@ export default function Registration() {
               <button
                 type="button"
                 onClick={handleReset}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white text-sm transition-all ml-auto cursor-pointer"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white text-sm transition-all cursor-pointer"
               >
                 <ArrowCounterClockwise weight="duotone" className="w-3.5 h-3.5" /> Register Another
               </button>
             </div>
           </div>
+
         </div>
       </section>
       </>
