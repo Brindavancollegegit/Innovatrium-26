@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   try {
     // The Google Apps Script URL should be placed in Vercel Environment Variables as GOOGLE_SCRIPT_URL
     // We include a fallback here just in case, but you should eventually remove the fallback from code!
-    const ENDPOINT = process.env.GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbzbEJ4x12wePl1MFI9SuVF0wBl-VQ6qfUhcbHOzTtI6LuwIZ61i9EPdFRrW2vHz7mFo/exec';
+    const ENDPOINT = process.env.GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbxVBDdy_rLRoL-RyG2SLkPoHJCdQcVEw9Pogool7FC4KQTCf5lEwIbbiZTNNi1ddHxS/exec';
 
     const response = await fetch(ENDPOINT, {
       method: 'POST',

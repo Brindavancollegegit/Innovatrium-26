@@ -21,31 +21,31 @@ export const schedule: ScheduleDay[] = [
       {
         time: '9:00 AM',
         title: 'Check-in & Briefing',
-        description: 'Final team check-ins and distribution of problem statements for the competitive tracks.',
+        description: 'Final team check-ins and distribution of problem statements.',
         icon: 'user-circle'
       },
       {
         time: '10:00 AM',
         title: 'Competitive Tracks Commence',
-        description: 'Reverse Engineering, Prompt Wars, and Poster Presentation tracks begin simultaneously.',
+        description: 'All three tracks begin simultaneously.\nParticipants compete only in their registered track.\n\n→ Poster Presentation\n→ App 2.0 — Product Redesign Pitch\n→ Prompt Wars — Generative AI Arena',
         icon: 'sword'
       },
       {
         time: '1:30 PM',
         title: 'Lunch Break',
-        description: 'Refuel your energy before the final sprint of the competitions.',
+        description: '',
         icon: 'coffee'
       },
       {
         time: '2:00 PM',
-        title: 'Final Pitches & Evaluations',
-        description: 'Teams present their final solutions and architectures to the jury.',
+        title: 'Final Pitches & Evaluation',
+        description: 'Final presentations and judging.',
         icon: 'presentation-chart'
       },
       {
         time: '3:00 PM',
         title: 'Valedictory & Prize Distribution',
-        description: 'Announcement of winners, distribution of the ₹30,000+ prize pool, and closing remarks.',
+        description: 'Winner announcements and ₹30,000+ prize distribution.',
         icon: 'trophy'
       }
     ]

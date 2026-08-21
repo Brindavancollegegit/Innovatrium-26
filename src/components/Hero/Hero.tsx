@@ -76,14 +76,7 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
           {/* --- LEFT COLUMN: Event Details --- */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
             
-            {/* Host Badge */}
-            <motion.div 
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-semibold backdrop-blur-sm shadow-md"
-            >
-              <Sparkle weight="duotone" className="w-3.5 h-3.5 animate-pulse text-emerald-300" />
-              <span className="text-emerald-300 font-medium">Presented by IEEE SB Brindavan</span>
-            </motion.div>
+
 
             {/* Title */}
             <motion.h1 
@@ -111,13 +104,18 @@ export default function Hero({ isLoading = false }: { isLoading?: boolean }) {
             </motion.div>
 
             {/* Subtitle */}
-            <motion.p
+            <motion.div
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="text-base sm:text-lg text-slate-200 max-w-xl font-sans leading-relaxed drop-shadow-md"
+              className="text-base sm:text-lg text-slate-200 max-w-xl font-sans leading-relaxed drop-shadow-md space-y-4"
             >
-              An immersive technology fest. Engage in
-              innovative tracks and collaborate with the brightest minds.
-            </motion.p>
+              <p>Step out of the classroom and into the arena.</p>
+              <p>
+                IEEE SB Brindavan presents INNOVATRIUM ’26 — Bengaluru’s premier inter-college tech showdown, spanning GenAI challenges, rapid product redesign, and sustainable engineering research.
+              </p>
+              <p className="font-semibold text-white">
+                Build. Defend. Innovate. Win.
+              </p>
+            </motion.div>
 
             {/* Meta Tags */}
             <motion.div 

@@ -319,6 +319,17 @@ export default function Registration() {
 
             </div>
 
+            {/* Email Notification Alert */}
+            <div className="mt-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-start gap-3 print:hidden">
+              <CheckCircle weight="duotone" className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+              <div>
+                <p className="font-semibold text-emerald-400 text-sm">Check your email for your Digital ID</p>
+                <p className="text-xs text-white/70 mt-1 leading-relaxed">
+                  Your official digital ID cards and entry pass have been generated. Please check your inbox at <span className="text-white font-medium">{submittedData.personal.email}</span> (including the spam folder). You will need to present this digital ID at the registration desk on the day of the event.
+                </p>
+              </div>
+            </div>
+
             <div className="mt-8 flex flex-wrap gap-4 print:hidden">
               <button
                 type="button"

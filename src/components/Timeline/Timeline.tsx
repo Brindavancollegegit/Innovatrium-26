@@ -209,7 +209,7 @@ export default function Timeline() {
                                   </h4>
                                   <p 
                                     style={{ color: '#cbd5e1' }} 
-                                    className="!text-slate-300 text-sm md:text-base leading-relaxed font-normal opacity-100"
+                                    className="!text-slate-300 text-sm md:text-base leading-relaxed font-normal opacity-100 whitespace-pre-line"
                                   >
                                     {evt.description}
                                   </p>
@@ -285,7 +285,7 @@ export default function Timeline() {
                                   </h4>
                                   <p 
                                     style={{ color: '#cbd5e1' }} 
-                                    className="!text-slate-300 text-sm md:text-base leading-relaxed font-normal opacity-100"
+                                    className="!text-slate-300 text-sm md:text-base leading-relaxed font-normal opacity-100 whitespace-pre-line"
                                   >
                                     {evt.description}
                                   </p>
