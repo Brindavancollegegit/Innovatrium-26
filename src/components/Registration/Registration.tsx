@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, useRef } from 'react';
-import { Printer, DownloadSimple, ArrowCounterClockwise, CheckCircle, ShieldCheck } from '@phosphor-icons/react';
+import { Printer, DownloadSimple, ArrowCounterClockwise, CheckCircle, ShieldCheck, WhatsappLogo } from '@phosphor-icons/react';
 import Countdown from './Countdown';
 import StepList from './StepList';
 import SummaryPanel from './SummaryPanel';
@@ -69,6 +69,7 @@ export default function Registration() {
   const [competition, setCompetition] = useState<CompetitionSelection>({ competitionId: undefined, teamName: '', members: [] });
   const [submitting, setSubmitting] = useState(false);
   const [submittedData, setSubmittedData] = useState<any>(null);
+  const [showWhatsAppModal, setShowWhatsAppModal] = useState(false);
 
   const [submissionError, setSubmissionError] = useState<string | null>(null);
 
@@ -160,6 +161,7 @@ export default function Registration() {
       }
 
       setSubmittedData({ ...payload, id: res.id });
+      setShowWhatsAppModal(true);
       localStorage.removeItem(STORAGE_KEY);
     } catch (e: any) {
       setSubmitting(false);
@@ -275,6 +277,42 @@ export default function Registration() {
   // Printable Invoice View
   if (submittedData) {
     return (
+      <>
+        {/* Full-Screen WhatsApp Modal Overlay */}
+        {showWhatsAppModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#020617]/90 backdrop-blur-md p-4 print:hidden">
+            <div className="bg-[#0b1329] border border-[#25D366]/40 p-8 sm:p-10 rounded-3xl shadow-[0_0_50px_rgba(37,211,102,0.15)] max-w-md w-full text-center relative animate-in fade-in zoom-in duration-300">
+              <div className="w-20 h-20 bg-[#25D366]/20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                <WhatsappLogo weight="fill" className="w-10 h-10 text-[#25D366]" />
+              </div>
+              <h2 className="text-3xl font-extrabold text-white mb-3 font-display tracking-tight">You're In!</h2>
+              <p className="text-slate-300 mb-8 text-sm leading-relaxed">
+                Your registration pass has been generated. Before you view it, <strong>you must join the official WhatsApp group</strong> to receive important event updates and coordinate with other participants.
+              </p>
+              
+              <div className="flex flex-col gap-4">
+                <a 
+                  href="https://chat.whatsapp.com/BEnG1v55C6oGuIHpn4olcb" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={() => setShowWhatsAppModal(false)}
+                  className="w-full inline-flex justify-center items-center gap-2 px-6 py-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-black text-sm font-bold tracking-wide transition-all shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:scale-[1.02] hover:-translate-y-1"
+                >
+                  <WhatsappLogo weight="bold" className="w-6 h-6" />
+                  Join WhatsApp Group Now
+                </a>
+                
+                <button 
+                  onClick={() => setShowWhatsAppModal(false)}
+                  className="text-slate-500 text-xs hover:text-white transition-colors mt-2 underline underline-offset-4"
+                >
+                  I'll do this later, show my pass
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
       <section id="register" className="py-20">
         <div className="max-w-3xl mx-auto px-4">
           <div id="printable-receipt-card" className="p-8 md:p-12 rounded-3xl bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.1)] shadow-2xl text-left">
@@ -330,6 +368,27 @@ export default function Registration() {
               </div>
             </div>
 
+            {/* WhatsApp Community Alert */}
+            <div className="mt-4 p-5 rounded-xl bg-[#25D366]/10 border border-[#25D366]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
+              <div className="flex items-start gap-3">
+                <WhatsappLogo weight="duotone" className="w-6 h-6 text-[#25D366] shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-[#25D366] text-sm">Join the Official WhatsApp Group</p>
+                  <p className="text-xs text-white/70 mt-1">
+                    Get instant event updates, announcements, and coordinate with other participants.
+                  </p>
+                </div>
+              </div>
+              <a 
+                href="https://chat.whatsapp.com/BEnG1v55C6oGuIHpn4olcb" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-5 py-2.5 rounded-lg bg-[#25D366]/20 hover:bg-[#25D366]/30 text-[#25D366] text-xs font-bold tracking-wide border border-[#25D366]/30 transition-all cursor-pointer shadow-lg shadow-[#25D366]/10 hover:shadow-[#25D366]/20"
+              >
+                Join Group
+              </a>
+            </div>
+
             <div className="mt-8 flex flex-wrap gap-4 print:hidden">
               <button
                 type="button"
@@ -358,6 +417,7 @@ export default function Registration() {
           </div>
         </div>
       </section>
+      </>
     );
   }
 

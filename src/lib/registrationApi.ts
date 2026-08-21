@@ -23,10 +23,11 @@ export async function submitRegistration(payload: RawRegistrationPayload): Promi
 
   // 3. Secure Dispatch to Vercel Serverless Function Proxy
   try {
+    const isGoogle = ENDPOINT.includes('script.google.com');
     const res = await fetch(ENDPOINT, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': isGoogle ? 'text/plain;charset=utf-8' : 'application/json',
       },
       body: JSON.stringify(sanitizedPayload),
     });

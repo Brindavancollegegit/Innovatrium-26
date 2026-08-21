@@ -5,7 +5,7 @@ export default function StepList({ steps, current, goTo, isStepAccessible }: any
     1: { label: 'Participant Type', icon: User },
     2: { label: 'Personal Info', icon: FileText },
     3: { label: 'Competition Track', icon: Users },
-    4: { label: 'Review & Pay', icon: CreditCard },
+    4: { label: 'Review & Confirm', icon: CheckCircle },
   };
 
   const progressPercent = Math.round(((current - 1) / (steps.length - 1)) * 100);
