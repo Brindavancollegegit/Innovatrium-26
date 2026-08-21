@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useRef } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Printer, DownloadSimple, ArrowCounterClockwise, CheckCircle, ShieldCheck, WhatsappLogo } from '@phosphor-icons/react';
 import Countdown from './Countdown';

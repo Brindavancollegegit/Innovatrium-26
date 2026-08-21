@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight, CalendarBlank, MapPin, Trophy, Users, Buildings, Sparkle, CalendarPlus } from '@phosphor-icons/react';
 import { motion } from 'motion/react';
 import Countdown from '../Registration/Countdown';
